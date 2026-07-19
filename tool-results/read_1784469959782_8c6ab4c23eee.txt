@@ -1,0 +1,670 @@
+     1→# Visible Kerala — Single-Page Marketing Website Development Specification
+     2→
+     3→> **Target AI / Developer Handoff Document**  
+     4→> **Project:** Visible Kerala Single-Page Marketing Website  
+     5→> **Tech Stack:** HTML5, CSS3 (2.5D Claymorphism), Vanilla JavaScript (No external frameworks)  
+     6→> **Core Feature:** Dual-Trigger Bilingual Architecture (English & Malayalam)
+     7→
+     8→---
+     9→
+    10→## 1. Executive Summary & Project Mandate
+    11→
+    12→**Visible Kerala** is a dedicated service helping small local businesses across Kerala—such as local shops, salons, tuition centres, homestays, bakeries, clinics, tailors, and auto repair garages—get discovered on Google, WhatsApp, and social media. 
+    13→
+    14→### Key Objectives:
+    15→- **Tone:** Friendly local expert (*naadan* professional), approachable, plain language, proof over promises. Avoid sterile, corporate agency jargon.
+    16→- **Visual Style:** Confident **2.5D / Claymorphism**. Soft, double-layered shadows, gentle gradients, rounded corners, floating blob shapes, and tactile 3D elements. Avoid sharp-edged, flat, or cold aesthetics.
+    17→- **Performance:** Lightweight, fast-loading on 3G/4G cellular networks across Kerala (mobile-first design, total page weight `< 800KB`).
+    18→- **Bilingual Accessibility:** Seamless switching between English and Malayalam without reloading the page or requiring separate URL structures.
+    19→
+    20→---
+    21→
+    22→## 2. Brand Identity & Visual System
+    23→
+    24→### 2.1 Logo Handling & Asset Isolation (Critical)
+    25→The provided reference asset (`Gemini_Generated_Image_.png`) features a solid warm-cream background. 
+    26→1. **Isolation:** Cleanly remove the background (chroma-key or flood-fill removal) to export the pin-and-storefront mark and "Visible Kerala" wordmark as a transparent PNG/SVG asset.
+    27→2. **Placement Rules:** Never place the logo directly on top of busy gradients or patterns. Always provide a calm, uncluttered patch of Cream Base (`#FBF3E6`), White, or solid Primary Green behind it.
+    28→3. **Sizing Hierarchy:**
+    29→   - **Navigation Bar:** Compact mark + wordmark (~40px height).
+    30→   - **Hero Centerpiece:** Large, animated 3D bobbing centerpiece (~280px–360px height).
+    31→   - **Footer:** Small mark + wordmark (~32px height).
+    32→
+    33→### 2.2 Color Palette Tokens
+    34→
+    35→| Color Name | Hex Code | Usage & Placement |
+    36→| :--- | :--- | :--- |
+    37→| **Primary Green** | `#2F9E44` | Sampled directly from logo; primary CTAs, active badges, navigation accents. |
+    38→| **Deep Green** | `#1B5E20` | Headings, dark body text contrasts, structural borders, footer background. |
+    39→| **Cream Base** | `#FBF3E6` | Primary background, matches logo background, card backgrounds. |
+    40→| **Ink (Off-Black)**| `#1E2A22` | Body text, subheadings, form input typography. |
+    41→| **Accent Marigold** | `#FF9F1C` | 3D floating shapes, card highlights, warning/attention tags. |
+    42→| **Backwater Teal** | `#0F7173` | Secondary gradient stops, service icons, illustration highlights. |
+    43→| **Sunset Coral** | `#FF6B6B` | Hover states, notification badges, interactive accents. |
+    44→| **Golden Yellow** | `#FFD23F` | Star ratings, "Most Popular" service badges, decorative blobs. |
+    45→
+    46→### 2.3 Typography & Script Hierarchy
+    47→
+    48→All fonts must be loaded via Google Fonts CDN, utilizing `display=swap` for optimal rendering performance.
+    49→
+    50→```css
+    51→@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Baloo+Chettan+2:wght@600;800&family=Inter:wght@400;500;600&family=Manjari:wght@400;700&display=swap');
+    52→
+    53→:root {
+    54→  /* Latin Typography */
+    55→  --font-heading-en: 'Baloo 2', cursive, sans-serif;
+    56→  --font-body-en: 'Inter', sans-serif;
+    57→  
+    58→  /* Malayalam Typography (Optimized for Script Kerning & Conjuncts) */
+    59→  --font-heading-ml: 'Baloo Chettan 2', cursive, sans-serif;
+    60→  --font-body-ml: 'Manjari', sans-serif;
+    61→}
+    62→```
+    63→
+    64→### 2.4 Claymorphic Elevation Tokens (CSS3)
+    65→
+    66→```css
+    67→:root {
+    68→  /* Claymorphism relies on a dark exterior drop-shadow + bright interior inset highlight */
+    69→  --clay-shadow-sm: 4px 4px 10px rgba(27, 94, 32, 0.08), inset -2px -2px 6px rgba(0, 0, 0, 0.05), inset 2px 2px 6px rgba(255, 255, 255, 0.8);
+    70→  --clay-shadow-md: 8px 8px 20px rgba(27, 94, 32, 0.12), inset -3px -3px 8px rgba(0, 0, 0, 0.08), inset 3px 3px 8px rgba(255, 255, 255, 0.9);
+    71→  --clay-shadow-lg: 12px 16px 30px rgba(27, 94, 32, 0.18), inset -4px -4px 10px rgba(0, 0, 0, 0.1), inset 4px 4px 10px rgba(255, 255, 255, 1);
+    72→  --clay-card-hover: 16px 20px 35px rgba(27, 94, 32, 0.22), inset -4px -4px 8px rgba(0, 0, 0, 0.06), inset 4px 4px 8px rgba(255, 255, 255, 1);
+    73→  
+    74→  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    75→}
+    76→```
+    77→
+    78→---
+    79→
+    80→## 3. Dual-Trigger Language Architecture
+    81→
+    82→To serve both tech-savvy business owners and traditional local shopkeepers without creating UX friction, implement a **Dual-Trigger Language System**:
+    83→
+    84→1. **Global Toggle Switch (Click/Tap):** A pill-shaped toggle switch located in the sticky navigation (`EN | മലയാളം`). When clicked:
+    85→   - Triggers a smooth `250ms` DOM opacity fade (`0.7` to `1.0`).
+    86→   - Swaps text nodes dynamically from the state object.
+    87→   - Updates font-family classes (`body.lang-ml-active`).
+    88→   - Persists user preference to `localStorage.setItem('vk_lang', lang)`.
+    89→2. **Contextual Tooltip Previews (Hover / Long-Press):** Key headings, service badges, and navigation items include a custom data-attribute: `data-hover-ml="[Malayalam Translation]"`.
+    90→   - When browsing in English mode, hovering over (desktop) or long-pressing (mobile) an element with `data-hover-ml` triggers a soft claymorphic tooltip floating above the cursor showing the Malayalam translation instantly.
+    91→   - Prevents layout shift while aiding comprehension.
+    92→
+    93→---
+    94→
+    95→## 4. Section-by-Section Functional Specifications
+    96→
+    97→### 4.1 Sticky Navigation
+    98→- **Left:** Isolated Logo Mark + "Visible Kerala" Wordmark.
+    99→- **Center/Right:** Anchor Links → `Services` · `How It Works` · `Why It Works` · `Contact`.
+   100→- **Far Right:** Language Toggle Pill (`EN | മലയാളം`) + WhatsApp CTA Button ("Chat on WhatsApp").
+   101→- **Behavior:** Starts transparent over the hero section; transitions to solid Cream Base (`#FBF3E6`) with `--clay-shadow-sm` once the user scrolls past `100px`.
+   102→
+   103→### 4.2 Hero Section
+   104→- **Eyebrow:** Pill-shaped tag: *"Google Business Profile · WhatsApp Business · Social Media"*.
+   105→- **Headline:** *"From Invisible to Unmissable."* (Malayalam hover: *"അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!"*).
+   106→- **Subhead:** *"9 out of 10 small businesses in Kerala don't show up when someone searches for them on Google. We make sure yours does — fully set up in a day, at a price a small shop can afford."*
+   107→- **Primary CTA:** Solid green claymorphic button with an infinite glowing/pulsing ring.  
+   108→  - **Action:** Deep link to WhatsApp:  
+   109→    `https://wa.me/917012025737?text=Hi!%20I%27d%20like%20to%20know%20more%20about%20getting%20my%20business%20visible%20on%20Google.`
+   110→- **Secondary CTA:** *"See Packages"* (Smooth scrolls to `#services`).
+   111→- **Visual Centerpiece:** Large isolated 3D map pin with a bounce-drop entrance animation on page load, followed by a continuous gentle bobbing loop.
+   112→- **Background:** Cream background with subtle CSS noise/paper texture. Floating colorful blob shapes drift slowly behind the pin (CSS keyframe parallax drift at varying speeds).
+   113→
+   114→### 4.3 Services Section ("Simple Packages. No Surprises.")
+   115→Four interactive cards laid out in a responsive grid (4 columns desktop, 2 columns tablet, 1 column mobile).
+   116→
+   117→| Package Name | Price | One-Line Pitch | Included Features Checklist |
+   118→| :--- | :--- | :--- | :--- |
+   119→| **Starter** | **₹499** | *"Get found on Google + WhatsApp."* | • Google Business Profile setup<br>• WhatsApp Business setup with auto-reply<br>• Basic map pinning |
+   120→| **Standard** ⭐ *(Most Popular)* | **₹799** | *"Look professional everywhere customers search."* | • Everything in Starter<br>• Custom digital logo cleanup<br>• 5 branded social media posts<br>• Instagram or Facebook page setup |
+   121→| **Premium** | **₹1,299** | *"The complete visibility package."* | • Everything in Standard<br>• Full Instagram bio & highlight setup<br>• Google review automated link system<br>• 1 month of priority support |
+   122→| **Retainer** | **₹599/mo** | *"Stay visible, every single month."* | • 8 custom posts per month<br>• Customer review reply management<br>• Ongoing holiday/hours updates<br>• Cancel anytime with zero fees |
+   123→
+   124→- **Card Interactivity:** On mouse move, calculate cursor position relative to card center and apply a soft 3D tilt (maximum ±8 deg rotation via `perspective(1000px) rotateX() rotateY()`). Shadow elevates to `--clay-card-hover`.
+   125→- **Card CTAs:** *"Get Started on WhatsApp"* → Opens WhatsApp with a pre-filled string specifying the chosen package.
+   126→
+   127→### 4.4 How It Works Section ("Three Steps. One Week. Zero Hassle.")
+   128→Three horizontal/stacked steps connected by a dynamic SVG line path.
+   129→1. **We Check:** *"We search your business live and show you exactly what customers see today — good or bad."*
+   130→2. **We Build:** *"Google Business Profile, WhatsApp Business, and your social pages — set up properly, usually within a day."*
+   131→3. **You're Found:** *"Customers searching nearby now find you — number, hours, and photos, right there on Google Maps."*
+   132→- **Animation:** As the user scrolls through the section, an Intersection Observer triggers the SVG path to draw itself (`stroke-dashoffset` transition) connecting Step 1 → Step 2 → Step 3. Step icons bounce-in when the line reaches them.
+   133→
+   134→### 4.5 Why It Works Section (Trust & Demonstration)
+   135→- **Centerpiece (Interactive Demo):** A stylized CSS phone/browser mockup illustrating a before/after state of a generic local Kerala shop.
+   136→  - *State A ("Without Visible Kerala"):* Missing map pin, greyed-out placeholder, zero reviews, empty hours.
+   137→  - *State B ("With Visible Kerala"):* Vibrant Primary Green map pin, 5-star rating badge, "Open Now" tag, verified phone number, clean storefront photo.
+   138→  - *Control:* Include a draggable horizontal slider or an auto-looping crossfade toggle (switches every 4 seconds with a progress bar).
+   139→- **Trust Points (Process-Based):**
+   140→  - *"Pay only after you see your profile live on Google."*
+   141→  - *"We use Google, WhatsApp, and Instagram — the same free tools trusted by millions worldwide."*
+   142→  - *"You keep full 100% ownership — every account stays securely in your name, always."*
+   143→
+   144→### 4.6 Contact Section ("Let's Get You Found.")
+   145→- **Primary Action:** Large glowing WhatsApp button for instant messaging.
+   146→- **Secondary Form (HTML5 + Web3Forms / EmailJS Integration):**
+   147→  - Fields: `Full Name*`, `Business Name*`, `Phone/WhatsApp Number*`, `Business Type` (Dropdown: *Tuition Centre, Salon / Beauty Parlour, Homestay / Lodge, Bakery / Caterer, Clinic / Pharmacy, Hardware / Auto Shop, Tailoring / Boutique, Other*), `Message` (Optional).
+   148→  - Submit Button: *"Send Message"*.
+   149→  - Success State: On submit, hide form inputs and morph container into a green checkmark animation with text: *"Thanks! We'll reach out to your WhatsApp within a few hours."*
+   150→- **Contact Metadata:**
+   151→  - Email: `visiblekerala@gmail.com` (with `mailto:` link).
+   152→  - Phone / WhatsApp: `+91 70120 25737`.
+   153→  - Service Footer Note: *"Serving small businesses across all 14 districts of Kerala."*
+   154→
+   155→### 4.7 Footer
+   156→- Compact Logo Mark + Wordmark.
+   157→- Tagline: *"From Invisible to Unmissable."*
+   158→- Navigation links repeat.
+   159→- Copyright: `© 2026 Visible Kerala. All rights reserved.`
+   160→
+   161→---
+   162→
+   163→## 5. Complete Bilingual Translation Dictionary
+   164→
+   165→Embed this JSON object directly into the JavaScript engine. Translations are culturally tuned to sound professional yet familiar to local Kerala merchants.
+   166→
+   167→```javascript
+   168→const siteContent = {
+   169→  en: {
+   170→    nav: {
+   171→      services: "Services",
+   172→      howItWorks: "How It Works",
+   173→      whyItWorks: "Why It Works",
+   174→      contact: "Contact",
+   175→      cta: "Chat on WhatsApp"
+   176→    },
+   177→    hero: {
+   178→      eyebrow: "Google Business Profile · WhatsApp Business · Social Media",
+   179→      headline: "From Invisible to Unmissable.",
+   180→      subhead: "9 out of 10 small businesses in Kerala don't show up when someone searches for them on Google. We make sure yours does — fully set up in a day, at a price a small shop can afford.",
+   181→      primaryCta: "Chat on WhatsApp",
+   182→      secondaryCta: "See Packages"
+   183→    },
+   184→    services: {
+   185→      title: "Simple Packages. No Surprises.",
+   186→      subtitle: "Everything you need to get discovered by local customers.",
+   187→      popularBadge: "Most Popular",
+   188→      ctaButton: "Get Started on WhatsApp",
+   189→      packages: [
+   190→        {
+   191→          name: "Starter",
+   192→          price: "₹499",
+   193→          pitch: "Get found on Google + WhatsApp.",
+   194→          includes: ["Google Business Profile setup", "WhatsApp Business setup with auto-reply", "Basic map pinning"]
+   195→        },
+   196→        {
+   197→          name: "Standard",
+   198→          price: "₹799",
+   199→          pitch: "Look professional everywhere customers search.",
+   200→          includes: ["Everything in Starter", "Custom digital logo cleanup", "5 branded social media posts", "Instagram or Facebook page setup"]
+   201→        },
+   202→        {
+   203→          name: "Premium",
+   204→          price: "₹1,299",
+   205→          pitch: "The complete visibility package.",
+   206→          includes: ["Everything in Standard", "Full Instagram bio & highlight setup", "Google review automated link system", "1 month of priority support"]
+   207→        },
+   208→        {
+   209→          name: "Retainer",
+   210→          price: "₹599/month",
+   211→          pitch: "Stay visible, every single month.",
+   212→          includes: ["8 custom posts per month", "Customer review reply management", "Ongoing holiday/hours updates", "Cancel anytime with zero fees"]
+   213→        }
+   214→      ]
+   215→    },
+   216→    howItWorks: {
+   217→      title: "Three Steps. One Week. Zero Hassle.",
+   218→      subtitle: "You run your business; we handle the digital setup.",
+   219→      steps: [
+   220→        {
+   221→          title: "1. We Check",
+   222→          desc: "We search your business live and show you exactly what customers see today — good or bad."
+   223→        },
+   224→        {
+   225→          title: "2. We Build",
+   226→          desc: "Google Business Profile, WhatsApp Business, and your social pages — set up properly, usually within a day."
+   227→        },
+   228→        {
+   229→          title: "3. You're Found",
+   230→          desc: "Customers searching nearby now find you — number, hours, and photos, right there on Google Maps."
+   231→        }
+   232→      ]
+   233→    },
+   234→    whyItWorks: {
+   235→      title: "Built For Kerala's Local Businesses",
+   236→      subtitle: "No confusing jargon. Just real results you can see on your own phone.",
+   237→      beforeLabel: "Without Visible Kerala",
+   238→      afterLabel: "With Visible Kerala",
+   239→      trustPoints: [
+   240→        "Pay only after you see your profile live on Google.",
+   241→        "We use Google, WhatsApp, and Instagram — the same free tools trusted by millions worldwide.",
+   242→        "You keep full 100% ownership — every account stays securely in your name, always."
+   243→      ]
+   244→    },
+   245→    contact: {
+   246→      title: "Let's Get You Found.",
+   247→      subhead: "Message us on WhatsApp for the fastest reply, or fill out the form below.",
+   248→      nameLabel: "Full Name*",
+   249→      bizLabel: "Business Name*",
+   250→      phoneLabel: "Phone/WhatsApp Number*",
+   251→      typeLabel: "Business Type",
+   252→      types: ["Tuition Centre", "Salon / Beauty Parlour", "Homestay / Lodge", "Bakery / Caterer", "Clinic / Pharmacy", "Hardware / Auto Shop", "Tailoring / Boutique", "Other"],
+   253→      msgLabel: "Message (Optional)",
+   254→      submitBtn: "Send Message",
+   255→      successMsg: "Thanks! We'll reach out to your WhatsApp within a few hours.",
+   256→      footerServing: "Serving small businesses across all 14 districts of Kerala."
+   257→    }
+   258→  },
+   259→  ml: {
+   260→    nav: {
+   261→      services: "സേവനങ്ങൾ",
+   262→      howItWorks: "പ്രവർത്തനരീതി",
+   263→      whyItWorks: "എന്തുകൊണ്ട് ഞങ്ങൾ?",
+   264→      contact: "ബന്ധപ്പെടുക",
+   265→      cta: "വാട്സ്ആപ്പിൽ സംസാരിക്കാം"
+   266→    },
+   267→    hero: {
+   268→      eyebrow: "ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ · വാട്സ്ആപ്പ് ബിസിനസ് · സോഷ്യൽ മീഡിയ",
+   269→      headline: "അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!",
+   270→      subhead: "കേരളത്തിലെ 10-ൽ 9 ചെറുകിട സംരംഭങ്ങളും ഗൂഗിളിൽ തിരയുമ്പോൾ കാണാറില്ല. നിങ്ങളുടെ സ്ഥാപനം ഉപഭോക്താക്കൾ എളുപ്പത്തിൽ കണ്ടെത്താൻ ഞങ്ങൾ സഹായിക്കുന്നു — ചെറിയ ചെലവിൽ, ഒറ്റ ദിവസം കൊണ്ട് പൂർണ്ണമായും സജ്ജമാക്കാം.",
+   271→      primaryCta: "വാട്സ്ആപ്പിൽ സംസാരിക്കാം",
+   272→      secondaryCta: "പാക്കേജുകൾ കാണുക"
+   273→    },
+   274→    services: {
+   275→      title: "ലളിതമായ പാക്കേജുകൾ. മറഞ്ഞിരിക്കുന്ന ചെലവുകളില്ല.",
+   276→      subtitle: "നാട്ടിലെ ഉപഭോക്താക്കൾ നിങ്ങളെ കണ്ടെത്താൻ വേണ്ടതെല്ലാം.",
+   277→      popularBadge: "ഏറ്റവും ജനപ്രിയം",
+   278→      ctaButton: "വാട്സ്ആപ്പിൽ തുടങ്ങാം",
+   279→      packages: [
+   280→        {
+   281→          name: "സ്റ്റാർട്ടർ",
+   282→          price: "₹499",
+   283→          pitch: "ഗൂഗിളിലും വാട്സ്ആപ്പിലും നിങ്ങളുടെ സാന്നിധ്യം ഉറപ്പാക്കാം.",
+   284→          includes: ["ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ നിർമ്മാണം", "ഓട്ടോ-റിപ്ലൈ സഹിതം വാട്സ്ആപ്പ് ബിസിനസ് സജ്ജീകരണം", "ഗൂഗിൾ മാപ്പിൽ കൃത്യമായ സ്ഥാനം ചേർക്കൽ"]
+   285→        },
+   286→        {
+   287→          name: "സ്റ്റാൻഡേർഡ്",
+   288→          price: "₹799",
+   289→          pitch: "ഉപഭോക്താക്കൾ തിരയുമ്പോഴെല്ലാം മികച്ച പ്രൊഫഷണൽ ലുക്ക്.",
+   290→          includes: ["സ്റ്റാർട്ടർ പാക്കേജിലെ എല്ലാം", "ഡിജിറ്റൽ ലോഗോ ക്ലീൻ-അപ്പ്", "ബിസിനസ്സിനായി 5 സോഷ്യൽ മീഡിയ പോസ്റ്റുകൾ", "ഇൻസ്റ്റാഗ്രാം അല്ലെങ്കിൽ ഫേസ്ബുക്ക് പേജ് നിർമ്മാണം"]
+   291→        },
+   292→        {
+   293→          name: "പ്രീമിയം",
+   294→          price: "₹1,299",
+   295→          pitch: "ബിസിനസ്സ് വളർത്താൻ സമഗ്രമായ വിസിബിലിറ്റി പാക്കേജ്.",
+   296→          includes: ["സ്റ്റാൻഡേർഡ് പാക്കേജിലെ എല്ലാം", "പൂർണ്ണമായ ഇൻസ്റ്റാഗ്രാം ബയോ & ഹൈലൈറ്റ് സജ്ജീകരണം", "ഗൂഗിൾ റിവ്യൂ വർദ്ധിപ്പിക്കാനുള്ള ഓട്ടോമാറ്റിക് ലിങ്ക് സിസ്റ്റം", "1 മാസത്തെ മുൻഗണനാ സപ്പോർട്ട്"]
+   297→        },
+   298→        {
+   299→          name: "റിട്ടൈനർ",
+   300→          price: "₹599/മാസം",
+   301→          pitch: "ഓരോ മാസവും സജീവമായി നിലനിൽക്കാം, പുതിയ കസ്റ്റമേഴ്സിനെ നേടാം.",
+   302→          includes: ["മാസം തോറും 8 കസ്റ്റം ഡിസൈൻ പോസ്റ്റുകൾ", "കസ്റ്റമർ റിവ്യൂകൾക്ക് കൃത്യമായ മറുപടി നൽകൽ", "അവധി ദിനങ്ങളും പ്രവൃത്തി സമയവും അപ്ഡേറ്റ് ചെയ്യൽ", "എപ്പോൾ വേണമെങ്കിലും കട്ടാക്കാം, അധിക ചാർജ്ജില്ല"]
+   303→        }
+   304→      ]
+   305→    },
+   306→    howItWorks: {
+   307→      title: "3 പടികൾ. 1 ആഴ്ച. യാതൊരു ബുദ്ധിമുട്ടുമില്ല.",
+   308→      subtitle: "നിങ്ങൾ ബിസിനസ്സ് നോക്കിക്കോളൂ; ഡിജിറ്റൽ കാര്യങ്ങൾ ഞങ്ങൾ ചെയ്തേക്കാം.",
+   309→      steps: [
+   310→        {
+   311→          title: "1. ഞങ്ങൾ പരിശോധിക്കുന്നു",
+   312→          desc: "നിങ്ങളുടെ ബിസിനസ്സ് നിലവിൽ ഗൂഗിളിൽ തിരഞ്ഞു നോക്കി ഉപഭോക്താക്കൾ എന്താണ് കാണുന്നതെന്ന് ഞങ്ങൾ കൃത്യമായി കാണിച്ചു തരുന്നു."
+   313→        },
+   314→        {
+   315→          title: "2. ഞങ്ങൾ നിർമ്മിക്കുന്നു",
+   316→          desc: "ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ, വാട്സ്ആപ്പ് ബിസിനസ്, സോഷ്യൽ മീഡിയ പേജുകൾ എന്നിവ സാധാരണയായി ഒറ്റ ദിവസം കൊണ്ട് കൃത്യമായി സജ്ജമാക്കുന്നു."
+   317→        },
+   318→        {
+   319→          title: "3. ഉപഭോക്താക്കൾ കണ്ടെത്തുന്നു",
+   320→          desc: "അടുത്തുള്ള കസ്റ്റമേഴ്സ് തിരയുമ്പോൾ ഫോൺ നമ്പർ, പ്രവൃത്തി സമയം, ഫോട്ടോകൾ എന്നിവ സഹിതം ഗൂഗിൾ മാപ്പിൽ നിങ്ങളെ ആദ്യം കാണുന്നു."
+   321→        }
+   322→      ]
+   323→    },
+   324→    whyItWorks: {
+   325→      title: "കേരളത്തിലെ ചെറുകിട വ്യാപാരികൾക്കായി തയ്യാറാക്കിയത്",
+   326→      subtitle: "സങ്കീർണ്ണമായ സാങ്കേതിക പദങ്ങളില്ല. നിങ്ങളുടെ സ്വന്തം ഫോണിൽ കാണാൻ കഴിയുന്ന യഥാർത്ഥ മാറ്റങ്ങൾ.",
+   327→      beforeLabel: "വിസിബിൾ കേരള ഇല്ലാതെ",
+   328→      afterLabel: "വിസിബിൾ കേരളയ്‌ക്കൊപ്പം",
+   329→      trustPoints: [
+   330→        "നിങ്ങളുടെ പ്രൊഫൈൽ ഗൂഗിളിൽ ലൈവായി കണ്ടതിന് ശേഷം മാത്രം പണം നൽകിയാൽ മതി.",
+   331→        "ലോകമെമ്പാടുമുള്ള കോടിക്കണക്കിന് ബിസിനസുകൾ വിശ്വസിക്കുന്ന ഗൂഗിൾ, വാട്സ്ആപ്പ്, ഇൻസ്റ്റാഗ്രാം എന്നിവയുടെ സൗജന്യ ടൂളുകൾ മാത്രം ഉപയോഗിക്കുന്നു.",
+   332→        "100% ഉടമസ്ഥാവകാശം നിങ്ങൾക്ക് തന്നെ — എല്ലാ അക്കൗണ്ടുകളും എപ്പോഴും നിങ്ങളുടെ സ്വന്തം പേരിലായിരിക്കും."
+   333→      ]
+   334→    },
+   335→    contact: {
+   336→      title: "നിങ്ങളുടെ ബിസിനസ്സും ഓൺലൈനിലെത്തിക്കാം.",
+   337→      subhead: "ഏറ്റവും വേഗത്തിൽ മറുപടി ലഭിക്കാൻ വാട്സ്ആപ്പിൽ മെസ്സേജ് അയയ്ക്കൂ, അല്ലെങ്കിൽ താഴെയുള്ള ഫോം പൂരിപ്പിക്കൂ.",
+   338→      nameLabel: "പൂർണ്ണ പേര്*",
+   339→      bizLabel: "ബിസിനസ്സിന്റെ പേര്*",
+   340→      phoneLabel: "ഫോൺ/വാട്സ്ആപ്പ് നമ്പർ*",
+   341→      typeLabel: "ബിസിനസ് തരം",
+   342→      types: ["ട്യൂഷൻ സെന്റർ", "സലൂൺ / ബ്യൂട്ടി പാർലർ", "ഹോംസ്റ്റേ / ലോഡ്ജ്", "ബേക്കറി / കാറ്ററിംഗ്", "ക്ലിനിക് / ഫാർമസി", "ഹാർഡ്‌വെയർ / ഓട്ടോ ഷോപ്പ്", "ടെയ്‌ലറിംഗ് / ബോട്ടീക്", "മറ്റുള്ളവ"],
+   343→      msgLabel: "സന്ദേശം (ആവശ്യമെങ്കിൽ മാത്രം)",
+   344→      submitBtn: "സന്ദേശം അയയ്ക്കൂ",
+   345→      successMsg: "നന്ദി! ഏതാനും മണിക്കൂറുകൾക്കുള്ളിൽ ഞങ്ങൾ വാട്സ്ആപ്പിൽ ബന്ധപ്പെടുന്നതാണ്.",
+   346→      footerServing: "കേരളത്തിലെ 14 ജില്ലകളിലുമുള്ള ചെറുകിട സംരംഭങ്ങൾക്ക് അഭിമാനത്തോടെ സേവനം നൽകുന്നു."
+   347→    }
+   348→  }
+   349→};
+   350→```
+   351→
+   352→---
+   353→
+   354→## 6. Frontend Code Implementation Architecture
+   355→
+   356→### 6.1 Interactive JavaScript Controller (`app.js`)
+   357→This script handles the dual-trigger translation engine, 3D claymorphic tilt physics, SVG path animation, and contextual tooltips without external libraries.
+   358→
+   359→```javascript
+   360→document.addEventListener('DOMContentLoaded', () => {
+   361→  let currentLang = localStorage.getItem('vk_lang') || 'en';
+   362→  
+   363→  // --- 1. Language Switching Engine ---
+   364→  const langToggleBtn = document.getElementById('lang-toggle');
+   365→  
+   366→  function applyLanguage(lang) {
+   367→    document.body.style.opacity = '0.7';
+   368→    document.body.style.transition = 'opacity 250ms ease';
+   369→    
+   370→    setTimeout(() => {
+   371→      // Apply Malayalam script typography class
+   372→      document.body.classList.toggle('lang-ml-active', lang === 'ml');
+   373→      
+   374→      // Update DOM nodes bound with data-i18n
+   375→      document.querySelectorAll('[data-i18n]').forEach(el => {
+   376→        const keys = el.getAttribute('data-i18n').split('.');
+   377→        let text = siteContent[lang];
+   378→        keys.forEach(k => text = text ? text[k] : '');
+   379→        if (text) {
+   380→          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+   381→            el.placeholder = text;
+   382→          } else {
+   383→            el.textContent = text;
+   384→          }
+   385→        }
+   386→      });
+   387→      
+   388→      // Re-render dynamic components (Package Cards & Select Dropdowns)
+   389→      if (typeof renderPackages === 'function') renderPackages(lang);
+   390→      if (typeof renderDropdown === 'function') renderDropdown(lang);
+   391→      
+   392→      document.body.style.opacity = '1';
+   393→      localStorage.setItem('vk_lang', lang);
+   394→      currentLang = lang;
+   395→      
+   396→      if (lang === 'ml') {
+   397→        langToggleBtn.classList.add('active-ml');
+   398→      } else {
+   399→        langToggleBtn.classList.remove('active-ml');
+   400→      }
+   401→    }, 250);
+   402→  }
+   403→
+   404→  if (langToggleBtn) {
+   405→    langToggleBtn.addEventListener('click', () => {
+   406→      applyLanguage(currentLang === 'en' ? 'ml' : 'en');
+   407→    });
+   408→  }
+   409→
+   410→  // --- 2. Contextual Hover Tooltips (English Mode Preview) ---
+   411→  const hoverTooltip = document.createElement('div');
+   412→  hoverTooltip.className = 'clay-tooltip';
+   413→  document.body.appendChild(hoverTooltip);
+   414→
+   415→  document.querySelectorAll('[data-hover-ml]').forEach(el => {
+   416→    el.addEventListener('mouseenter', (e) => {
+   417→      if (currentLang === 'en') {
+   418→        hoverTooltip.textContent = e.target.getAttribute('data-hover-ml');
+   419→        hoverTooltip.classList.add('show');
+   420→        const rect = e.target.getBoundingClientRect();
+   421→        hoverTooltip.style.top = `${rect.top + window.scrollY - 45}px`;
+   422→        hoverTooltip.style.left = `${rect.left + (rect.width / 2)}px`;
+   423→      }
+   424→    });
+   425→    el.addEventListener('mouseleave', () => hoverTooltip.classList.remove('show'));
+   426→  });
+   427→
+   428→  // --- 3. 3D Card Tilt Physics (Claymorphic Interactive Experience) ---
+   429→  document.querySelectorAll('.clay-card-3d').forEach(card => {
+   430→    card.addEventListener('mousemove', (e) => {
+   431→      const rect = card.getBoundingClientRect();
+   432→      const x = e.clientX - rect.left;
+   433→      const y = e.clientY - rect.top;
+   434→      
+   435→      const centerX = rect.width / 2;
+   436→      const centerY = rect.height / 2;
+   437→      
+   438→      const rotateX = ((y - centerY) / centerY) * -8;
+   439→      const rotateY = ((x - centerX) / centerX) * 8;
+   440→      
+   441→      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+   442→      card.style.boxShadow = `var(--clay-card-hover)`;
+   443→    });
+   444→
+   445→    card.addEventListener('mouseleave', () => {
+   446→      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+   447→      card.style.boxShadow = `var(--clay-shadow-md)`;
+   448→    });
+   449→  });
+   450→
+   451→  // --- 4. SVG Line Scroll Drawing (How It Works) ---
+   452→  const path = document.querySelector('#workflow-path');
+   453→  if (path) {
+   454→    const pathLength = path.getTotalLength();
+   455→    path.style.strokeDasharray = `${pathLength} ${pathLength}`;
+   456→    path.style.strokeDashoffset = pathLength;
+   457→
+   458→    window.addEventListener('scroll', () => {
+   459→      const scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / 
+   460→                               (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+   461→      const drawLength = pathLength * scrollPercentage * 1.6;
+   462→      path.style.strokeDashoffset = Math.max(0, pathLength - drawLength);
+   463→    });
+   464→  }
+   465→
+   466→  // --- 5. Intersection Observer for Scroll Reveals ---
+   467→  const observer = new IntersectionObserver((entries) => {
+   468→    entries.forEach(entry => {
+   469→      if (entry.isIntersecting) {
+   470→        entry.target.classList.add('reveal-visible');
+   471→      }
+   472→    });
+   473→  }, { threshold: 0.15 });
+   474→
+   475→  document.querySelectorAll('.reveal-on-scroll').forEach(section => observer.observe(section));
+   476→
+   477→  // Initialize Page Language
+   478→  applyLanguage(currentLang);
+   479→});
+   480→```
+   481→
+   482→### 6.2 Structural HTML Blueprint (`index.html`)
+   483→
+   484→```html
+   485→<!DOCTYPE html>
+   486→<html lang="en">
+   487→<head>
+   488→  <meta charset="UTF-8">
+   489→  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   490→  <title>Visible Kerala | From Invisible to Unmissable</title>
+   491→  <meta name="description" content="Helping small businesses across Kerala get discovered on Google, WhatsApp, and social media. Simple packages, local expert support.">
+   492→  <link rel="preconnect" href="https://fonts.googleapis.com">
+   493→  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   494→  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Baloo+Chettan+2:wght@600;800&family=Inter:wght@400;500;600&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+   495→  <link rel="stylesheet" href="style.css">
+   496→</head>
+   497→<body class="bg-cream text-ink">
+   498→
+   499→  <!-- Sticky Navigation -->
+   500→  <header class="sticky-nav">
+   501→    <div class="nav-container">
+   502→      <a href="#" class="brand-logo">
+   503→        <img src="assets/logo-mark-isolated.png" alt="Visible Kerala Storefront Pin" class="logo-mark">
+   504→        <span class="wordmark">Visible Kerala</span>
+   505→      </a>
+   506→      
+   507→      <nav class="nav-links">
+   508→        <a href="#services" data-i18n="nav.services" data-hover-ml="സേവനങ്ങൾ">Services</a>
+   509→        <a href="#how-it-works" data-i18n="nav.howItWorks" data-hover-ml="പ്രവർത്തനരീതി">How It Works</a>
+   510→        <a href="#why-it-works" data-i18n="nav.whyItWorks" data-hover-ml="എന്തുകൊണ്ട് ഞങ്ങൾ?">Why It Works</a>
+   511→        <a href="#contact" data-i18n="nav.contact" data-hover-ml="ബന്ധപ്പെടുക">Contact</a>
+   512→      </nav>
+   513→
+   514→      <div class="nav-actions">
+   515→        <!-- Dual-Trigger Language Switcher Pill -->
+   516→        <button id="lang-toggle" class="lang-switch-pill" aria-label="Toggle Language Between English and Malayalam">
+   517→          <span class="lang-text en">EN</span>
+   518→          <span class="toggle-slider"></span>
+   519→          <span class="lang-text ml">മലയാളം</span>
+   520→        </button>
+   521→
+   522→        <a href="https://wa.me/917012025737?text=Hi!%20I%27d%20like%20to%20know%20more%20about%20getting%20my%20business%20visible%20on%20Google." 
+   523→           class="btn-clay-primary pulse-glow" target="_blank" rel="noopener">
+   524→           <span data-i18n="nav.cta">Chat on WhatsApp</span>
+   525→        </a>
+   526→      </div>
+   527→    </div>
+   528→  </header>
+   529→
+   530→  <main>
+   531→    <!-- Hero Section -->
+   532→    <section class="hero-section reveal-on-scroll">
+   533→      <div class="blob blob-1"></div>
+   534→      <div class="blob blob-2"></div>
+   535→      
+   536→      <div class="hero-content">
+   537→        <span class="eyebrow-pill" data-i18n="hero.eyebrow">Google Business Profile · WhatsApp Business · Social Media</span>
+   538→        <h1 class="display-title" data-i18n="hero.headline" data-hover-ml="അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!">From Invisible to Unmissable.</h1>
+   539→        <p class="hero-subhead" data-i18n="hero.subhead">9 out of 10 small businesses in Kerala don't show up when someone searches for them on Google...</p>
+   540→        
+   541→        <div class="hero-cta-group">
+   542→          <a href="https://wa.me/917012025737" class="btn-clay-primary lg pulse-glow" data-i18n="hero.primaryCta">Chat on WhatsApp</a>
+   543→          <a href="#services" class="btn-clay-secondary lg" data-i18n="hero.secondaryCta">See Packages</a>
+   544→        </div>
+   545→      </div>
+   546→
+   547→      <div class="hero-visual-3d">
+   548→        <div class="floating-pin-wrapper">
+   549→          <img src="assets/hero-pin-large.png" alt="3D Bobbing Map Pin" class="bobbing-pin">
+   550→          <div class="pin-shadow"></div>
+   551→        </div>
+   552→      </div>
+   553→    </section>
+   554→
+   555→    <!-- Services Section -->
+   556→    <section id="services" class="services-section reveal-on-scroll">
+   557→      <div class="section-header text-center">
+   558→        <h2 class="section-title" data-i18n="services.title" data-hover-ml="ലളിതമായ പാക്കേജുകൾ. മറഞ്ഞിരിക്കുന്ന ചെലവുകളില്ല.">Simple Packages. No Surprises.</h2>
+   559→        <p class="section-subtitle" data-i18n="services.subtitle">Everything you need to get discovered by local customers.</p>
+   560→      </div>
+   561→      
+   562→      <div id="packages-grid" class="clay-grid">
+   563→        <!-- Dynamically rendered via JS renderPackages(currentLang) -->
+   564→      </div>
+   565→    </section>
+   566→
+   567→    <!-- How It Works Section -->
+   568→    <section id="how-it-works" class="workflow-section reveal-on-scroll">
+   569→      <div class="section-header text-center">
+   570→        <h2 class="section-title" data-i18n="howItWorks.title" data-hover-ml="3 പടികൾ. 1 ആഴ്ച. യാതൊരു ബുദ്ധിമുട്ടുമില്ല.">Three Steps. One Week. Zero Hassle.</h2>
+   571→        <p class="section-subtitle" data-i18n="howItWorks.subtitle">You run your business; we handle the digital setup.</p>
+   572→      </div>
+   573→
+   574→      <div class="workflow-container">
+   575→        <!-- SVG Path connecting steps -->
+   576→        <svg class="workflow-svg" viewBox="0 0 1000 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+   577→          <path id="workflow-path" d="M100 100 C 300 20, 500 180, 900 100" stroke="#2F9E44" stroke-width="6" stroke-linecap="round"/>
+   578→        </svg>
+   579→        <div id="workflow-steps" class="steps-grid">
+   580→          <!-- Dynamically populated steps -->
+   581→        </div>
+   582→      </div>
+   583→    </section>
+   584→
+   585→    <!-- Why It Works Section -->
+   586→    <section id="why-it-works" class="why-section reveal-on-scroll">
+   587→      <div class="section-header text-center">
+   588→        <h2 class="section-title" data-i18n="whyItWorks.title" data-hover-ml="കേരളത്തിലെ ചെറുകിട വ്യാപാരികൾക്കായി തയ്യാറാക്കിയത്">Built For Kerala's Local Businesses</h2>
+   589→      </div>
+   590→      
+   591→      <!-- Interactive Before/After Demo -->
+   592→      <div class="demo-mockup-container clay-card">
+   593→        <div class="mockup-state before-state">
+   594→          <span class="state-label" data-i18n="whyItWorks.beforeLabel">Without Visible Kerala</span>
+   595→          <!-- Missing pin graphic, unverified listing -->
+   596→        </div>
+   597→        <div class="mockup-state after-state">
+   598→          <span class="state-label" data-i18n="whyItWorks.afterLabel">With Visible Kerala</span>
+   599→          <!-- Full green pin, 5 stars, Open Now badge -->
+   600→        </div>
+   601→      </div>
+   602→    </section>
+   603→
+   604→    <!-- Contact Section -->
+   605→    <section id="contact" class="contact-section reveal-on-scroll">
+   606→      <div class="contact-clay-card">
+   607→        <h2 class="section-title" data-i18n="contact.title" data-hover-ml="നിങ്ങളുടെ ബിസിനസ്സും ഓൺലൈനിലെത്തിക്കാം.">Let's Get You Found.</h2>
+   608→        <p class="contact-subhead" data-i18n="contact.subhead">Message us on WhatsApp for the fastest reply, or fill out the form below.</p>
+   609→        
+   610→        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="clay-form">
+   611→          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+   612→          
+   613→          <div class="form-group">
+   614→            <label data-i18n="contact.nameLabel">Full Name*</label>
+   615→            <input type="text" name="name" required class="clay-input">
+   616→          </div>
+   617→          
+   618→          <div class="form-group">
+   619→            <label data-i18n="contact.bizLabel">Business Name*</label>
+   620→            <input type="text" name="business_name" required class="clay-input">
+   621→          </div>
+   622→          
+   623→          <div class="form-group">
+   624→            <label data-i18n="contact.phoneLabel">Phone/WhatsApp Number*</label>
+   625→            <input type="tel" name="phone" required class="clay-input">
+   626→          </div>
+   627→          
+   628→          <div class="form-group">
+   629→            <label data-i18n="contact.typeLabel">Business Type</label>
+   630→            <select name="business_type" id="biz-type-select" class="clay-select"></select>
+   631→          </div>
+   632→          
+   633→          <div class="form-group">
+   634→            <label data-i18n="contact.msgLabel">Message (Optional)</label>
+   635→            <textarea name="message" rows="4" class="clay-input"></textarea>
+   636→          </div>
+   637→          
+   638→          <button type="submit" class="btn-clay-primary full-width" data-i18n="contact.submitBtn">Send Message</button>
+   639→        </form>
+   640→      </div>
+   641→    </section>
+   642→  </main>
+   643→
+   644→  <footer class="site-footer">
+   645→    <div class="footer-content text-center">
+   646→      <img src="assets/logo-mark-isolated.png" alt="Logo" class="footer-logo">
+   647→      <h3 class="footer-title">Visible Kerala</h3>
+   648→      <p class="footer-serving" data-i18n="contact.footerServing">Serving small businesses across all 14 districts of Kerala.</p>
+   649→      <p class="copyright">© 2026 Visible Kerala. All rights reserved.</p>
+   650→    </div>
+   651→  </footer>
+   652→
+   653→  <script src="app.js"></script>
+   654→</body>
+   655→</html>
+   656→```
+   657→
+   658→---
+   659→
+   660→## 7. Quality Assurance & Deployment Checklist
+   661→
+   662→Before handing off to Netlify, Vercel, or GitHub Pages deployment, execute this verification matrix:
+   663→
+   664→- [ ] **Asset Background Chroma-Key:** Check isolated PNG logo mark over `#1B5E20` deep green background to guarantee zero white fringe or jagged edge artifacts.
+   665→- [ ] **Malayalam Script Rendering Test:** Verify rendering of Malayalam conjunct characters (കൂട്ടക്ഷരങ്ങൾ, e.g., ണ്ട, ക്ക, ച്ച) on iOS Safari and Android Chrome using `Baloo Chettan 2` and `Manjari`. Ensure character kerning does not overlap or break.
+   666→- [ ] **Mobile Performance Budget:** Confirm compressed image sizes and lean CSS/JS payloads keep total initial page transfer weight **below 800KB** for fast 3G/4G cellular loading in rural Kerala districts.
+   667→- [ ] **Form API Endpoint Verification:** Ensure Web3Forms or EmailJS API keys are properly configured and route submission notifications directly to `visiblekerala@gmail.com` within 60 seconds.
+   668→- [ ] **WhatsApp Deep Link Encoding:** Check that URL encoded strings (`%20`, `%27`) in WhatsApp CTA links parse cleanly into pre-filled chat messages on desktop WhatsApp Web and mobile WhatsApp applications.
+   669→- [ ] **3D Tilt Performance:** Verify that card hover animations using CSS `perspective()` run at a smooth 60fps without causing horizontal layout scrollbar overflow on tablet viewports (~768px).
+   670→
