@@ -1,0 +1,873 @@
+     1→'use client';
+     2→
+     3→import { useEffect, useRef, useState, useCallback } from 'react';
+     4→
+     5→/* ========================================
+     6→   BILINGUAL CONTENT DICTIONARY
+     7→   ======================================== */
+     8→const siteContent = {
+     9→  en: {
+    10→    nav: {
+    11→      services: 'Services',
+    12→      howItWorks: 'How It Works',
+    13→      whyItWorks: 'Why It Works',
+    14→      contact: 'Contact',
+    15→      cta: 'Chat on WhatsApp',
+    16→    },
+    17→    hero: {
+    18→      eyebrow: 'Google Business Profile · WhatsApp Business · Social Media',
+    19→      headline: 'From Invisible to Unmissable.',
+    20→      subhead:
+    21→        '9 out of 10 small businesses in Kerala don\'t show up when someone searches for them on Google. We make sure yours does — fully set up in a day, at a price a small shop can afford.',
+    22→      primaryCta: 'Chat on WhatsApp',
+    23→      secondaryCta: 'See Packages',
+    24→    },
+    25→    services: {
+    26→      title: 'Simple Packages. No Surprises.',
+    27→      subtitle: 'Everything you need to get discovered by local customers.',
+    28→      popularBadge: 'Most Popular',
+    29→      ctaButton: 'Get Started on WhatsApp',
+    30→      packages: [
+    31→        {
+    32→          name: 'Starter',
+    33→          price: '₹499',
+    34→          pitch: 'Get found on Google + WhatsApp.',
+    35→          includes: [
+    36→            'Google Business Profile setup',
+    37→            'WhatsApp Business setup with auto-reply',
+    38→            'Basic map pinning',
+    39→          ],
+    40→        },
+    41→        {
+    42→          name: 'Standard',
+    43→          price: '₹799',
+    44→          pitch: 'Look professional everywhere customers search.',
+    45→          includes: [
+    46→            'Everything in Starter',
+    47→            'Custom digital logo cleanup',
+    48→            '5 branded social media posts',
+    49→            'Instagram or Facebook page setup',
+    50→          ],
+    51→        },
+    52→        {
+    53→          name: 'Premium',
+    54→          price: '₹1,299',
+    55→          pitch: 'The complete visibility package.',
+    56→          includes: [
+    57→            'Everything in Standard',
+    58→            'Full Instagram bio & highlight setup',
+    59→            'Google review automated link system',
+    60→            '1 month of priority support',
+    61→          ],
+    62→        },
+    63→        {
+    64→          name: 'Retainer',
+    65→          price: '₹599/month',
+    66→          pitch: 'Stay visible, every single month.',
+    67→          includes: [
+    68→            '8 custom posts per month',
+    69→            'Customer review reply management',
+    70→            'Ongoing holiday/hours updates',
+    71→            'Cancel anytime with zero fees',
+    72→          ],
+    73→        },
+    74→      ],
+    75→    },
+    76→    howItWorks: {
+    77→      title: 'Three Steps. One Week. Zero Hassle.',
+    78→      subtitle: 'You run your business; we handle the digital setup.',
+    79→      steps: [
+    80→        {
+    81→          title: '1. We Check',
+    82→          desc: 'We search your business live and show you exactly what customers see today — good or bad.',
+    83→          icon: '🔍',
+    84→        },
+    85→        {
+    86→          title: '2. We Build',
+    87→          desc: 'Google Business Profile, WhatsApp Business, and your social pages — set up properly, usually within a day.',
+    88→          icon: '🛠️',
+    89→        },
+    90→        {
+    91→          title: "3. You're Found",
+    92→          desc: "Customers searching nearby now find you — number, hours, and photos, right there on Google Maps.",
+    93→          icon: '📍',
+    94→        },
+    95→      ],
+    96→    },
+    97→    whyItWorks: {
+    98→      title: "Built For Kerala's Local Businesses",
+    99→      subtitle:
+   100→        "No confusing jargon. Just real results you can see on your own phone.",
+   101→      beforeLabel: 'Without Visible Kerala',
+   102→      afterLabel: 'With Visible Kerala',
+   103→      trustPoints: [
+   104→        'Pay only after you see your profile live on Google.',
+   105→        'We use Google, WhatsApp, and Instagram — the same free tools trusted by millions worldwide.',
+   106→        'You keep full 100% ownership — every account stays securely in your name, always.',
+   107→      ],
+   108→    },
+   109→    contact: {
+   110→      title: "Let's Get You Found.",
+   111→      subhead:
+   112→        'Message us on WhatsApp for the fastest reply, or fill out the form below.',
+   113→      nameLabel: 'Full Name*',
+   114→      bizLabel: 'Business Name*',
+   115→      phoneLabel: 'Phone/WhatsApp Number*',
+   116→      typeLabel: 'Business Type',
+   117→      types: [
+   118→        'Tuition Centre',
+   119→        'Salon / Beauty Parlour',
+   120→        'Homestay / Lodge',
+   121→        'Bakery / Caterer',
+   122→        'Clinic / Pharmacy',
+   123→        'Hardware / Auto Shop',
+   124→        'Tailoring / Boutique',
+   125→        'Other',
+   126→      ],
+   127→      msgLabel: 'Message (Optional)',
+   128→      submitBtn: 'Send Message',
+   129→      successMsg:
+   130→        "Thanks! We'll reach out to your WhatsApp within a few hours.",
+   131→      footerServing:
+   132→        'Serving small businesses across all 14 districts of Kerala.',
+   133→    },
+   134→  },
+   135→  ml: {
+   136→    nav: {
+   137→      services: 'സേവനങ്ങൾ',
+   138→      howItWorks: 'പ്രവർത്തനരീതി',
+   139→      whyItWorks: 'എന്തുകൊണ്ട് ഞങ്ങൾ?',
+   140→      contact: 'ബന്ധപ്പെടുക',
+   141→      cta: 'വാട്സ്ആപ്പിൽ സംസാരിക്കാം',
+   142→    },
+   143→    hero: {
+   144→      eyebrow:
+   145→        'ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ · വാട്സ്ആപ്പ് ബിസിനസ് · സോഷ്യൽ മീഡിയ',
+   146→      headline: 'അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!',
+   147→      subhead:
+   148→        'കേരളത്തിലെ 10-ൽ 9 ചെറുകിട സംരംഭങ്ങളും ഗൂഗിളിൽ തിരയുമ്പോൾ കാണാറില്ല. നിങ്ങളുടെ സ്ഥാപനം ഉപഭോക്താക്കൾ എളുപ്പത്തിൽ കണ്ടെത്താൻ ഞങ്ങൾ സഹായിക്കുന്നു — ചെറിയ ചെലവിൽ, ഒറ്റ ദിവസം കൊണ്ട് പൂർണ്ണമായും സജ്ജമാക്കാം.',
+   149→      primaryCta: 'വാട്സ്ആപ്പിൽ സംസാരിക്കാം',
+   150→      secondaryCta: 'പാക്കേജുകൾ കാണുക',
+   151→    },
+   152→    services: {
+   153→      title: 'ലളിതമായ പാക്കേജുകൾ. മറഞ്ഞിരിക്കുന്ന ചെലവുകളില്ല.',
+   154→      subtitle: 'നാട്ടിലെ ഉപഭോക്താക്കൾ നിങ്ങളെ കണ്ടെത്താൻ വേണ്ടതെല്ലാം.',
+   155→      popularBadge: 'ഏറ്റവും ജനപ്രിയം',
+   156→      ctaButton: 'വാട്സ്ആപ്പിൽ തുടങ്ങാം',
+   157→      packages: [
+   158→        {
+   159→          name: 'സ്റ്റാർട്ടർ',
+   160→          price: '₹499',
+   161→          pitch: 'ഗൂഗിളിലും വാട്സ്ആപ്പിലും നിങ്ങളുടെ സാന്നിധ്യം ഉറപ്പാക്കാം.',
+   162→          includes: [
+   163→            'ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ നിർമ്മാണം',
+   164→            'ഓട്ടോ-റിപ്ലൈ സഹിതം വാട്സ്ആപ്പ് ബിസിനസ് സജ്ജീകരണം',
+   165→            'ഗൂഗിൾ മാപ്പിൽ കൃത്യമായ സ്ഥാനം ചേർക്കൽ',
+   166→          ],
+   167→        },
+   168→        {
+   169→          name: 'സ്റ്റാൻഡേർഡ്',
+   170→          price: '₹799',
+   171→          pitch: 'ഉപഭോക്താക്കൾ തിരയുമ്പോഴെല്ലാം മികച്ച പ്രൊഫഷണൽ ലുക്ക്.',
+   172→          includes: [
+   173→            'സ്റ്റാർട്ടർ പാക്കേജിലെ എല്ലാം',
+   174→            'ഡിജിറ്റൽ ലോഗോ ക്ലീൻ-അപ്പ്',
+   175→            'ബിസിനസ്സിനായി 5 സോഷ്യൽ മീഡിയ പോസ്റ്റുകൾ',
+   176→            'ഇൻസ്റ്റാഗ്രാം അല്ലെങ്കിൽ ഫേസ്ബുക്ക് പേജ് നിർമ്മാണം',
+   177→          ],
+   178→        },
+   179→        {
+   180→          name: 'പ്രീമിയം',
+   181→          price: '₹1,299',
+   182→          pitch: 'ബിസിനസ്സ് വളർത്താൻ സമഗ്രമായ വിസിബിലിറ്റി പാക്കേജ്.',
+   183→          includes: [
+   184→            'സ്റ്റാൻഡേർഡ് പാക്കേജിലെ എല്ലാം',
+   185→            'പൂർണ്ണമായ ഇൻസ്റ്റാഗ്രാം ബയോ & ഹൈലൈറ്റ് സജ്ജീകരണം',
+   186→            'ഗൂഗിൾ റിവ്യൂ വർദ്ധിപ്പിക്കാനുള്ള ഓട്ടോമാറ്റിക് ലിങ്ക് സിസ്റ്റം',
+   187→            '1 മാസത്തെ മുൻഗണനാ സപ്പോർട്ട്',
+   188→          ],
+   189→        },
+   190→        {
+   191→          name: 'റിട്ടൈനർ',
+   192→          price: '₹599/month',
+   193→          pitch: 'ഓരോ മാസവും സജീവമായി നിലനിൽക്കാം, പുതിയ കസ്റ്റമേഴ്സിനെ നേടാം.',
+   194→          includes: [
+   195→            'മാസം തോറും 8 കസ്റ്റം ഡിസൈൻ പോസ്റ്റുകൾ',
+   196→            'കസ്റ്റമർ റിവ്യൂകൾക്ക് കൃത്യമായ മറുപടി നൽകൽ',
+   197→            'അവധി ദിനങ്ങളും പ്രവൃത്തി സമയവും അപ്ഡേറ്റ് ചെയ്യൽ',
+   198→            'എപ്പോൾ വേണമെങ്കിലും കാൻസൽ ചെയ്യാം, അധിക ചാർജ്ജില്ല',
+   199→          ],
+   200→        },
+   201→      ],
+   202→    },
+   203→    howItWorks: {
+   204→      title: '3 പടികൾ. 1 ആഴ്ച. യാതൊരു ബുദ്ധിമുട്ടുമില്ല.',
+   205→      subtitle: 'നിങ്ങൾ ബിസിനസ്സ് നോക്കിക്കോളൂ; ഡിജിറ്റൽ കാര്യങ്ങൾ ഞങ്ങൾ ചെയ്തേക്കാം.',
+   206→      steps: [
+   207→        {
+   208→          title: '1. ഞങ്ങൾ പരിശോധിക്കുന്നു',
+   209→          desc: 'നിങ്ങളുടെ ബിസിനസ്സ് നിലവിൽ ഗൂഗിളിൽ തിരഞ്ഞു നോക്കി ഉപഭോക്താക്കൾ എന്താണ് കാണുന്നതെന്ന് ഞങ്ങൾ കൃത്യമായി കാണിച്ചു തരുന്നു.',
+   210→          icon: '🔍',
+   211→        },
+   212→        {
+   213→          title: '2. ഞങ്ങൾ നിർമ്മിക്കുന്നു',
+   214→          desc: 'ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ, വാട്സ്ആപ്പ് ബിസിനസ്, സോഷ്യൽ മീഡിയ പേജുകൾ എന്നിവ സാധാരണയായി ഒറ്റ ദിവസം കൊണ്ട് കൃത്യമായി സജ്ജമാക്കുന്നു.',
+   215→          icon: '🛠️',
+   216→        },
+   217→        {
+   218→          title: '3. ഉപഭോക്താക്കൾ കണ്ടെത്തുന്നു',
+   219→          desc: 'അടുത്തുള്ള കസ്റ്റമേഴ്സ് തിരയുമ്പോൾ ഫോൺ നമ്പർ, പ്രവൃത്തി സമയം, ഫോട്ടോകൾ എന്നിവ സഹിതം ഗൂഗിൾ മാപ്പിൽ നിങ്ങളെ ആദ്യം കാണുന്നു.',
+   220→          icon: '📍',
+   221→        },
+   222→      ],
+   223→    },
+   224→    whyItWorks: {
+   225→      title: 'കേരളത്തിലെ ചെറുകിട വ്യാപാരികൾക്കായി തയ്യാറാക്കിയത്',
+   226→      subtitle: 'സങ്കീർണ്ണമായ സാങ്കേതിക പദങ്ങളില്ല. നിങ്ങളുടെ സ്വന്തം ഫോണിൽ കാണാൻ കഴിയുന്ന യഥാർത്ഥ മാറ്റങ്ങൾ.',
+   227→      beforeLabel: 'വിസിബിൾ കേരള ഇല്ലാതെ',
+   228→      afterLabel: 'വിസിബിൾ കേരളയ്‌ക്കൊപ്പം',
+   229→      trustPoints: [
+   230→        'നിങ്ങളുടെ പ്രൊഫൈൽ ഗൂഗിളിൽ ലൈവായി കണ്ടതിന് ശേഷം മാത്രം പണം നൽകിയാൽ മതി.',
+   231→        'ലോകമെമ്പാടുമുള്ള കോടിക്കണക്കിന് ബിസിനസുകൾ വിശ്വസിക്കുന്ന ഗൂഗിൾ, വാട്സ്ആപ്പ്, ഇൻസ്റ്റാഗ്രാം എന്നിവയുടെ സൗജന്യ ടൂളുകൾ മാത്രം ഉപയോഗിക്കുന്നു.',
+   232→        '100% ഉടമസ്ഥാവകാശം നിങ്ങൾക്ക് തന്നെ — എല്ലാ അക്കൗണ്ടുകളും എപ്പോഴും നിങ്ങളുടെ സ്വന്തം പേരിലായിരിക്കും.',
+   233→      ],
+   234→    },
+   235→    contact: {
+   236→      title: 'നിങ്ങളുടെ ബിസിനസ്സും ഓൺലൈനിലെത്തിക്കാം.',
+   237→      subhead: 'ഏറ്റവും വേഗത്തിൽ മറുപടി ലഭിക്കാൻ വാട്സ്ആപ്പിൽ മെസ്സേജ് അയയ്ക്കൂ, അല്ലെങ്കിൽ താഴെയുള്ള ഫോം പൂരിപ്പിക്കൂ.',
+   238→      nameLabel: 'പൂർണ്ണ പേര്*',
+   239→      bizLabel: 'ബിസിനസ്സിന്റെ പേര്*',
+   240→      phoneLabel: 'ഫോൺ/വാട്സ്ആപ്പ് നമ്പർ*',
+   241→      typeLabel: 'ബിസിനസ് തരം',
+   242→      types: [
+   243→        'ട്യൂഷൻ സെന്റർ',
+   244→        'സലൂൺ / ബ്യൂട്ടി പാർലർ',
+   245→        'ഹോംസ്റ്റേ / ലോഡ്ജ്',
+   246→        'ബേക്കറി / കാറ്ററിംഗ്',
+   247→        'ക്ലിനിക് / ഫാർമസി',
+   248→        'ഹാർഡ്‌വെയർ / ഓട്ടോ ഷോപ്പ്',
+   249→        'ടെയ്‌ലറിംഗ് / ബോട്ടീക്',
+   250→        'മറ്റുള്ളവ',
+   251→      ],
+   252→      msgLabel: 'സന്ദേശം (ആവശ്യമെങ്കിൽ മാത്രം)',
+   253→      submitBtn: 'സന്ദേശം അയയ്ക്കൂ',
+   254→      successMsg: 'നന്ദി! ഏതാനും മണിക്കൂറുകൾക്കുള്ളിൽ ഞങ്ങൾ വാട്സ്ആപ്പിൽ ബന്ധപ്പെടുന്നതാണ്.',
+   255→      footerServing: 'കേരളത്തിലെ 14 ജില്ലകളിലുമുള്ള ചെറുകിട സംരംഭങ്ങൾക്ക് അഭിമാനത്തോടെ സേവനം നൽകുന്നു.',
+   256→    },
+   257→  },
+   258→};
+   259→
+   260→const WA_BASE = 'https://wa.me/917012025737?text=';
+   261→const WA_MSG_DEFAULT = encodeURIComponent(
+   262→  "Hi! I'd like to know more about getting my business visible on Google."
+   263→);
+   264→const WA_MSG_PKG = (name: string) =>
+   265→  encodeURIComponent(`Hi! I'm interested in the ${name} package for my business.`);
+   266→
+   267→export default function Home() {
+   268→  const [lang, setLang] = useState<'en' | 'ml'>('en');
+   269→  const [navScrolled, setNavScrolled] = useState(false);
+   270→  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+   271→  const [showAfter, setShowAfter] = useState(false);
+   272→  const [formSubmitted, setFormSubmitted] = useState(false);
+   273→  const [sliderRunning, setSliderRunning] = useState(true);
+   274→
+   275→  const navRef = useRef<HTMLElement>(null);
+   276→  const tooltipRef = useRef<HTMLDivElement>(null);
+   277→  const pathRef = useRef<SVGPathElement>(null);
+   278→  const sliderTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+   279→  const packagesGridRef = useRef<HTMLDivElement>(null);
+   280→  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+   281→  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+   282→  const workflowSectionRef = useRef<HTMLDivElement>(null);
+   283→
+   284→  const t = siteContent[lang];
+   285→
+   286→  // ---- 1. Initialize language from localStorage ----
+   287→  useEffect(() => {
+   288→    const saved = localStorage.getItem('vk_lang');
+   289→    if (saved === 'ml' || saved === 'en') {
+   290→      setLang(saved);
+   291→    }
+   292→  }, []);
+   293→
+   294→  // ---- 2. Apply language to body class ----
+   295→  useEffect(() => {
+   296→    if (lang === 'ml') {
+   297→      document.body.classList.add('lang-ml-active');
+   298→    } else {
+   299→      document.body.classList.remove('lang-ml-active');
+   300→    }
+   301→    localStorage.setItem('vk_lang', lang);
+   302→  }, [lang]);
+   303→
+   304→  // ---- 3. Sticky nav scroll behavior ----
+   305→  useEffect(() => {
+   306→    const onScroll = () => {
+   307→      setNavScrolled(window.scrollY > 100);
+   308→    };
+   309→    window.addEventListener('scroll', onScroll, { passive: true });
+   310→    return () => window.removeEventListener('scroll', onScroll);
+   311→  }, []);
+   312→
+   313→  // ---- 4. Close mobile menu on resize ----
+   314→  useEffect(() => {
+   315→    const onResize = () => {
+   316→      if (window.innerWidth >= 768) setMobileMenuOpen(false);
+   317→    };
+   318→    window.addEventListener('resize', onResize);
+   319→    return () => window.removeEventListener('resize', onResize);
+   320→  }, []);
+   321→
+   322→  // ---- 5. SVG path scroll drawing ----
+   323→  useEffect(() => {
+   324→    const path = pathRef.current;
+   325→    if (!path) return;
+   326→    const len = path.getTotalLength();
+   327→    path.style.strokeDasharray = `${len} ${len}`;
+   328→    path.style.strokeDashoffset = String(len);
+   329→
+   330→    const onScroll = () => {
+   331→      if (!workflowSectionRef.current) return;
+   332→      const rect = workflowSectionRef.current.getBoundingClientRect();
+   333→      const sectionTop = rect.top + window.scrollY;
+   334→      const sectionHeight = rect.height;
+   335→      const scrollProgress = Math.max(
+   336→        0,
+   337→        Math.min(1, (window.scrollY - sectionTop + window.innerHeight * 0.6) / sectionHeight)
+   338→      );
+   339→      const drawLen = len * scrollProgress * 1.4;
+   340→      path.style.strokeDashoffset = String(Math.max(0, len - drawLen));
+   341→    };
+   342→
+   343→    window.addEventListener('scroll', onScroll, { passive: true });
+   344→    onScroll();
+   345→    return () => window.removeEventListener('scroll', onScroll);
+   346→  }, []);
+   347→
+   348→  // ---- 6. Intersection Observer for scroll reveals & step animations ----
+   349→  useEffect(() => {
+   350→    const observer = new IntersectionObserver(
+   351→      (entries) => {
+   352→        entries.forEach((entry) => {
+   353→          if (entry.isIntersecting) {
+   354→            entry.target.classList.add('reveal-visible');
+   355→          }
+   356→        });
+   357→      },
+   358→      { threshold: 0.15 }
+   359→    );
+   360→
+   361→    document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+   362→
+   363→    // Step cards observer
+   364→    const stepObserver = new IntersectionObserver(
+   365→      (entries) => {
+   366→        entries.forEach((entry) => {
+   367→          if (entry.isIntersecting) {
+   368→            const idx = Number(entry.target.getAttribute('data-step-idx'));
+   369→            setTimeout(() => {
+   370→              entry.target.classList.add('visible');
+   371→            }, idx * 300);
+   372→          }
+   373→        });
+   374→      },
+   375→      { threshold: 0.3 }
+   376→    );
+   377→
+   378→    stepRefs.current.forEach((el) => {
+   379→      if (el) stepObserver.observe(el);
+   380→    });
+   381→
+   382→    return () => {
+   383→      observer.disconnect();
+   384→      stepObserver.disconnect();
+   385→    };
+   386→  }, []);
+   387→
+   388→  // ---- 7. Before/After toggle with auto-loop ----
+   389→  const manualToggleRef = useRef(false);
+   390→
+   391→  const resetSlider = useCallback(() => {
+   392→    if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
+   393→    setShowAfter(false);
+   394→    setSliderRunning(true);
+   395→    const tick = () => {
+   396→      sliderTimerRef.current = setTimeout(() => {
+   397→        setShowAfter(true);
+   398→        sliderTimerRef.current = setTimeout(() => {
+   399→          setShowAfter(false);
+   400→          if (!manualToggleRef.current) tick();
+   401→        }, 4000);
+   402→      }, 4000);
+   403→    };
+   404→    tick();
+   405→  }, []);
+   406→
+   407→  useEffect(() => {
+   408→    resetSlider();
+   409→    return () => {
+   410→      if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
+   411→    };
+   412→  }, [resetSlider]);
+   413→
+   414→  const handleDemoToggle = (toAfter: boolean) => {
+   415→    manualToggleRef.current = true;
+   416→    if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
+   417→    setShowAfter(toAfter);
+   418→    setSliderRunning(false);
+   419→    // Resume auto-loop after 12 seconds of inactivity
+   420→    setTimeout(() => {
+   421→      manualToggleRef.current = false;
+   422→      resetSlider();
+   423→    }, 12000);
+   424→  };
+   425→
+   426→  // ---- 8. Contextual hover tooltips ----
+   427→  useEffect(() => {
+   428→    const tooltip = tooltipRef.current;
+   429→    if (!tooltip) return;
+   430→
+   431→    const handleEnter = (e: Event) => {
+   432→      if (lang !== 'en') return;
+   433→      const target = e.currentTarget as HTMLElement;
+   434→      const mlText = target.getAttribute('data-hover-ml');
+   435→      if (!mlText) return;
+   436→      tooltip.textContent = mlText;
+   437→      tooltip.classList.add('show');
+   438→      const rect = target.getBoundingClientRect();
+   439→      tooltip.style.top = `${rect.top + window.scrollY - 50}px`;
+   440→      tooltip.style.left = `${rect.left + rect.width / 2}px`;
+   441→    };
+   442→
+   443→    const handleLeave = () => {
+   444→      tooltip.classList.remove('show');
+   445→    };
+   446→
+   447→    document.querySelectorAll('[data-hover-ml]').forEach((el) => {
+   448→      el.addEventListener('mouseenter', handleEnter);
+   449→      el.addEventListener('mouseleave', handleLeave);
+   450→    });
+   451→
+   452→    return () => {
+   453→      document.querySelectorAll('[data-hover-ml]').forEach((el) => {
+   454→        el.removeEventListener('mouseenter', handleEnter);
+   455→        el.removeEventListener('mouseleave', handleLeave);
+   456→      });
+   457→    };
+   458→  }, [lang]);
+   459→
+   460→  // ---- 9. 3D Card tilt effect ----
+   461→  useEffect(() => {
+   462→    const cards = cardRefs.current;
+   463→    const handlers: Array<{ el: HTMLAnchorElement; onMove: (e: MouseEvent) => void; onLeave: () => void }> = [];
+   464→
+   465→    cards.forEach((card) => {
+   466→      if (!card) return;
+   467→      const onMove = (e: MouseEvent) => {
+   468→        const rect = card.getBoundingClientRect();
+   469→        const x = e.clientX - rect.left;
+   470→        const y = e.clientY - rect.top;
+   471→        const cx = rect.width / 2;
+   472→        const cy = rect.height / 2;
+   473→        const rotX = ((y - cy) / cy) * -6;
+   474→        const rotY = ((x - cx) / cx) * 6;
+   475→        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-5px)`;
+   476→        card.style.boxShadow = 'var(--clay-card-hover)';
+   477→      };
+   478→      const onLeave = () => {
+   479→        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+   480→        card.style.boxShadow = 'var(--clay-shadow-md)';
+   481→      };
+   482→      card.addEventListener('mousemove', onMove);
+   483→      card.addEventListener('mouseleave', onLeave);
+   484→      handlers.push({ el: card, onMove, onLeave });
+   485→    });
+   486→
+   487→    return () => {
+   488→      handlers.forEach(({ el, onMove, onLeave }) => {
+   489→        el.removeEventListener('mousemove', onMove);
+   490→        el.removeEventListener('mouseleave', onLeave);
+   491→      });
+   492→    };
+   493→  }, [lang]); // rebind when lang changes (cards re-render)
+   494→
+   495→  // ---- Helpers ----
+   496→  const toggleLang = () => {
+   497→    setLang((prev) => (prev === 'en' ? 'ml' : 'en'));
+   498→  };
+   499→
+   500→  const closeMobileMenu = () => setMobileMenuOpen(false);
+   501→
+   502→  const handleFormSubmit = (e: React.FormEvent) => {
+   503→    e.preventDefault();
+   504→    setFormSubmitted(true);
+   505→  };
+   506→
+   507→  // ---- RENDER ----
+   508→  return (
+   509→    <>
+   510→      {/* Tooltip element */}
+   511→      <div ref={tooltipRef} className="clay-tooltip" />
+   512→
+   513→      {/* ===== STICKY NAVIGATION ===== */}
+   514→      <header ref={navRef} className={`sticky-nav ${navScrolled ? 'scrolled' : ''}`}>
+   515→        <div className="nav-container">
+   516→          <a href="#" className="brand-logo" onClick={closeMobileMenu}>
+   517→            <img src="/logo-mark-isolated.png" alt="Visible Kerala" className="logo-mark" />
+   518→            <span className="wordmark">Visible Kerala</span>
+   519→          </a>
+   520→
+   521→          <nav className="nav-links">
+   522→            <a href="#services" data-hover-ml="സേവനങ്ങൾ">{t.nav.services}</a>
+   523→            <a href="#how-it-works" data-hover-ml="പ്രവർത്തനരീതി">{t.nav.howItWorks}</a>
+   524→            <a href="#why-it-works" data-hover-ml="എന്തുകൊണ്ട് ഞങ്ങൾ?">{t.nav.whyItWorks}</a>
+   525→            <a href="#contact" data-hover-ml="ബന്ധപ്പെടുക">{t.nav.contact}</a>
+   526→          </nav>
+   527→
+   528→          <div className="nav-actions">
+   529→            <button
+   530→              id="lang-toggle"
+   531→              className={`lang-switch-pill ${lang === 'ml' ? 'active-ml' : ''}`}
+   532→              onClick={toggleLang}
+   533→              aria-label="Toggle Language"
+   534→            >
+   535→              <span className="lang-text en">EN</span>
+   536→              <span className="lang-text ml">മലയാളം</span>
+   537→            </button>
+   538→
+   539→            <a
+   540→              href={`${WA_BASE}${WA_MSG_DEFAULT}`}
+   541→              className="btn-clay-primary pulse-glow"
+   542→              target="_blank"
+   543→              rel="noopener noreferrer"
+   544→            >
+   545→              {t.nav.cta}
+   546→            </a>
+   547→
+   548→            <button
+   549→              className="nav-mobile-toggle"
+   550→              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+   551→              aria-label="Toggle Menu"
+   552→            >
+   553→              <span />
+   554→              <span />
+   555→              <span />
+   556→            </button>
+   557→          </div>
+   558→        </div>
+   559→      </header>
+   560→
+   561→      {/* Mobile Menu */}
+   562→      <div className={`mobile-nav-menu ${mobileMenuOpen ? 'open' : ''}`}>
+   563→        <a href="#services" onClick={closeMobileMenu}>{t.nav.services}</a>
+   564→        <a href="#how-it-works" onClick={closeMobileMenu}>{t.nav.howItWorks}</a>
+   565→        <a href="#why-it-works" onClick={closeMobileMenu}>{t.nav.whyItWorks}</a>
+   566→        <a href="#contact" onClick={closeMobileMenu}>{t.nav.contact}</a>
+   567→      </div>
+   568→
+   569→      <main>
+   570→        {/* ===== HERO SECTION ===== */}
+   571→        <section className="hero-section reveal-on-scroll">
+   572→          <div className="blob blob-1" />
+   573→          <div className="blob blob-2" />
+   574→          <div className="blob blob-3" />
+   575→
+   576→          <div className="hero-content">
+   577→            <span className="eyebrow-pill">{t.hero.eyebrow}</span>
+   578→            <h1
+   579→              className="display-title"
+   580→              style={{ fontSize: 'clamp(2rem, 5.5vw, 3.2rem)', color: 'var(--vk-deep-green)', marginBottom: '1rem' }}
+   581→              data-hover-ml="അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!"
+   582→            >
+   583→              {t.hero.headline}
+   584→            </h1>
+   585→            <p className="hero-subhead">{t.hero.subhead}</p>
+   586→            <div className="hero-cta-group">
+   587→              <a
+   588→                href={`${WA_BASE}${WA_MSG_DEFAULT}`}
+   589→                className="btn-clay-primary lg pulse-glow"
+   590→                target="_blank"
+   591→                rel="noopener noreferrer"
+   592→              >
+   593→                {t.hero.primaryCta}
+   594→              </a>
+   595→              <a href="#services" className="btn-clay-secondary lg">
+   596→                {t.hero.secondaryCta}
+   597→              </a>
+   598→            </div>
+   599→          </div>
+   600→
+   601→          <div className="hero-visual-3d">
+   602→            <div className="floating-pin-wrapper">
+   603→              <img src="/logo-full.png" alt="Visible Kerala Map Pin" className="bobbing-pin" />
+   604→              <div className="pin-shadow" />
+   605→            </div>
+   606→          </div>
+   607→        </section>
+   608→
+   609→        {/* ===== SERVICES SECTION ===== */}
+   610→        <section id="services" className="services-section reveal-on-scroll">
+   611→          <div className="section-header text-center">
+   612→            <h2
+   613→              className="section-title"
+   614→              style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
+   615→              data-hover-ml="ലളിതമായ പാക്കേജുകൾ. മറഞ്ഞിരിക്കുന്ന ചെലവുകളില്ല."
+   616→            >
+   617→              {t.services.title}
+   618→            </h2>
+   619→            <p className="section-subtitle">{t.services.subtitle}</p>
+   620→          </div>
+   621→
+   622→          <div ref={packagesGridRef} className="clay-grid">
+   623→            {t.services.packages.map((pkg, idx) => (
+   624→              <a
+   625→                key={pkg.name + lang}
+   626→                href={`${WA_BASE}${WA_MSG_PKG(pkg.name)}`}
+   627→                target="_blank"
+   628→                rel="noopener noreferrer"
+   629→                ref={(el) => { cardRefs.current[idx] = el; }}
+   630→                className={`clay-card-3d ${idx === 1 ? 'popular-card' : ''}`}
+   631→                style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+   632→              >
+   633→                {idx === 1 && <span className="popular-badge">{t.services.popularBadge}</span>}
+   634→                <div className="package-name">{pkg.name}</div>
+   635→                <div className="package-price">{pkg.price}</div>
+   636→                <p className="package-pitch">{pkg.pitch}</p>
+   637→                <ul className="package-includes">
+   638→                  {pkg.includes.map((item) => (
+   639→                    <li key={item}>{item}</li>
+   640→                  ))}
+   641→                </ul>
+   642→                <span className="btn-clay-primary" style={{ fontSize: '0.85rem', padding: '0.55rem 1rem' }}>
+   643→                  {t.services.ctaButton}
+   644→                </span>
+   645→              </a>
+   646→            ))}
+   647→          </div>
+   648→        </section>
+   649→
+   650→        {/* ===== HOW IT WORKS SECTION ===== */}
+   651→        <section id="how-it-works" className="workflow-section reveal-on-scroll" ref={workflowSectionRef}>
+   652→          <div className="section-header text-center" style={{ maxWidth: 900, margin: '0 auto 2.5rem' }}>
+   653→            <h2
+   654→              className="section-title"
+   655→              style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
+   656→              data-hover-ml="3 പടികൾ. 1 ആഴ്ച. യാതൊരു ബുദ്ധിമുട്ടുമില്ല."
+   657→            >
+   658→              {t.howItWorks.title}
+   659→            </h2>
+   660→            <p className="section-subtitle">{t.howItWorks.subtitle}</p>
+   661→          </div>
+   662→
+   663→          <div className="workflow-container">
+   664→            <svg className="workflow-svg" viewBox="0 0 1000 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
+   665→              <path
+   666→                ref={pathRef}
+   667→                id="workflow-path"
+   668→                d="M100 100 C 300 20, 500 180, 900 100"
+   669→                stroke="#2F9E44"
+   670→                strokeWidth="6"
+   671→                strokeLinecap="round"
+   672→              />
+   673→            </svg>
+   674→            <div className="steps-grid">
+   675→              {t.howItWorks.steps.map((step, idx) => (
+   676→                <div
+   677→                  key={step.title + lang}
+   678→                  ref={(el) => { stepRefs.current[idx] = el; }}
+   679→                  className="step-card"
+   680→                  data-step-idx={idx}
+   681→                >
+   682→                  <div className="step-icon">{step.icon}</div>
+   683→                  <h3 className="step-title">{step.title}</h3>
+   684→                  <p className="step-desc">{step.desc}</p>
+   685→                </div>
+   686→              ))}
+   687→            </div>
+   688→          </div>
+   689→        </section>
+   690→
+   691→        {/* ===== WHY IT WORKS SECTION ===== */}
+   692→        <section id="why-it-works" className="why-section reveal-on-scroll">
+   693→          <div className="section-header text-center">
+   694→            <h2
+   695→              className="section-title"
+   696→              style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
+   697→              data-hover-ml="കേരളത്തിലെ ചെറുകിട വ്യാപാരികൾക്കായി തയ്യാറാക്കിയത്"
+   698→            >
+   699→              {t.whyItWorks.title}
+   700→            </h2>
+   701→            <p className="section-subtitle">{t.whyItWorks.subtitle}</p>
+   702→          </div>
+   703→
+   704→          {/* Before / After Demo Mockup */}
+   705→          <div className="demo-mockup-container">
+   706→            <div className="mockup-phone">
+   707→              {/* Toggle Buttons */}
+   708→              <div className="demo-toggle-row">
+   709→                <button
+   710→                  className={`demo-toggle-btn ${!showAfter ? 'active' : ''}`}
+   711→                  onClick={() => handleDemoToggle(false)}
+   712→                >
+   713→                  {t.whyItWorks.beforeLabel}
+   714→                </button>
+   715→                <button
+   716→                  className={`demo-toggle-btn after ${showAfter ? 'active' : ''}`}
+   717→                  onClick={() => handleDemoToggle(true)}
+   718→                >
+   719→                  {t.whyItWorks.afterLabel}
+   720→                </button>
+   721→              </div>
+   722→
+   723→              <div className="mockup-content">
+   724→                {/* BEFORE State */}
+   725→                <div className={`mockup-pane before-pane ${showAfter ? 'hidden' : ''}`}>
+   726→                  <div className="mock-shop-name">Kerala General Store</div>
+   727→                  <div className="mock-shop-rating">
+   728→                    {[1, 2, 3, 4, 5].map((s) => (
+   729→                      <span key={s} className="mock-star">★</span>
+   730→                    ))}
+   731→                    <span style={{ marginLeft: 4, fontSize: '0.82rem', color: '#bbb' }}>(0 reviews)</span>
+   732→                  </div>
+   733→                  <div style={{ marginBottom: '0.75rem' }}>
+   734→                    <span className="mock-badge gray">Unverified</span>
+   735→                    <span className="mock-badge gray">No Hours</span>
+   736→                  </div>
+   737→                  <div className="mock-placeholder-box">No photos added</div>
+   738→                  <div className="mock-info-row missing">✗ Phone number not listed</div>
+   739→                  <div className="mock-info-row missing">✗ Address incomplete</div>
+   740→                  <div className="mock-map-area no-pin">No location pin set</div>
+   741→                </div>
+   742→
+   743→                {/* AFTER State */}
+   744→                <div className={`mockup-pane after-pane ${showAfter ? 'active' : ''}`}>
+   745→                  <div className="mock-shop-name" style={{ color: 'var(--vk-deep-green)' }}>Kerala General Store</div>
+   746→                  <div className="mock-shop-rating">
+   747→                    {[1, 2, 3, 4, 5].map((s) => (
+   748→                      <span key={s} className="mock-star filled">★</span>
+   749→                    ))}
+   750→                    <span style={{ marginLeft: 4, fontSize: '0.82rem', color: 'var(--vk-primary-green)', fontWeight: 700 }}>(4.8 · 24 reviews)</span>
+   751→                  </div>
+   752→                  <div style={{ marginBottom: '0.75rem' }}>
+   753→                    <span className="mock-badge green">Verified</span>
+   754→                    <span className="mock-badge green">Open Now</span>
+   755→                    <span className="mock-badge green">Popular</span>
+   756→                  </div>
+   757→                  <div style={{ background: 'linear-gradient(135deg, rgba(47,158,68,0.06), rgba(15,113,115,0.04))', borderRadius: 12, height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem', color: 'var(--vk-primary-green)', fontWeight: 600, fontSize: '0.9rem' }}>
+   758→                    📷 5 Storefront Photos
+   759→                  </div>
+   760→                  <div className="mock-info-row verified">✓ +91 70120 25737</div>
+   761→                  <div className="mock-info-row verified">✓ Main Road, Near Junction, Kerala</div>
+   762→                  <div className="mock-map-area has-pin">📍 Precisely pinned on Google Maps</div>
+   763→                </div>
+   764→              </div>
+   765→            </div>
+   766→          </div>
+   767→
+   768→          {/* Trust Points */}
+   769→          <div className="trust-points">
+   770→            {t.whyItWorks.trustPoints.map((point, idx) => (
+   771→              <div key={point + lang} className="trust-point">
+   772→                <div className="trust-icon">{idx === 0 ? '💰' : idx === 1 ? '🛡️' : '🔐'}</div>
+   773→                <p className="trust-text">{point}</p>
+   774→              </div>
+   775→            ))}
+   776→          </div>
+   777→        </section>
+   778→
+   779→        {/* ===== CONTACT SECTION ===== */}
+   780→        <section id="contact" className="contact-section reveal-on-scroll">
+   781→          <div className="contact-clay-card">
+   782→            <h2
+   783→              className="section-title text-center"
+   784→              style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)', marginBottom: '0.25rem' }}
+   785→              data-hover-ml="നിങ്ങളുടെ ബിസിനസ്സും ഓൺലൈനിലെത്തിക്കാം."
+   786→            >
+   787→              {t.contact.title}
+   788→            </h2>
+   789→            <p className="contact-subhead">{t.contact.subhead}</p>
+   790→
+   791→            {formSubmitted ? (
+   792→              <div className="form-success">
+   793→                <div className="success-checkmark">✓</div>
+   794→                <p className="success-message">{t.contact.successMsg}</p>
+   795→              </div>
+   796→            ) : (
+   797→              <>
+   798→                <a
+   799→                  href={`${WA_BASE}${WA_MSG_DEFAULT}`}
+   800→                  className="whatsapp-direct-btn"
+   801→                  target="_blank"
+   802→                  rel="noopener noreferrer"
+   803→                >
+   804→                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+   805→                  {t.contact.primaryCta}
+   806→                </a>
+   807→
+   808→                <div className="contact-divider">
+   809→                  <span>OR</span>
+   810→                </div>
+   811→
+   812→                <form className="clay-form" onSubmit={handleFormSubmit}>
+   813→                  <div className="form-group">
+   814→                    <label>{t.contact.nameLabel}</label>
+   815→                    <input type="text" name="name" required className="clay-input" />
+   816→                  </div>
+   817→                  <div className="form-group">
+   818→                    <label>{t.contact.bizLabel}</label>
+   819→                    <input type="text" name="business_name" required className="clay-input" />
+   820→                  </div>
+   821→                  <div className="form-group">
+   822→                    <label>{t.contact.phoneLabel}</label>
+   823→                    <input type="tel" name="phone" required className="clay-input" />
+   824→                  </div>
+   825→                  <div className="form-group">
+   826→                    <label>{t.contact.typeLabel}</label>
+   827→                    <select name="business_type" className="clay-select">
+   828→                      <option value="">Select...</option>
+   829→                      {t.contact.types.map((type) => (
+   830→                        <option key={type} value={type}>{type}</option>
+   831→                      ))}
+   832→                    </select>
+   833→                  </div>
+   834→                  <div className="form-group">
+   835→                    <label>{t.contact.msgLabel}</label>
+   836→                    <textarea name="message" rows={4} className="clay-input" style={{ resize: 'vertical' }} />
+   837→                  </div>
+   838→                  <button type="submit" className="btn-clay-primary full-width lg">
+   839→                    {t.contact.submitBtn}
+   840→                  </button>
+   841→                </form>
+   842→              </>
+   843→            )}
+   844→          </div>
+   845→        </section>
+   846→      </main>
+   847→
+   848→      {/* ===== FOOTER ===== */}
+   849→      <footer className="site-footer">
+   850→        <div className="footer-content">
+   851→          <img src="/logo-mark-isolated.png" alt="Visible Kerala" className="footer-logo" />
+   852→          <h3 className="footer-title">Visible Kerala</h3>
+   853→          <p className="footer-tagline">{t.hero.headline}</p>
+   854→
+   855→          <div className="footer-links">
+   856→            <a href="#services">{t.nav.services}</a>
+   857→            <a href="#how-it-works">{t.nav.howItWorks}</a>
+   858→            <a href="#why-it-works">{t.nav.whyItWorks}</a>
+   859→            <a href="#contact">{t.nav.contact}</a>
+   860→          </div>
+   861→
+   862→          <div className="footer-contact">
+   863→            <a href="mailto:visiblekerala@gmail.com">✉ visiblekerala@gmail.com</a>
+   864→            <a href="tel:+917012025737">📞 +91 70120 25737</a>
+   865→          </div>
+   866→
+   867→          <p className="footer-serving">{t.contact.footerServing}</p>
+   868→          <p className="copyright">© 2026 Visible Kerala. All rights reserved.</p>
+   869→        </div>
+   870→      </footer>
+   871→    </>
+   872→  );
+   873→}
