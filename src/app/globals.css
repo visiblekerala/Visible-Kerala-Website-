@@ -780,70 +780,45 @@ body.lang-ml-active .section-title {
   padding: 1.5rem;
 }
 
-.mockup-header {
+/* Demo Toggle Buttons */
+.demo-toggle-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  gap: 0;
+  margin-bottom: 1.25rem;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--clay-shadow-sm);
+  border: 2px solid rgba(47, 158, 68, 0.12);
 }
 
-.mockup-state-label {
+.demo-toggle-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  transition: all 300ms ease;
-}
-
-.mockup-state-label.before {
-  background: #f0e0e0;
-  color: #c0392b;
-}
-
-.mockup-state-label.after {
-  background: rgba(47, 158, 68, 0.12);
-  color: var(--vk-primary-green);
-}
-
-.mockup-slider-track {
-  width: 100%;
-  height: 6px;
-  background: #e8e0d4;
-  border-radius: 3px;
-  margin-bottom: 1.25rem;
-  position: relative;
+  border: none;
   cursor: pointer;
+  transition: all 300ms var(--ease-spring);
+  background: #f5f0e8;
+  color: #999;
+  position: relative;
 }
 
-.mockup-slider-fill {
-  height: 100%;
+.demo-toggle-btn:hover {
+  background: #ede7db;
+}
+
+.demo-toggle-btn.active {
+  background: #c0392b;
+  color: white;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.demo-toggle-btn.after.active {
   background: var(--vk-primary-green);
-  border-radius: 3px;
-  transition: width 4000ms linear;
-  width: 0%;
-}
-
-.mockup-slider-fill.running {
-  width: 100%;
-}
-
-.mockup-slider-thumb {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: var(--vk-primary-green);
-  border: 3px solid white;
-  border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: right 4000ms linear;
-  right: 0%;
-}
-
-.mockup-slider-thumb.running {
-  right: 100%;
+  color: white;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 2px 8px rgba(47, 158, 68, 0.3);
 }
 
 /* Before / After content */

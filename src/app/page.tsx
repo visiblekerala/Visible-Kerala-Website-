@@ -385,18 +385,23 @@ export default function Home() {
     };
   }, []);
 
-  // ---- 7. Before/After auto-loop slider ----
+  // ---- 7. Before/After toggle with auto-loop ----
+  const manualToggleRef = useRef(false);
+
   const resetSlider = useCallback(() => {
     if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
     setShowAfter(false);
     setSliderRunning(true);
-    sliderTimerRef.current = setTimeout(() => {
-      setShowAfter(true);
+    const tick = () => {
       sliderTimerRef.current = setTimeout(() => {
-        setShowAfter(false);
-        setSliderRunning(true);
+        setShowAfter(true);
+        sliderTimerRef.current = setTimeout(() => {
+          setShowAfter(false);
+          if (!manualToggleRef.current) tick();
+        }, 4000);
       }, 4000);
-    }, 4000);
+    };
+    tick();
   }, []);
 
   useEffect(() => {
@@ -405,6 +410,18 @@ export default function Home() {
       if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
     };
   }, [resetSlider]);
+
+  const handleDemoToggle = (toAfter: boolean) => {
+    manualToggleRef.current = true;
+    if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
+    setShowAfter(toAfter);
+    setSliderRunning(false);
+    // Resume auto-loop after 12 seconds of inactivity
+    setTimeout(() => {
+      manualToggleRef.current = false;
+      resetSlider();
+    }, 12000);
+  };
 
   // ---- 8. Contextual hover tooltips ----
   useEffect(() => {
@@ -687,19 +704,20 @@ export default function Home() {
           {/* Before / After Demo Mockup */}
           <div className="demo-mockup-container">
             <div className="mockup-phone">
-              <div className="mockup-header">
-                <span className={`mockup-state-label ${showAfter ? '' : 'before'}`} style={!showAfter ? {} : { opacity: 0.4 }}>
+              {/* Toggle Buttons */}
+              <div className="demo-toggle-row">
+                <button
+                  className={`demo-toggle-btn ${!showAfter ? 'active' : ''}`}
+                  onClick={() => handleDemoToggle(false)}
+                >
                   {t.whyItWorks.beforeLabel}
-                </span>
-                <span className={`mockup-state-label ${showAfter ? 'after' : ''}`} style={showAfter ? {} : { opacity: 0.4 }}>
+                </button>
+                <button
+                  className={`demo-toggle-btn after ${showAfter ? 'active' : ''}`}
+                  onClick={() => handleDemoToggle(true)}
+                >
                   {t.whyItWorks.afterLabel}
-                </span>
-              </div>
-
-              {/* Progress slider bar */}
-              <div className="mockup-slider-track">
-                <div className={`mockup-slider-fill ${sliderRunning && !showAfter ? 'running' : ''}`} />
-                <div className={`mockup-slider-thumb ${sliderRunning && !showAfter ? 'running' : ''}`} />
+                </button>
               </div>
 
               <div className="mockup-content">
