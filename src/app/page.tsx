@@ -113,6 +113,7 @@ const siteContent = {
       nameLabel: 'Full Name*',
       bizLabel: 'Business Name*',
       phoneLabel: 'Phone/WhatsApp Number*',
+      emailLabel: 'Email Address*',
       typeLabel: 'Business Type',
       types: [
         'Tuition Centre',
@@ -201,7 +202,7 @@ const siteContent = {
       ],
     },
     howItWorks: {
-      title: '3 പടികൾ. 1 ആഴ്ച. യാതൊരു ബുദ്ധിമുട്ടുമില്ല.',
+      title: '3 ലളിതമായ ഘട്ടങ്ങൾ. വെറും ഒരാഴ്ചയ്ക്കുള്ളിൽ പൂർത്തിയാക്കി നൽകുന്നു !',
       subtitle: 'നിങ്ങൾ ബിസിനസ്സ് നോക്കിക്കോളൂ; ഡിജിറ്റൽ കാര്യങ്ങൾ ഞങ്ങൾ ചെയ്തേക്കാം.',
       steps: [
         {
@@ -238,6 +239,7 @@ const siteContent = {
       nameLabel: 'പൂർണ്ണ പേര്*',
       bizLabel: 'ബിസിനസ്സിന്റെ പേര്*',
       phoneLabel: 'ഫോൺ/വാട്സ്ആപ്പ് നമ്പർ*',
+      emailLabel: 'ഇമെയിൽ വിലാസം*',
       typeLabel: 'ബിസിനസ് തരം',
       types: [
         'ട്യൂഷൻ സെന്റർ',
@@ -270,6 +272,8 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAfter, setShowAfter] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
   const [sliderRunning, setSliderRunning] = useState(true);
 
   const navRef = useRef<HTMLElement>(null);
@@ -499,9 +503,37 @@ export default function Home() {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setFormError('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setFormSubmitted(true);
+        form.reset();
+      } else {
+        setFormError(result.error || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      setFormError('An unexpected error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // ---- RENDER ----
@@ -653,7 +685,7 @@ export default function Home() {
             <h2
               className="section-title"
               style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
-              data-hover-ml="3 പടികൾ. 1 ആഴ്ച. യാതൊരു ബുദ്ധിമുട്ടുമില്ല."
+              data-hover-ml="3 ലളിതമായ ഘട്ടങ്ങൾ. വെറും ഒരാഴ്ചയ്ക്കുള്ളിൽ പൂർത്തിയാക്കി നൽകുന്നു !"
             >
               {t.howItWorks.title}
             </h2>
@@ -757,7 +789,7 @@ export default function Home() {
                   <div style={{ background: 'linear-gradient(135deg, rgba(47,158,68,0.06), rgba(15,113,115,0.04))', borderRadius: 12, height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem', color: 'var(--vk-primary-green)', fontWeight: 600, fontSize: '0.9rem' }}>
                     📷 5 Storefront Photos
                   </div>
-                  <div className="mock-info-row verified">✓ +91 70120 25737</div>
+                  <div className="mock-info-row verified">✓ +91 **** ****</div>
                   <div className="mock-info-row verified">✓ Main Road, Near Junction, Kerala</div>
                   <div className="mock-map-area has-pin">📍 Precisely pinned on Google Maps</div>
                 </div>
@@ -823,6 +855,10 @@ export default function Home() {
                     <input type="tel" name="phone" required className="clay-input" />
                   </div>
                   <div className="form-group">
+                    <label>{(t.contact as any).emailLabel || 'Email Address*'}</label>
+                    <input type="email" name="email" required className="clay-input" />
+                  </div>
+                  <div className="form-group">
                     <label>{t.contact.typeLabel}</label>
                     <select name="business_type" className="clay-select">
                       <option value="">Select...</option>
@@ -835,8 +871,13 @@ export default function Home() {
                     <label>{t.contact.msgLabel}</label>
                     <textarea name="message" rows={4} className="clay-input" style={{ resize: 'vertical' }} />
                   </div>
-                  <button type="submit" className="btn-clay-primary full-width lg">
-                    {t.contact.submitBtn}
+                  {formError && (
+                    <div className="form-error" style={{ color: '#ef4444', marginBottom: '1rem', textAlign: 'center', fontSize: '0.875rem' }}>
+                      {formError}
+                    </div>
+                  )}
+                  <button type="submit" className="btn-clay-primary full-width lg" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending...' : t.contact.submitBtn}
                   </button>
                 </form>
               </>
