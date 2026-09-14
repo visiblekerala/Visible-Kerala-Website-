@@ -15,10 +15,17 @@
   --vk-sunset-coral: #FF6B6B;
   --vk-golden-yellow: #FFD23F;
 
-  /* Typography */
+  /* Typography Hierarchy Tokens */
+  /* English Hierarchy */
+  --font-display-en: 'Baloo 2', cursive, sans-serif;
   --font-heading-en: 'Baloo 2', cursive, sans-serif;
+  --font-subhead-en: 'Plus Jakarta Sans', sans-serif;
   --font-body-en: 'Inter', sans-serif;
-  --font-heading-ml: 'Anek Malayalam', sans-serif;
+
+  /* Malayalam Hierarchy */
+  --font-display-ml: 'Baloo Chettan 2', cursive, sans-serif;
+  --font-heading-ml: 'Baloo Chettan 2', cursive, sans-serif;
+  --font-subhead-ml: 'Gayathri', sans-serif;
   --font-body-ml: 'Anek Malayalam', sans-serif;
 
   /* Claymorphic Elevation Tokens */
@@ -53,42 +60,97 @@ body {
   transition: opacity 250ms ease;
 }
 
+/* ========================================
+   MALAYALAM TYPOGRAPHY HIERARCHY
+   ======================================== */
 body.lang-ml-active {
   font-family: var(--font-body-ml);
   line-height: 1.7;
 }
 
+/* Malayalam Display & Main Titles: Baloo Chettan 2 */
 body.lang-ml-active h1,
+body.lang-ml-active .display-title {
+  font-family: var(--font-display-ml);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
 body.lang-ml-active h2,
 body.lang-ml-active h3,
 body.lang-ml-active h4,
-body.lang-ml-active .display-title,
 body.lang-ml-active .section-title,
 body.lang-ml-active .package-name,
 body.lang-ml-active .step-title,
 body.lang-ml-active .portfolio-card-title,
-body.lang-ml-active .renewal-note-title,
-body.lang-ml-active .popular-badge {
+body.lang-ml-active .footer-title {
   font-family: var(--font-heading-ml);
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 
+/* Malayalam Subheadings, Subtitles & Eyebrows: Gayathri */
+body.lang-ml-active .hero-subhead,
+body.lang-ml-active .section-subtitle,
+body.lang-ml-active .contact-subhead,
+body.lang-ml-active .eyebrow-pill {
+  font-family: var(--font-subhead-ml);
+  font-weight: 700;
+}
+
+body.lang-ml-active .hero-subhead {
+  font-size: 1.15rem;
+  line-height: 1.75;
+}
+
+body.lang-ml-active .section-subtitle {
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+body.lang-ml-active .contact-subhead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+body.lang-ml-active .eyebrow-pill {
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+/* Malayalam Body, UI Elements, Buttons & Forms: Anek Malayalam */
+body.lang-ml-active .nav-links a,
+body.lang-ml-active .mobile-nav-menu a,
 body.lang-ml-active button,
 body.lang-ml-active input,
 body.lang-ml-active select,
 body.lang-ml-active textarea,
 body.lang-ml-active .btn-clay-primary,
 body.lang-ml-active .btn-clay-secondary,
-body.lang-ml-active .whatsapp-direct-btn {
+body.lang-ml-active .whatsapp-direct-btn,
+body.lang-ml-active .popular-badge,
+body.lang-ml-active .renewal-note-title,
+body.lang-ml-active .renewal-note-text,
+body.lang-ml-active .package-pitch,
+body.lang-ml-active .package-includes li,
+body.lang-ml-active .step-desc,
+body.lang-ml-active .trust-text,
+body.lang-ml-active .portfolio-preview-box,
+body.lang-ml-active .portfolio-card-location,
+body.lang-ml-active .portfolio-features-list li,
+body.lang-ml-active .clay-tooltip,
+body.lang-ml-active .footer-tagline,
+body.lang-ml-active .footer-serving,
+body.lang-ml-active .copyright {
   font-family: var(--font-body-ml);
 }
 
 /* ========================================
-   TYPOGRAPHY
+   ENGLISH TYPOGRAPHY HIERARCHY
    ======================================== */
 .display-title {
-  font-family: var(--font-heading-en);
+  font-family: var(--font-display-en);
   font-weight: 800;
   line-height: 1.15;
 }
@@ -97,6 +159,18 @@ body.lang-ml-active .whatsapp-direct-btn {
   font-family: var(--font-heading-en);
   font-weight: 800;
   line-height: 1.25;
+}
+
+.hero-subhead,
+.section-subtitle,
+.contact-subhead {
+  font-family: var(--font-subhead-en);
+  font-weight: 500;
+}
+
+.eyebrow-pill {
+  font-family: var(--font-subhead-en);
+  font-weight: 600;
 }
 
 /* ========================================
@@ -158,7 +232,8 @@ body.lang-ml-active .whatsapp-direct-btn {
 .nav-links a {
   text-decoration: none;
   color: var(--vk-ink);
-  font-weight: 500;
+  font-family: var(--font-subhead-en);
+  font-weight: 600;
   font-size: 0.9rem;
   position: relative;
   transition: color 200ms ease;
@@ -259,7 +334,7 @@ body.lang-ml-active .whatsapp-direct-btn {
   gap: 0.5rem;
   background: var(--vk-primary-green);
   color: white;
-  font-family: var(--font-body-en);
+  font-family: var(--font-subhead-en);
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.6rem 1.2rem;
@@ -295,7 +370,7 @@ body.lang-ml-active .whatsapp-direct-btn {
   gap: 0.5rem;
   background: white;
   color: var(--vk-primary-green);
-  font-family: var(--font-body-en);
+  font-family: var(--font-subhead-en);
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.6rem 1.2rem;
@@ -393,6 +468,7 @@ body.lang-ml-active .whatsapp-direct-btn {
 .mobile-nav-menu a {
   text-decoration: none;
   color: var(--vk-ink);
+  font-family: var(--font-subhead-en);
   font-weight: 600;
   font-size: 1.1rem;
   padding: 0.75rem 1rem;
@@ -643,6 +719,7 @@ body.lang-ml-active .whatsapp-direct-btn {
   right: 20px;
   background: var(--vk-golden-yellow);
   color: var(--vk-ink);
+  font-family: var(--font-subhead-en);
   font-size: 0.75rem;
   font-weight: 700;
   padding: 0.3rem 0.9rem;
@@ -1039,7 +1116,7 @@ body.lang-ml-active .whatsapp-direct-btn {
   width: 100%;
   background: #25D366;
   color: white;
-  font-family: var(--font-body-en);
+  font-family: var(--font-subhead-en);
   font-weight: 700;
   font-size: 1.05rem;
   padding: 1rem;
@@ -1193,6 +1270,7 @@ body.lang-ml-active .whatsapp-direct-btn {
 }
 
 .footer-tagline {
+  font-family: var(--font-subhead-en);
   font-size: 0.9rem;
   color: var(--vk-golden-yellow);
   font-weight: 600;
@@ -1394,6 +1472,7 @@ body.lang-ml-active .whatsapp-direct-btn {
 }
 
 .renewal-note-title {
+  font-family: var(--font-subhead-en);
   font-weight: 700;
   font-size: 0.95rem;
   color: var(--vk-deep-green);
