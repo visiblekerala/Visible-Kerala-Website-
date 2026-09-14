@@ -8,108 +8,136 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 const siteContent = {
   en: {
     nav: {
-      services: 'Services',
+      services: 'Packages',
       howItWorks: 'How It Works',
       whyItWorks: 'Why It Works',
+      portfolio: 'Showcase',
       contact: 'Contact',
       cta: 'Chat on WhatsApp',
     },
     hero: {
-      eyebrow: 'Google Business Profile · WhatsApp Business · Social Media',
-      headline: 'From Invisible to Unmissable.',
+      eyebrow: 'Website Design · Hosting Included · Google Visibility',
+      headline: 'From Invisible to Unmissable — Now With a Website to Match.',
       subhead:
-        '9 out of 10 small businesses in Kerala don\'t show up when someone searches for them on Google. We make sure yours does — fully set up in a day, at a price a small shop can afford.',
+        "9 out of 10 small businesses in Kerala either don't have a website, or have one no one can find. We build you a modern, mobile-friendly site — fully live in under a week — at a price that doesn't need a loan.",
       primaryCta: 'Chat on WhatsApp',
       secondaryCta: 'See Packages',
     },
     services: {
-      title: 'Simple Packages. No Surprises.',
-      subtitle: 'Everything you need to get discovered by local customers.',
+      title: 'Simple Packages. Hosting Included. No Hidden Costs.',
+      subtitle:
+        "Everything you need to go from no website to a working one — including the hosting, so you're never stuck figuring out renewals alone.",
       popularBadge: 'Most Popular',
       ctaButton: 'Get Started on WhatsApp',
+      renewalTitle: 'Annual Renewal (From Year 2): ₹1,499/year',
+      renewalText:
+        'From Year 2: ₹1,499/year covers hosting, domain renewal, and minor updates. Cancel anytime — your site and content remain yours.',
       packages: [
         {
-          name: 'Starter',
-          price: '₹499',
-          pitch: 'Get found on Google + WhatsApp.',
+          name: 'Starter Site',
+          price: '₹3,999',
+          pitch: 'Your shop, finally online.',
           includes: [
-            'Google Business Profile setup',
-            'WhatsApp Business setup with auto-reply',
-            'Basic map pinning',
+            'Mobile-friendly website (up to 4 pages)',
+            'Hosting + domain included for Year 1',
+            'Free Google Business Profile + WhatsApp setup',
+            'Delivered in 3–5 days',
           ],
         },
         {
-          name: 'Standard',
-          price: '₹799',
-          pitch: 'Look professional everywhere customers search.',
+          name: 'Business Site',
+          price: '₹6,999',
+          pitch: 'Everything customers look for, in one place.',
           includes: [
             'Everything in Starter',
-            'Custom digital logo cleanup',
-            '5 branded social media posts',
-            'Instagram or Facebook page setup',
+            'Up to 8 pages + photo gallery + testimonials',
+            'Google Maps embed + click-to-WhatsApp button',
+            'Basic local SEO setup',
+            'Delivered in 5–7 days',
           ],
         },
         {
-          name: 'Premium',
-          price: '₹1,299',
-          pitch: 'The complete visibility package.',
+          name: 'Complete Presence',
+          price: '₹11,999',
+          pitch: 'A website that works even while you sleep.',
           includes: [
-            'Everything in Standard',
-            'Full Instagram bio & highlight setup',
-            'Google review automated link system',
-            '1 month of priority support',
-          ],
-        },
-        {
-          name: 'Retainer',
-          price: '₹599/month',
-          pitch: 'Stay visible, every single month.',
-          includes: [
-            '8 custom posts per month',
-            'Customer review reply management',
-            'Ongoing holiday/hours updates',
-            'Cancel anytime with zero fees',
+            'Everything in Business Site',
+            'Online booking / inquiry form with auto-reply',
+            'Instagram feed integration',
+            '1 year of priority support + updates',
+            'Delivered in 7–10 days',
           ],
         },
       ],
     },
     howItWorks: {
-      title: 'Three Steps. One Week. Zero Hassle.',
-      subtitle: 'You run your business; we handle the digital setup.',
+      title: "Three Steps. One Week. A Website That's Actually Yours.",
+      subtitle:
+        'You run your business; we handle the design, coding, domain, and hosting.',
       steps: [
         {
-          title: '1. We Check',
-          desc: 'We search your business live and show you exactly what customers see today — good or bad.',
+          title: '1. We Understand',
+          desc: 'We learn about your business — what you sell, your photos, your style — over a quick WhatsApp chat.',
           icon: '🔍',
         },
         {
           title: '2. We Build',
-          desc: 'Google Business Profile, WhatsApp Business, and your social pages — set up properly, usually within a day.',
+          desc: 'Your website is designed and built — usually ready to review within days, not weeks.',
           icon: '🛠️',
         },
         {
-          title: "3. You're Found",
-          desc: "Customers searching nearby now find you — number, hours, and photos, right there on Google Maps.",
-          icon: '📍',
+          title: '3. You Go Live',
+          desc: 'You review it, we make small changes if needed, and it goes live — hosting already handled.',
+          icon: '🚀',
         },
       ],
     },
     whyItWorks: {
-      title: "Built For Kerala's Local Businesses",
+      title: "Built for Kerala's Small Businesses. No Jargon, No Surprises.",
       subtitle:
-        "No confusing jargon. Just real results you can see on your own phone.",
-      beforeLabel: 'Without Visible Kerala',
-      afterLabel: 'With Visible Kerala',
+        'Real websites that bring real customers to your shop or service.',
+      beforeLabel: 'Without A Modern Website',
+      afterLabel: 'With Visible Kerala Website',
       trustPoints: [
-        'Pay only after you see your profile live on Google.',
-        'We use Google, WhatsApp, and Instagram — the same free tools trusted by millions worldwide.',
-        'You keep full 100% ownership — every account stays securely in your name, always.',
+        'Pay only after you see your website live and working.',
+        'Hosting is included — no separate bill to chase down every year.',
+        'You keep full ownership — your domain, your content, always in your name.',
+      ],
+    },
+    portfolio: {
+      title: 'Websites Crafted for Kerala Businesses',
+      subtitle:
+        'Clean layouts tailored for our local shops, clinics, homestays, and boutiques.',
+      viewLiveNotice: 'Custom built for mobile & desktop with WhatsApp ordering',
+      items: [
+        {
+          title: 'Malabar Delights Bakery & Cafe',
+          location: 'Calicut, Kerala',
+          tag: 'Food & Dining',
+          desc: 'Mouthwatering photo menu with instant WhatsApp cake & snack orders.',
+          features: ['Bilingual Menu', 'WhatsApp Direct Order', 'Google Reviews'],
+        },
+        {
+          title: 'Royal Palm Ayurvedic Homestay',
+          location: 'Wayanad, Kerala',
+          tag: 'Tourism & Stays',
+          desc: 'Cottage tour gallery with inquiry booking and precise Google Maps pin.',
+          features: ['Photo Gallery', 'Instant Inquiry Form', 'Google Maps Pin'],
+        },
+        {
+          title: 'Aura Bridal Boutique & Tailoring',
+          location: 'Kochi, Kerala',
+          tag: 'Fashion & Retail',
+          desc: 'Designer saree lookbook with custom stitching appointment via WhatsApp.',
+          features: ['Lookbook Showcase', 'Measurement Chat', 'Instagram Feed'],
+        },
       ],
     },
     contact: {
-      title: "Let's Get You Found.",
+      title: "Let's Build Your Website.",
       subhead:
         'Message us on WhatsApp for the fastest reply, or fill out the form below.',
+      primaryCta: 'Chat on WhatsApp',
       nameLabel: 'Full Name*',
       bizLabel: 'Business Name*',
       phoneLabel: 'Phone/WhatsApp Number*',
@@ -123,6 +151,7 @@ const siteContent = {
         'Clinic / Pharmacy',
         'Hardware / Auto Shop',
         'Tailoring / Boutique',
+        'Restaurant / Cafe',
         'Other',
       ],
       msgLabel: 'Message (Optional)',
@@ -131,140 +160,180 @@ const siteContent = {
         "Thanks! We'll reach out to your WhatsApp within a few hours.",
       footerServing:
         'Serving small businesses across all 14 districts of Kerala.',
+      footerTagline:
+        'Visible Kerala — From Invisible to Unmissable. Serving small businesses across all 14 districts of Kerala.',
     },
   },
   ml: {
     nav: {
       services: 'സേവനങ്ങൾ',
-      howItWorks: 'പ്രവർത്തനരീതി',
-      whyItWorks: 'എന്തുകൊണ്ട് ഞങ്ങൾ?',
+      howItWorks: 'പ്രവർത്തന രീതി',
+      whyItWorks: 'പ്രത്യേകതകൾ',
+      portfolio: 'മാതൃകകൾ',
       contact: 'ബന്ധപ്പെടുക',
-      cta: 'വാട്സ്ആപ്പിൽ സംസാരിക്കാം',
+      cta: 'WhatsApp ചാറ്റ്',
     },
     hero: {
-      eyebrow:
-        'ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ · വാട്സ്ആപ്പ് ബിസിനസ് · സോഷ്യൽ മീഡിയ',
-      headline: 'അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!',
+      eyebrow: 'വെബ്സൈറ്റ് ഡിസൈൻ | ഹോസ്റ്റിംഗ് ഉൾപ്പെടെ | ഗൂഗിളിൽ ഒന്നാമതെത്താൻ',
+      headline: 'നിങ്ങളുടെ ബിസിനസ്സ് ഇനി എല്ലാവരും കാണും, അറിയും!',
       subhead:
-        'കേരളത്തിലെ 10-ൽ 9 ചെറുകിട സംരംഭങ്ങളും ഗൂഗിളിൽ തിരയുമ്പോൾ കാണാറില്ല. നിങ്ങളുടെ സ്ഥാപനം ഉപഭോക്താക്കൾ എളുപ്പത്തിൽ കണ്ടെത്താൻ ഞങ്ങൾ സഹായിക്കുന്നു — ചെറിയ ചെലവിൽ, ഒറ്റ ദിവസം കൊണ്ട് പൂർണ്ണമായും സജ്ജമാക്കാം.',
-      primaryCta: 'വാട്സ്ആപ്പിൽ സംസാരിക്കാം',
+        `നിങ്ങളുടെ ബിസിനസ്സ് യാഥാർത്ഥ്യമാണ്, വെബ്സൈറ്റും അങ്ങനെയാവട്ടെ. വെറും 2 ദിവസത്തിനുള്ളിൽ നിങ്ങളുടെ സ്വന്തം വെബ്സൈറ്റ് റെഡിയാക്കാം.
+
+കേരളത്തിലെ ഭൂരിഭാഗം ചെറുകിട ബിസിനസുകൾക്കും മികച്ചൊരു വെബ്സൈറ്റ് ഇല്ല എന്നതാണ് സത്യം. എന്നാൽ ഇനി അത് മാറും. മൊബൈൽ ഫോണുകളിൽ ഉൾപ്പെടെ മികച്ച രീതിയിൽ പ്രവർത്തിക്കുന്ന, ആകർഷകമായ ഒരു വെബ്സൈറ്റ് ഞങ്ങൾ നിർമ്മിച്ച് നൽകാം. അതും വെറും 2 ദിവസത്തിനുള്ളിൽ, നിങ്ങളുടെ ബജറ്റിലൊതുങ്ങുന്ന നിരക്കിൽ!`,
+      primaryCta: 'WhatsApp-ൽ മെസ്സേജ് അയക്കൂ',
       secondaryCta: 'പാക്കേജുകൾ കാണുക',
     },
     services: {
-      title: 'ലളിതമായ പാക്കേജുകൾ. മറഞ്ഞിരിക്കുന്ന ചെലവുകളില്ല.',
-      subtitle: 'നാട്ടിലെ ഉപഭോക്താക്കൾ നിങ്ങളെ കണ്ടെത്താൻ വേണ്ടതെല്ലാം.',
+      title: 'ലളിതമായ പാക്കേജുകൾ. ഒളിഞ്ഞിരിക്കുന്ന യാതൊരു ചിലവുകളുമില്ല.',
+      subtitle:
+        'നിങ്ങളുടെ ബിസിനസ്സിന് ഏറ്റവും അനുയോജ്യമായ പാക്കേജ് തിരഞ്ഞെടുക്കാം. ഹോസ്റ്റിംഗ് ഉൾപ്പെടെയുള്ള സേവനങ്ങൾ ലഭിക്കുന്നതിനാൽ സാങ്കേതിക കാര്യങ്ങളെയോർത്ത് നിങ്ങൾ ആശങ്കപ്പെടേണ്ടതില്ല.',
       popularBadge: 'ഏറ്റവും ജനപ്രിയം',
-      ctaButton: 'വാട്സ്ആപ്പിൽ തുടങ്ങാം',
+      ctaButton: 'WhatsApp-ൽ മെസ്സേജ് അയക്കൂ',
+      renewalTitle: 'രണ്ടാം വർഷം മുതൽ: പ്രതിവർഷം വെറും ₹1,499 മാത്രം',
+      renewalText:
+        'രണ്ടാം വർഷം മുതൽ: ഹോസ്റ്റിംഗ്, ഡൊമെയ്ൻ പുതുക്കൽ, ചെറിയ അപ്ഡേറ്റുകൾ എന്നിവയ്ക്കായി പ്രതിവർഷം വെറും ₹1,499 മാത്രം. എപ്പോൾ വേണമെങ്കിലും സേവനം അവസാനിപ്പിക്കാം — വെബ്സൈറ്റിന്റെ പൂർണ്ണ അവകാശം എപ്പോഴും നിങ്ങൾക്ക് തന്നെയായിരിക്കും.',
       packages: [
         {
-          name: 'സ്റ്റാർട്ടർ',
-          price: '₹499',
-          pitch: 'ഗൂഗിളിലും വാട്സ്ആപ്പിലും നിങ്ങളുടെ സാന്നിധ്യം ഉറപ്പാക്കാം.',
+          name: 'സ്റ്റാർട്ടർ സൈറ്റ്',
+          price: '₹3,999',
+          pitch: 'തുടക്കക്കാർക്ക് അനുയോജ്യം',
           includes: [
-            'ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ നിർമ്മാണം',
-            'ഓട്ടോ-റിപ്ലൈ സഹിതം വാട്സ്ആപ്പ് ബിസിനസ് സജ്ജീകരണം',
-            'ഗൂഗിൾ മാപ്പിൽ കൃത്യമായ സ്ഥാനം ചേർക്കൽ',
+            '4 പേജുകൾ വരെ മൊബൈൽ ഫ്രണ്ട്ലി സൈറ്റ്',
+            'ഹോസ്റ്റിംഗും ഡൊമെയ്നും (ആദ്യ വർഷം സൗജന്യം)',
+            'ഗൂഗിൾ പ്രൊഫൈൽ + WhatsApp സെറ്റപ്പ്',
+            'ഡെലിവറി: വെറും 2 ദിവസത്തിനുള്ളിൽ',
           ],
         },
         {
-          name: 'സ്റ്റാൻഡേർഡ്',
-          price: '₹799',
-          pitch: 'ഉപഭോക്താക്കൾ തിരയുമ്പോഴെല്ലാം മികച്ച പ്രൊഫഷണൽ ലുക്ക്.',
+          name: 'ബിസിനസ് സൈറ്റ്',
+          price: '₹6,999',
+          pitch: 'ഏറ്റവും ജനപ്രിയം',
           includes: [
-            'സ്റ്റാർട്ടർ പാക്കേജിലെ എല്ലാം',
-            'ഡിജിറ്റൽ ലോഗോ ക്ലീൻ-അപ്പ്',
-            'ബിസിനസ്സിനായി 5 സോഷ്യൽ മീഡിയ പോസ്റ്റുകൾ',
-            'ഇൻസ്റ്റാഗ്രാം അല്ലെങ്കിൽ ഫേസ്ബുക്ക് പേജ് നിർമ്മാണം',
+            '8 പേജുകൾ വരെ + ഗാലറി + റിവ്യൂസ്',
+            'ഹോസ്റ്റിംഗും ഡൊമെയ്നും (ആദ്യ വർഷം സൗജന്യം)',
+            'ഗൂഗിൾ പ്രൊഫൈലും മാപ്പും + ലോക്കൽ SEO',
+            'ഒറ്റ ക്ലിക്കിൽ WhatsApp മെസ്സേജ്',
+            'ഡെലിവറി: വെറും 2 ദിവസത്തിനുള്ളിൽ',
           ],
         },
         {
-          name: 'പ്രീമിയം',
-          price: '₹1,299',
-          pitch: 'ബിസിനസ്സ് വളർത്താൻ സമഗ്രമായ വിസിബിലിറ്റി പാക്കേജ്.',
+          name: 'കംപ്ലീറ്റ് പ്രെസൻസ്',
+          price: '₹11,999',
+          pitch: 'വിപുലമായ ബിസിനസ്സുകൾക്ക്',
           includes: [
-            'സ്റ്റാൻഡേർഡ് പാക്കേജിലെ എല്ലാം',
-            'പൂർണ്ണമായ ഇൻസ്റ്റാഗ്രാം ബയോ & ഹൈലൈറ്റ് സജ്ജീകരണം',
-            'ഗൂഗിൾ റിവ്യൂ വർദ്ധിപ്പിക്കാനുള്ള ഓട്ടോമാറ്റിക് ലിങ്ക് സിസ്റ്റം',
-            '1 മാസത്തെ മുൻഗണനാ സപ്പോർട്ട്',
-          ],
-        },
-        {
-          name: 'റിട്ടൈനർ',
-          price: '₹599/month',
-          pitch: 'ഓരോ മാസവും സജീവമായി നിലനിൽക്കാം, പുതിയ കസ്റ്റമേഴ്സിനെ നേടാം.',
-          includes: [
-            'മാസം തോറും 8 കസ്റ്റം ഡിസൈൻ പോസ്റ്റുകൾ',
-            'കസ്റ്റമർ റിവ്യൂകൾക്ക് കൃത്യമായ മറുപടി നൽകൽ',
-            'അവധി ദിനങ്ങളും പ്രവൃത്തി സമയവും അപ്ഡേറ്റ് ചെയ്യൽ',
-            'എപ്പോൾ വേണമെങ്കിലും കാൻസൽ ചെയ്യാം, അധിക ചാർജ്ജില്ല',
+            '8+ പേജുകൾ + ബിസിനസ്സ് ടൂളുകൾ',
+            'ഓൺലൈൻ ബുക്കിംഗ് + ഇൻസ്റ്റാഗ്രാം ഫീഡ്',
+            'ഹോസ്റ്റിംഗും ഡൊമെയ്നും (ആദ്യ വർഷം സൗജന്യം)',
+            'ഗൂഗിൾ പ്രൊഫൈലും മാപ്പും + WhatsApp',
+            'ഡെലിവറി: വെറും 2 ദിവസത്തിനുള്ളിൽ',
           ],
         },
       ],
     },
     howItWorks: {
-      title: '3 ലളിതമായ ഘട്ടങ്ങൾ. വെറും ഒരാഴ്ചയ്ക്കുള്ളിൽ പൂർത്തിയാക്കി നൽകുന്നു !',
-      subtitle: 'നിങ്ങൾ ബിസിനസ്സ് നോക്കിക്കോളൂ; ഡിജിറ്റൽ കാര്യങ്ങൾ ഞങ്ങൾ ചെയ്തേക്കാം.',
+      title: 'വെറും 3 ഘട്ടങ്ങൾ, 2 ദിവസം. നിങ്ങളുടെ സ്വന്തം വെബ്സൈറ്റ് റെഡി!',
+      subtitle:
+        'നിങ്ങൾ ബിസിനസ്സ് നോക്കിക്കോളൂ; ഡിസൈനും കോഡിംഗും ഹോസ്റ്റിംഗും ഞങ്ങൾ ചെയ്തേക്കാം.',
       steps: [
         {
-          title: '1. ഞങ്ങൾ പരിശോധിക്കുന്നു',
-          desc: 'നിങ്ങളുടെ ബിസിനസ്സ് നിലവിൽ ഗൂഗിളിൽ തിരഞ്ഞു നോക്കി ഉപഭോക്താക്കൾ എന്താണ് കാണുന്നതെന്ന് ഞങ്ങൾ കൃത്യമായി കാണിച്ചു തരുന്നു.',
+          title: 'ഘട്ടം 1: ഞങ്ങൾ നിങ്ങളെ കേൾക്കുന്നു',
+          desc: 'WhatsApp-ലൂടെ നിങ്ങളുടെ ബിസിനസ്സിനെക്കുറിച്ചും ഉൽപ്പന്നങ്ങളെക്കുറിച്ചും ശൈലിയെക്കുറിച്ചും ഞങ്ങൾ ചോദിച്ചറിയുന്നു.',
           icon: '🔍',
         },
         {
-          title: '2. ഞങ്ങൾ നിർമ്മിക്കുന്നു',
-          desc: 'ഗൂഗിൾ ബിസിനസ് പ്രൊഫൈൽ, വാട്സ്ആപ്പ് ബിസിനസ്, സോഷ്യൽ മീഡിയ പേജുകൾ എന്നിവ സാധാരണയായി ഒറ്റ ദിവസം കൊണ്ട് കൃത്യമായി സജ്ജമാക്കുന്നു.',
+          title: 'ഘട്ടം 2: ഞങ്ങൾ നിർമ്മിക്കുന്നു',
+          desc: 'നിങ്ങളുടെ വിവരങ്ങളുടെ അടിസ്ഥാനത്തിൽ ഏറ്റവും മികച്ച രീതിയിൽ വെബ്സൈറ്റ് ഡിസൈൻ ചെയ്യുന്നു. ആഴ്ചകളല്ല, വെറും 2 ദിവസം മതി!',
           icon: '🛠️',
         },
         {
-          title: '3. ഉപഭോക്താക്കൾ കണ്ടെത്തുന്നു',
-          desc: 'അടുത്തുള്ള കസ്റ്റമേഴ്സ് തിരയുമ്പോൾ ഫോൺ നമ്പർ, പ്രവൃത്തി സമയം, ഫോട്ടോകൾ എന്നിവ സഹിതം ഗൂഗിൾ മാപ്പിൽ നിങ്ങളെ ആദ്യം കാണുന്നു.',
-          icon: '📍',
+          title: 'ഘട്ടം 3: വെബ്സൈറ്റ് ലൈവാകുന്നു',
+          desc: 'നിർമ്മാണം പൂർത്തിയായ വെബ്സൈറ്റ് നിങ്ങൾ പരിശോധിക്കുന്നു. ആവശ്യമായ മാറ്റങ്ങൾ വരുത്തിയ ശേഷം നിങ്ങളുടെ വെബ്സൈറ്റ് ലോകത്തിന് മുന്നിൽ സമർപ്പിക്കുന്നു.',
+          icon: '🚀',
         },
       ],
     },
     whyItWorks: {
-      title: 'കേരളത്തിലെ ചെറുകിട വ്യാപാരികൾക്കായി തയ്യാറാക്കിയത്',
-      subtitle: 'സങ്കീർണ്ണമായ സാങ്കേതിക പദങ്ങളില്ല. നിങ്ങളുടെ സ്വന്തം ഫോണിൽ കാണാൻ കഴിയുന്ന യഥാർത്ഥ മാറ്റങ്ങൾ.',
-      beforeLabel: 'വിസിബിൾ കേരള ഇല്ലാതെ',
-      afterLabel: 'വിസിബിൾ കേരളയ്‌ക്കൊപ്പം',
+      title: 'കേരളത്തിലെ ചെറുകിട ബിസിനസ്സുകൾക്ക് ഏറ്റവും വിശ്വസിക്കാവുന്ന വെബ് ഡിസൈൻ പങ്കാളി',
+      subtitle:
+        'നിങ്ങളുടെ സ്വന്തം ഫോണിൽ കാണാൻ കഴിയുന്ന യഥാർത്ഥ മാറ്റങ്ങൾ.',
+      beforeLabel: 'ആധുനിക വെബ്സൈറ്റ് ഇല്ലാത്ത അവസ്ഥ',
+      afterLabel: 'വിസിബിൾ കേരള വെബ്സൈറ്റ് ഉള്ള അവസ്ഥ',
       trustPoints: [
-        'നിങ്ങളുടെ പ്രൊഫൈൽ ഗൂഗിളിൽ ലൈവായി കണ്ടതിന് ശേഷം മാത്രം പണം നൽകിയാൽ മതി.',
-        'ലോകമെമ്പാടുമുള്ള കോടിക്കണക്കിന് ബിസിനസുകൾ വിശ്വസിക്കുന്ന ഗൂഗിൾ, വാട്സ്ആപ്പ്, ഇൻസ്റ്റാഗ്രാം എന്നിവയുടെ സൗജന്യ ടൂളുകൾ മാത്രം ഉപയോഗിക്കുന്നു.',
-        '100% ഉടമസ്ഥാവകാശം നിങ്ങൾക്ക് തന്നെ — എല്ലാ അക്കൗണ്ടുകളും എപ്പോഴും നിങ്ങളുടെ സ്വന്തം പേരിലായിരിക്കും.',
+        'പണം പിന്നീട് നൽകാം: നിങ്ങളുടെ വെബ്സൈറ്റ് ലൈവ് ആയ ശേഷം മാത്രം പണം നൽകിയാൽ മതി.',
+        'എല്ലാം ഉൾപ്പെടുന്ന സേവനം: ഹോസ്റ്റിംഗ് ഉൾപ്പെടെയുള്ളവ പാക്കേജിൽ ഉള്ളതിനാൽ മറ്റ് സാങ്കേതിക ബില്ലുകളെക്കുറിച്ച് പേടിക്കേണ്ട.',
+        'പൂർണ്ണ ഉടമസ്ഥാവകാശം: നിങ്ങളുടെ ഡൊമെയ്നും അതിലെ വിവരങ്ങളും പൂർണ്ണമായും നിങ്ങളുടെ പേരിൽ തന്നെയായിരിക്കും.',
+      ],
+    },
+    portfolio: {
+      title: 'കേരളത്തിലെ ബിസിനസ്സുകൾക്കായി രൂപകൽപ്പന ചെയ്തവ',
+      subtitle:
+        'നാട്ടിലെ കടകൾക്കും സ്ഥാപനങ്ങൾക്കും അനുയോജ്യമായ പ്രത്യേക മാതൃകകൾ.',
+      viewLiveNotice: 'മൊബൈലിലും കമ്പ്യൂട്ടറിലും WhatsApp ഓർഡറിംഗോടെ പ്രവർത്തിക്കുന്നു',
+      items: [
+        {
+          title: 'മലബാർ ഡിലൈറ്റ്സ് ബേക്കറി & കഫേ',
+          location: 'കോഴിക്കോട്',
+          tag: 'ഭക്ഷണശാല',
+          desc: 'മനോഹരമായ ഫോട്ടോ മെനുവും തത്സമയ WhatsApp ഓർഡറിംഗും.',
+          features: ['ദ്വിഭാഷാ മെനു', 'നേരിട്ട് WhatsApp ഓർഡറിംഗ്', 'ഗൂഗിൾ റിവ്യൂകൾ'],
+        },
+        {
+          title: 'റോയൽ പാം ആയുർവേദിക് ഹോംസ്റ്റേ',
+          location: 'വയനാട്',
+          tag: 'ടൂറിസം & താമസം',
+          desc: 'കോർട്ടേജ് ഫോട്ടോ ഗാലറിയും കൃത്യമായ ഗൂഗിൾ മാപ്പ് ലൊക്കേഷനും.',
+          features: ['ഫോട്ടോ ഗാലറി', 'ഡയറക്റ്റ് ബുക്കിംഗ് ഫോം', 'ഗൂഗിൾ മാപ്സ് ലൊക്കേറ്റർ'],
+        },
+        {
+          title: 'ഓറ ബ്രൈഡൽ ബോട്ടീക് & ടെയ്‌ലറിംഗ്',
+          location: 'കൊച്ചി',
+          tag: 'ഫാഷൻ & റീട്ടെയിൽ',
+          desc: 'ഡിസൈനർ സാരി കളക്ഷനുകളും WhatsApp വഴി തയ്യൽ അളവ് അന്വേഷണങ്ങളും.',
+          features: ['ലേറ്റസ്റ്റ് കളക്ഷൻ ലുക്ക്ബുക്ക്', 'അളവ് അന്വേഷണം', 'ഇൻസ്റ്റാഗ്രാം ഫീഡ്'],
+        },
       ],
     },
     contact: {
-      title: 'നിങ്ങളുടെ ബിസിനസ്സും ഓൺലൈനിലെത്തിക്കാം.',
-      subhead: 'ഏറ്റവും വേഗത്തിൽ മറുപടി ലഭിക്കാൻ വാട്സ്ആപ്പിൽ മെസ്സേജ് അയയ്ക്കൂ, അല്ലെങ്കിൽ താഴെയുള്ള ഫോം പൂരിപ്പിക്കൂ.',
-      nameLabel: 'പൂർണ്ണ പേര്*',
+      title: 'നിങ്ങളുടെ വെബ്സൈറ്റ് നിർമ്മാണം ഇന്നേ തുടങ്ങാം!',
+      subhead:
+        'വേഗത്തിൽ മറുപടി ലഭിക്കാൻ WhatsApp വഴി സന്ദേശമയക്കുകയോ താഴെയുള്ള ഫോം പൂരിപ്പിക്കുകയോ ചെയ്യുക.',
+      primaryCta: 'WhatsApp-ൽ മെസ്സേജ് അയക്കൂ',
+      nameLabel: 'പൂർണ്ണ നാമം*',
       bizLabel: 'ബിസിനസ്സിന്റെ പേര്*',
-      phoneLabel: 'ഫോൺ/വാട്സ്ആപ്പ് നമ്പർ*',
-      emailLabel: 'ഇമെയിൽ വിലാസം*',
-      typeLabel: 'ബിസിനസ് തരം',
+      phoneLabel: 'ഫോൺ / WhatsApp നമ്പർ*',
+      emailLabel: 'ഇമെയിൽ ഐഡി*',
+      typeLabel: 'ബിസിനസ്സ് തരം',
       types: [
         'ട്യൂഷൻ സെന്റർ',
         'സലൂൺ / ബ്യൂട്ടി പാർലർ',
         'ഹോംസ്റ്റേ / ലോഡ്ജ്',
         'ബേക്കറി / കാറ്ററിംഗ്',
         'ക്ലിനിക് / ഫാർമസി',
-        'ഹാർഡ്‌വെയർ / ഓട്ടോ ഷോപ്പ്',
-        'ടെയ്‌ലറിംഗ് / ബോട്ടീക്',
+        'ഹാർഡ്‌വെയർ / ഓട്ടോമൊബൈൽ ഷോപ്പ്',
+        'ടെയ്‌ലറിംഗ് / ബൊട്ടീക്ക്',
+        'റെസ്റ്റോറന്റ് / കഫേ',
         'മറ്റുള്ളവ',
       ],
-      msgLabel: 'സന്ദേശം (ആവശ്യമെങ്കിൽ മാത്രം)',
-      submitBtn: 'സന്ദേശം അയയ്ക്കൂ',
-      successMsg: 'നന്ദി! ഏതാനും മണിക്കൂറുകൾക്കുള്ളിൽ ഞങ്ങൾ വാട്സ്ആപ്പിൽ ബന്ധപ്പെടുന്നതാണ്.',
-      footerServing: 'കേരളത്തിലെ 14 ജില്ലകളിലുമുള്ള ചെറുകിട സംരംഭങ്ങൾക്ക് അഭിമാനത്തോടെ സേവനം നൽകുന്നു.',
+      msgLabel: 'നിങ്ങളുടെ സന്ദേശം (ഓപ്ഷണൽ)',
+      submitBtn: 'സന്ദേശം അയക്കുക',
+      successMsg:
+        'നന്ദി! ഏതാനും മണിക്കൂറുകൾക്കുള്ളിൽ ഞങ്ങൾ WhatsApp-ൽ ബന്ധപ്പെടുന്നതാണ്.',
+      footerServing:
+        'കേരളത്തിലെ 14 ജില്ലകളിലുമുള്ള ചെറുകിട ബിസിനസ്സുകൾക്ക് വിശ്വാസ്യതയോടെ സേവനം നൽകുന്നു.',
+      footerTagline:
+        'നിങ്ങളുടെ ബിസിനസ്സ് ഇനി എല്ലാവരും കാണും, അറിയും!',
+      copyright:
+        '© 2026 Visible Kerala. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.',
     },
   },
 };
 
 const WA_BASE = 'https://wa.me/917012025737?text=';
 const WA_MSG_DEFAULT = encodeURIComponent(
-  "Hi! I'd like to know more about getting my business visible on Google."
+  "Hi! I'd like to get a modern website built for my business with Visible Kerala."
 );
-const WA_MSG_PKG = (name: string) =>
-  encodeURIComponent(`Hi! I'm interested in the ${name} package for my business.`);
+const WA_MSG_PKG = (name: string, price: string) =>
+  encodeURIComponent(`Hi! I'm interested in the ${name} package (${price}) for my business.`);
 
 export default function Home() {
   const [lang, setLang] = useState<'en' | 'ml'>('en');
@@ -274,16 +343,13 @@ export default function Home() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
-  const [sliderRunning, setSliderRunning] = useState(true);
 
   const navRef = useRef<HTMLElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
   const sliderTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const packagesGridRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const workflowSectionRef = useRef<HTMLDivElement>(null);
 
   const t = siteContent[lang];
 
@@ -291,7 +357,9 @@ export default function Home() {
   useEffect(() => {
     const saved = localStorage.getItem('vk_lang');
     if (saved === 'ml' || saved === 'en') {
-      setLang(saved);
+      requestAnimationFrame(() => {
+        setLang(saved);
+      });
     }
   }, []);
 
@@ -308,7 +376,7 @@ export default function Home() {
   // ---- 3. Sticky nav scroll behavior ----
   useEffect(() => {
     const onScroll = () => {
-      setNavScrolled(window.scrollY > 100);
+      setNavScrolled(window.scrollY > 80);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -323,33 +391,7 @@ export default function Home() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // ---- 5. SVG path scroll drawing ----
-  useEffect(() => {
-    const path = pathRef.current;
-    if (!path) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = `${len} ${len}`;
-    path.style.strokeDashoffset = String(len);
-
-    const onScroll = () => {
-      if (!workflowSectionRef.current) return;
-      const rect = workflowSectionRef.current.getBoundingClientRect();
-      const sectionTop = rect.top + window.scrollY;
-      const sectionHeight = rect.height;
-      const scrollProgress = Math.max(
-        0,
-        Math.min(1, (window.scrollY - sectionTop + window.innerHeight * 0.6) / sectionHeight)
-      );
-      const drawLen = len * scrollProgress * 1.4;
-      path.style.strokeDashoffset = String(Math.max(0, len - drawLen));
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // ---- 6. Intersection Observer for scroll reveals & step animations ----
+  // ---- 5. Intersection Observer for scroll reveals & step animations ----
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -359,7 +401,7 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
 
     document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
@@ -372,11 +414,11 @@ export default function Home() {
             const idx = Number(entry.target.getAttribute('data-step-idx'));
             setTimeout(() => {
               entry.target.classList.add('visible');
-            }, idx * 300);
+            }, idx * 250);
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     stepRefs.current.forEach((el) => {
@@ -389,45 +431,46 @@ export default function Home() {
     };
   }, []);
 
-  // ---- 7. Before/After toggle with auto-loop ----
+  // ---- 6. Before/After toggle with auto-loop ----
   const manualToggleRef = useRef(false);
 
-  const resetSlider = useCallback(() => {
-    if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
-    setShowAfter(false);
-    setSliderRunning(true);
+  useEffect(() => {
     const tick = () => {
       sliderTimerRef.current = setTimeout(() => {
         setShowAfter(true);
         sliderTimerRef.current = setTimeout(() => {
           setShowAfter(false);
           if (!manualToggleRef.current) tick();
-        }, 4000);
-      }, 4000);
+        }, 4500);
+      }, 4500);
     };
     tick();
-  }, []);
 
-  useEffect(() => {
-    resetSlider();
     return () => {
       if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
     };
-  }, [resetSlider]);
+  }, []);
 
   const handleDemoToggle = (toAfter: boolean) => {
     manualToggleRef.current = true;
     if (sliderTimerRef.current) clearTimeout(sliderTimerRef.current);
     setShowAfter(toAfter);
-    setSliderRunning(false);
-    // Resume auto-loop after 12 seconds of inactivity
     setTimeout(() => {
       manualToggleRef.current = false;
-      resetSlider();
+      const tick = () => {
+        sliderTimerRef.current = setTimeout(() => {
+          setShowAfter(true);
+          sliderTimerRef.current = setTimeout(() => {
+            setShowAfter(false);
+            if (!manualToggleRef.current) tick();
+          }, 4500);
+        }, 4500);
+      };
+      tick();
     }, 12000);
   };
 
-  // ---- 8. Contextual hover tooltips ----
+  // ---- 7. Contextual hover tooltips ----
   useEffect(() => {
     const tooltip = tooltipRef.current;
     if (!tooltip) return;
@@ -461,7 +504,7 @@ export default function Home() {
     };
   }, [lang]);
 
-  // ---- 9. 3D Card tilt effect ----
+  // ---- 8. 3D Card tilt effect ----
   useEffect(() => {
     const cards = cardRefs.current;
     const handlers: Array<{ el: HTMLAnchorElement; onMove: (e: MouseEvent) => void; onLeave: () => void }> = [];
@@ -474,9 +517,9 @@ export default function Home() {
         const y = e.clientY - rect.top;
         const cx = rect.width / 2;
         const cy = rect.height / 2;
-        const rotX = ((y - cy) / cy) * -6;
-        const rotY = ((x - cx) / cx) * 6;
-        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-5px)`;
+        const rotX = ((y - cy) / cy) * -5;
+        const rotY = ((x - cx) / cx) * 5;
+        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
         card.style.boxShadow = 'var(--clay-card-hover)';
       };
       const onLeave = () => {
@@ -494,7 +537,7 @@ export default function Home() {
         el.removeEventListener('mouseleave', onLeave);
       });
     };
-  }, [lang]); // rebind when lang changes (cards re-render)
+  }, [lang]);
 
   // ---- Helpers ----
   const toggleLang = () => {
@@ -536,10 +579,9 @@ export default function Home() {
     }
   };
 
-  // ---- RENDER ----
   return (
     <>
-      {/* Tooltip element */}
+      {/* Context Tooltip */}
       <div ref={tooltipRef} className="clay-tooltip" />
 
       {/* ===== STICKY NAVIGATION ===== */}
@@ -551,9 +593,10 @@ export default function Home() {
           </a>
 
           <nav className="nav-links">
-            <a href="#services" data-hover-ml="സേവനങ്ങൾ">{t.nav.services}</a>
-            <a href="#how-it-works" data-hover-ml="പ്രവർത്തനരീതി">{t.nav.howItWorks}</a>
-            <a href="#why-it-works" data-hover-ml="എന്തുകൊണ്ട് ഞങ്ങൾ?">{t.nav.whyItWorks}</a>
+            <a href="#packages" data-hover-ml="പാക്കേജുകൾ">{t.nav.services}</a>
+            <a href="#how-it-works" data-hover-ml="പ്രവർത്തന രീതി">{t.nav.howItWorks}</a>
+            <a href="#why-it-works" data-hover-ml="പ്രത്യേകതകൾ">{t.nav.whyItWorks}</a>
+            <a href="#showcase" data-hover-ml="മാതൃകകൾ">{t.nav.portfolio}</a>
             <a href="#contact" data-hover-ml="ബന്ധപ്പെടുക">{t.nav.contact}</a>
           </nav>
 
@@ -592,9 +635,10 @@ export default function Home() {
 
       {/* Mobile Menu */}
       <div className={`mobile-nav-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <a href="#services" onClick={closeMobileMenu}>{t.nav.services}</a>
+        <a href="#packages" onClick={closeMobileMenu}>{t.nav.services}</a>
         <a href="#how-it-works" onClick={closeMobileMenu}>{t.nav.howItWorks}</a>
         <a href="#why-it-works" onClick={closeMobileMenu}>{t.nav.whyItWorks}</a>
+        <a href="#showcase" onClick={closeMobileMenu}>{t.nav.portfolio}</a>
         <a href="#contact" onClick={closeMobileMenu}>{t.nav.contact}</a>
       </div>
 
@@ -609,12 +653,12 @@ export default function Home() {
             <span className="eyebrow-pill">{t.hero.eyebrow}</span>
             <h1
               className="display-title"
-              style={{ fontSize: 'clamp(2rem, 5.5vw, 3.2rem)', color: 'var(--vk-deep-green)', marginBottom: '1rem' }}
-              data-hover-ml="അറിയപ്പെടാത്ത അവസ്ഥയിൽ നിന്ന് എപ്പോഴും മുന്നിൽ!"
+              style={{ fontSize: 'clamp(2rem, 5.5vw, 3.2rem)', color: 'var(--vk-deep-green)', marginBottom: '1.25rem' }}
+              data-hover-ml="നിങ്ങളുടെ ബിസിനസ്സ് ഇനി എല്ലാവരും കാണും, അറിയും!"
             >
               {t.hero.headline}
             </h1>
-            <p className="hero-subhead">{t.hero.subhead}</p>
+            <p className="hero-subhead" style={{ whiteSpace: 'pre-line' }}>{t.hero.subhead}</p>
             <div className="hero-cta-group">
               <a
                 href={`${WA_BASE}${WA_MSG_DEFAULT}`}
@@ -624,7 +668,7 @@ export default function Home() {
               >
                 {t.hero.primaryCta}
               </a>
-              <a href="#services" className="btn-clay-secondary lg">
+              <a href="#packages" className="btn-clay-secondary lg">
                 {t.hero.secondaryCta}
               </a>
             </div>
@@ -632,19 +676,19 @@ export default function Home() {
 
           <div className="hero-visual-3d">
             <div className="floating-pin-wrapper">
-              <img src="/logo-full.png" alt="Visible Kerala Map Pin" className="bobbing-pin" />
+              <img src="/logo-full.png" alt="Visible Kerala Web Agency" className="bobbing-pin" />
               <div className="pin-shadow" />
             </div>
           </div>
         </section>
 
-        {/* ===== SERVICES SECTION ===== */}
-        <section id="services" className="services-section reveal-on-scroll">
+        {/* ===== PACKAGES SECTION ===== */}
+        <section id="packages" className="services-section reveal-on-scroll">
           <div className="section-header text-center">
             <h2
               className="section-title"
               style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
-              data-hover-ml="ലളിതമായ പാക്കേജുകൾ. മറഞ്ഞിരിക്കുന്ന ചെലവുകളില്ല."
+              data-hover-ml="ലളിതമായ പാക്കേജുകൾ. ഒളിഞ്ഞിരിക്കുന്ന യാതൊരു ചിലവുകളുമില്ല."
             >
               {t.services.title}
             </h2>
@@ -655,7 +699,7 @@ export default function Home() {
             {t.services.packages.map((pkg, idx) => (
               <a
                 key={pkg.name + lang}
-                href={`${WA_BASE}${WA_MSG_PKG(pkg.name)}`}
+                href={`${WA_BASE}${WA_MSG_PKG(pkg.name, pkg.price)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 ref={(el) => { cardRefs.current[idx] = el; }}
@@ -671,21 +715,30 @@ export default function Home() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <span className="btn-clay-primary" style={{ fontSize: '0.85rem', padding: '0.55rem 1rem' }}>
+                <span className="btn-clay-primary" style={{ fontSize: '0.85rem', padding: '0.65rem 1rem' }}>
                   {t.services.ctaButton}
                 </span>
               </a>
             ))}
           </div>
+
+          {/* Annual Renewal Note Banner */}
+          <div className="renewal-note-card">
+            <div className="renewal-note-icon">🔄</div>
+            <div>
+              <div className="renewal-note-title">{t.services.renewalTitle}</div>
+              <div className="renewal-note-text">{t.services.renewalText}</div>
+            </div>
+          </div>
         </section>
 
         {/* ===== HOW IT WORKS SECTION ===== */}
-        <section id="how-it-works" className="workflow-section reveal-on-scroll" ref={workflowSectionRef}>
+        <section id="how-it-works" className="workflow-section reveal-on-scroll">
           <div className="section-header text-center" style={{ maxWidth: 900, margin: '0 auto 2.5rem' }}>
             <h2
               className="section-title"
               style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
-              data-hover-ml="3 ലളിതമായ ഘട്ടങ്ങൾ. വെറും ഒരാഴ്ചയ്ക്കുള്ളിൽ പൂർത്തിയാക്കി നൽകുന്നു !"
+              data-hover-ml="വെറും 3 ഘട്ടങ്ങൾ, 2 ദിവസം. നിങ്ങളുടെ സ്വന്തം വെബ്സൈറ്റ് റെഡി!"
             >
               {t.howItWorks.title}
             </h2>
@@ -693,16 +746,6 @@ export default function Home() {
           </div>
 
           <div className="workflow-container">
-            <svg className="workflow-svg" viewBox="0 0 1000 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
-              <path
-                ref={pathRef}
-                id="workflow-path"
-                d="M100 100 C 300 20, 500 180, 900 100"
-                stroke="#2F9E44"
-                strokeWidth="6"
-                strokeLinecap="round"
-              />
-            </svg>
             <div className="steps-grid">
               {t.howItWorks.steps.map((step, idx) => (
                 <div
@@ -720,21 +763,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== WHY IT WORKS SECTION ===== */}
+        {/* ===== WHY IT WORKS / BEFORE-AFTER SHOWCASE ===== */}
         <section id="why-it-works" className="why-section reveal-on-scroll">
           <div className="section-header text-center">
             <h2
               className="section-title"
               style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
-              data-hover-ml="കേരളത്തിലെ ചെറുകിട വ്യാപാരികൾക്കായി തയ്യാറാക്കിയത്"
+              data-hover-ml="കേരളത്തിലെ ചെറുകിട ബിസിനസ്സുകൾക്ക് ഏറ്റവും വിശ്വസിക്കാവുന്ന വെബ് ഡിസൈൻ പങ്കാളി"
             >
               {t.whyItWorks.title}
             </h2>
             <p className="section-subtitle">{t.whyItWorks.subtitle}</p>
           </div>
 
-          {/* Before / After Demo Mockup */}
+          {/* Interactive Website Transformation Demo */}
           <div className="demo-mockup-container">
+            {/* Browser top chrome */}
+            <div className="browser-bar">
+              <div className="browser-dots">
+                <span className="browser-dot red" />
+                <span className="browser-dot yellow" />
+                <span className="browser-dot green" />
+              </div>
+              <div className="browser-url-bar">
+                <span>🔒</span>
+                <span>https://keralageneralstore.com</span>
+              </div>
+            </div>
+
             <div className="mockup-phone">
               {/* Toggle Buttons */}
               <div className="demo-toggle-row">
@@ -753,45 +809,46 @@ export default function Home() {
               </div>
 
               <div className="mockup-content">
-                {/* BEFORE State */}
+                {/* BEFORE State: No/Broken Website */}
                 <div className={`mockup-pane before-pane ${showAfter ? 'hidden' : ''}`}>
-                  <div className="mock-shop-name">Kerala General Store</div>
-                  <div className="mock-shop-rating">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <span key={s} className="mock-star">★</span>
-                    ))}
-                    <span style={{ marginLeft: 4, fontSize: '0.82rem', color: '#bbb' }}>(0 reviews)</span>
+                  <div className="mock-shop-name" style={{ color: '#888' }}>Kerala General Store</div>
+                  <div style={{ marginBottom: '0.75rem', marginTop: '0.25rem' }}>
+                    <span className="mock-badge gray">⚠️ No Mobile Website Found</span>
                   </div>
-                  <div style={{ marginBottom: '0.75rem' }}>
-                    <span className="mock-badge gray">Unverified</span>
-                    <span className="mock-badge gray">No Hours</span>
+                  <div className="mock-placeholder-box" style={{ background: '#fdf3f2', border: '1px dashed #e2a8a8', color: '#c0392b' }}>
+                    ❌ 404 / Unregistered Domain
                   </div>
-                  <div className="mock-placeholder-box">No photos added</div>
-                  <div className="mock-info-row missing">✗ Phone number not listed</div>
-                  <div className="mock-info-row missing">✗ Address incomplete</div>
-                  <div className="mock-map-area no-pin">No location pin set</div>
+                  <div className="mock-info-row missing">✗ Customers cannot browse your products</div>
+                  <div className="mock-info-row missing">✗ No WhatsApp order button</div>
+                  <div className="mock-info-row missing">✗ Missing from Google Search results</div>
+                  <div className="mock-map-area no-pin" style={{ height: 60 }}>
+                    Losing daily customers to competitors with websites
+                  </div>
                 </div>
 
-                {/* AFTER State */}
+                {/* AFTER State: Modern Kerala Website */}
                 <div className={`mockup-pane after-pane ${showAfter ? 'active' : ''}`}>
-                  <div className="mock-shop-name" style={{ color: 'var(--vk-deep-green)' }}>Kerala General Store</div>
-                  <div className="mock-shop-rating">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <span key={s} className="mock-star filled">★</span>
-                    ))}
-                    <span style={{ marginLeft: 4, fontSize: '0.82rem', color: 'var(--vk-primary-green)', fontWeight: 700 }}>(4.8 · 24 reviews)</span>
+                  <div className="web-mockup-after-content">
+                    <div className="web-mockup-hero">
+                      <span className="web-mockup-badge">✨ Live in 4 Days</span>
+                      <h4>Kerala General Store</h4>
+                      <p>Fresh Grocery, Spices & Household Essentials</p>
+                    </div>
+
+                    <div className="web-mockup-features">
+                      <div className="web-feature-chip">📦 4-Page Site</div>
+                      <div className="web-feature-chip">🌐 Hosting Incl.</div>
+                      <div className="web-feature-chip">⭐ 4.9 Reviews</div>
+                    </div>
+
+                    <div className="web-mockup-cta">
+                      <span>💬</span> Order on WhatsApp Direct
+                    </div>
+
+                    <div className="mock-info-row verified" style={{ fontSize: '0.78rem' }}>
+                      ✓ Connected with Google Maps & Business Profile
+                    </div>
                   </div>
-                  <div style={{ marginBottom: '0.75rem' }}>
-                    <span className="mock-badge green">Verified</span>
-                    <span className="mock-badge green">Open Now</span>
-                    <span className="mock-badge green">Popular</span>
-                  </div>
-                  <div style={{ background: 'linear-gradient(135deg, rgba(47,158,68,0.06), rgba(15,113,115,0.04))', borderRadius: 12, height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem', color: 'var(--vk-primary-green)', fontWeight: 600, fontSize: '0.9rem' }}>
-                    📷 5 Storefront Photos
-                  </div>
-                  <div className="mock-info-row verified">✓ +91 **** ****</div>
-                  <div className="mock-info-row verified">✓ Main Road, Near Junction, Kerala</div>
-                  <div className="mock-map-area has-pin">📍 Precisely pinned on Google Maps</div>
                 </div>
               </div>
             </div>
@@ -801,8 +858,57 @@ export default function Home() {
           <div className="trust-points">
             {t.whyItWorks.trustPoints.map((point, idx) => (
               <div key={point + lang} className="trust-point">
-                <div className="trust-icon">{idx === 0 ? '💰' : idx === 1 ? '🛡️' : '🔐'}</div>
+                <div className="trust-icon">{idx === 0 ? '💰' : idx === 1 ? '🌐' : '🔐'}</div>
                 <p className="trust-text">{point}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== PORTFOLIO / SHOWCASE SECTION ===== */}
+        <section id="showcase" className="portfolio-section reveal-on-scroll">
+          <div className="section-header text-center">
+            <h2
+              className="section-title"
+              style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)' }}
+              data-hover-ml="കേരളത്തിലെ ബിസിനസ്സുകൾക്കായി രൂപകൽപ്പന ചെയ്തവ"
+            >
+              {t.portfolio.title}
+            </h2>
+            <p className="section-subtitle">{t.portfolio.subtitle}</p>
+          </div>
+
+          <div className="portfolio-grid">
+            {t.portfolio.items.map((item, idx) => (
+              <div key={item.title + lang} className="portfolio-card">
+                <div className="portfolio-card-header">
+                  <span className="portfolio-card-tag">{item.tag}</span>
+                  <h3 className="portfolio-card-title">{item.title}</h3>
+                  <div className="portfolio-card-location">📍 {item.location}</div>
+                </div>
+
+                <div className="portfolio-card-preview">
+                  <div className="portfolio-preview-box">
+                    <p>{item.desc}</p>
+                  </div>
+                  <ul className="portfolio-features-list">
+                    {item.features.map((feat) => (
+                      <li key={feat}>{feat}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="portfolio-card-footer">
+                  <span>Fast 3–5 Day Delivery</span>
+                  <a
+                    href={`${WA_BASE}${encodeURIComponent(`Hi! I loved the website layout for ${item.title}. Can we build something similar for my business?`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--vk-primary-green)', textDecoration: 'none' }}
+                  >
+                    Build This →
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -814,7 +920,7 @@ export default function Home() {
             <h2
               className="section-title text-center"
               style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', color: 'var(--vk-deep-green)', marginBottom: '0.25rem' }}
-              data-hover-ml="നിങ്ങളുടെ ബിസിനസ്സും ഓൺലൈനിലെത്തിക്കാം."
+              data-hover-ml="നിങ്ങളുടെ വെബ്സൈറ്റ് നിർമ്മാണം ഇന്നേ തുടങ്ങാം!"
             >
               {t.contact.title}
             </h2>
@@ -855,12 +961,12 @@ export default function Home() {
                     <input type="tel" name="phone" required className="clay-input" />
                   </div>
                   <div className="form-group">
-                    <label>{(t.contact as any).emailLabel || 'Email Address*'}</label>
+                    <label>{t.contact.emailLabel}</label>
                     <input type="email" name="email" required className="clay-input" />
                   </div>
                   <div className="form-group">
                     <label>{t.contact.typeLabel}</label>
-                    <select name="business_type" className="clay-select">
+                    <select name="business_type" className="clay-select" required>
                       <option value="">Select...</option>
                       {t.contact.types.map((type) => (
                         <option key={type} value={type}>{type}</option>
@@ -891,12 +997,13 @@ export default function Home() {
         <div className="footer-content">
           <img src="/logo-mark-isolated.png" alt="Visible Kerala" className="footer-logo" />
           <h3 className="footer-title">Visible Kerala</h3>
-          <p className="footer-tagline">{t.hero.headline}</p>
+          <p className="footer-tagline">{t.contact.footerTagline}</p>
 
           <div className="footer-links">
-            <a href="#services">{t.nav.services}</a>
+            <a href="#packages">{t.nav.services}</a>
             <a href="#how-it-works">{t.nav.howItWorks}</a>
             <a href="#why-it-works">{t.nav.whyItWorks}</a>
+            <a href="#showcase">{t.nav.portfolio}</a>
             <a href="#contact">{t.nav.contact}</a>
           </div>
 
@@ -906,7 +1013,7 @@ export default function Home() {
           </div>
 
           <p className="footer-serving">{t.contact.footerServing}</p>
-          <p className="copyright">© 2026 Visible Kerala. All rights reserved.</p>
+          <p className="copyright">{(t.contact as any).copyright || "© 2026 Visible Kerala. All rights reserved."}</p>
         </div>
       </footer>
     </>

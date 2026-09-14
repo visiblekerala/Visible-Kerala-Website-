@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Visible Kerala | From Invisible to Unmissable",
+  title: "Visible Kerala | Website Design & Hosting for Kerala Small Businesses",
   description:
-    "Helping small businesses across Kerala get discovered on Google, WhatsApp, and social media. Simple packages, local expert support.",
+    "We build modern, mobile-friendly websites for Kerala's small businesses — hosting and domain included, live in under a week, with zero hidden costs.",
   icons: {
     icon: "/logo-mark-isolated.png",
   },
   openGraph: {
-    title: "Visible Kerala — From Invisible to Unmissable",
+    title: "Visible Kerala — From Invisible to Unmissable | Website Agency",
     description:
-      "Helping small businesses across Kerala get discovered on Google, WhatsApp, and social media.",
+      "Modern websites for small businesses across all 14 districts of Kerala. Hosting included, pay only after you see it live.",
     type: "website",
   },
 };

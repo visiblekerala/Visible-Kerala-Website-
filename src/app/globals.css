@@ -1314,16 +1314,19 @@ body.lang-ml-active .section-title {
 
 @media (min-width: 1024px) {
   .clay-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    max-width: 1120px;
+    margin: 0 auto;
   }
 
   .clay-card-3d {
-    padding: 2rem 1.5rem;
+    padding: 2.2rem 1.75rem;
   }
 
   .services-section,
-  .why-section {
+  .why-section,
+  .portfolio-section {
     padding: 5rem 2rem 6rem;
   }
 
@@ -1335,3 +1338,284 @@ body.lang-ml-active .section-title {
     height: 30px;
   }
 }
+
+/* ========================================
+   RENEWAL NOTE BANNER
+   ======================================== */
+.renewal-note-card {
+  max-width: 840px;
+  margin: 2.75rem auto 0;
+  background: white;
+  border-radius: 20px;
+  padding: 1.25rem 1.75rem;
+  box-shadow: var(--clay-shadow-sm);
+  border: 1.5px solid rgba(47, 158, 68, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: left;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.renewal-note-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--clay-shadow-md);
+}
+
+.renewal-note-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(47, 158, 68, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.renewal-note-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--vk-deep-green);
+  margin-bottom: 0.2rem;
+}
+
+.renewal-note-text {
+  font-size: 0.88rem;
+  color: #4a5c50;
+  line-height: 1.55;
+}
+
+/* ========================================
+   WEBSITE SHOWCASE & BROWSER MOCKUP
+   ======================================== */
+.browser-bar {
+  background: #f1ede5;
+  border-bottom: 1px solid #e0d8ca;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.browser-dot.red { background: #ff5f56; }
+.browser-dot.yellow { background: #ffbd2e; }
+.browser-dot.green { background: #27c93f; }
+
+.browser-url-bar {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid #e2dacd;
+  font-family: monospace;
+}
+
+.web-mockup-after-content {
+  background: #faf7f2;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(47, 158, 68, 0.15);
+}
+
+.web-mockup-hero {
+  background: linear-gradient(135deg, #1B5E20, #0F7173);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.web-mockup-hero h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.web-mockup-hero p {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.web-mockup-badge {
+  display: inline-block;
+  background: var(--vk-golden-yellow);
+  color: #111;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  margin-bottom: 0.35rem;
+}
+
+.web-mockup-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.web-feature-chip {
+  background: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--vk-deep-green);
+  border: 1px solid rgba(47, 158, 68, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.web-mockup-cta {
+  background: #25D366;
+  color: white;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   MINI PORTFOLIO SHOWCASE SECTION
+   ======================================== */
+.portfolio-section {
+  padding: 4rem 1.25rem 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.portfolio-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--clay-shadow-md);
+  border: 1px solid rgba(47, 158, 68, 0.1);
+  transition: transform 300ms var(--ease-spring), box-shadow 300ms ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--clay-card-hover);
+}
+
+.portfolio-card-header {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(47, 158, 68, 0.08), rgba(15, 113, 115, 0.05));
+  border-bottom: 1px solid rgba(47, 158, 68, 0.08);
+}
+
+.portfolio-card-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--vk-deep-green);
+  background: white;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-card-title {
+  font-family: var(--font-heading-en);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--vk-deep-green);
+}
+
+.portfolio-card-location {
+  font-size: 0.8rem;
+  color: #6b7c70;
+  margin-top: 0.15rem;
+}
+
+.portfolio-card-preview {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.portfolio-preview-box {
+  background: #fdfbf7;
+  border: 1px solid #eee5d8;
+  border-radius: 12px;
+  padding: 0.85rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #445447;
+}
+
+.portfolio-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio-features-list li {
+  font-size: 0.82rem;
+  color: #4a5c50;
+  padding-left: 1.25rem;
+  position: relative;
+  margin-bottom: 0.35rem;
+}
+
+.portfolio-features-list li::before {
+  content: '⚡';
+  position: absolute;
+  left: 0;
+  font-size: 0.75rem;
+}
+
+.portfolio-card-footer {
+  padding: 0.9rem 1.25rem;
+  background: #faf6ef;
+  border-top: 1px solid rgba(47, 158, 68, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--vk-primary-green);
+}

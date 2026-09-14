@@ -141,6 +141,7 @@ function applyLang() {
   renderPackages();
   renderSteps();
   renderTrustPoints();
+  renderPortfolio();
   renderBizTypes();
   initCardTilt();
   initTooltips();
@@ -167,14 +168,44 @@ function renderPackages() {
   var t = getT();
   var grid = document.getElementById('packages-grid');
   grid.innerHTML = t.services.packages.map(function(pkg, idx) {
-    return '<a href="' + WA_BASE + WA_MSG_PKG(pkg.name) + '" target="_blank" rel="noopener noreferrer" class="clay-card-3d clay-card-link' + (idx === 1 ? ' popular-card' : '') + '" style="text-decoration:none;color:inherit;cursor:pointer">' +
+    return '<a href="' + WA_BASE + encodeURIComponent('Hi! I\'m interested in the ' + pkg.name + ' (' + pkg.price + ') for my business.') + '" target="_blank" rel="noopener noreferrer" class="clay-card-3d clay-card-link' + (idx === 1 ? ' popular-card' : '') + '" style="text-decoration:none;color:inherit;cursor:pointer">' +
       (idx === 1 ? '<span class="popular-badge">' + t.services.popularBadge + '</span>' : '') +
       '<div class="package-name">' + pkg.name + '</div>' +
       '<div class="package-price">' + pkg.price + '</div>' +
       '<p class="package-pitch">' + pkg.pitch + '</p>' +
       '<ul class="package-includes">' + pkg.includes.map(function(i){return '<li>' + i + '</li>';}).join('') + '</ul>' +
-      '<span class="btn-clay-primary" style="font-size:0.85rem;padding:0.55rem 1rem">' + t.services.ctaButton + '</span>' +
+      '<span class="btn-clay-primary" style="font-size:0.85rem;padding:0.65rem 1rem">' + t.services.ctaButton + '</span>' +
     '</a>';
+  }).join('');
+  var renTitle = document.getElementById('renewal-title');
+  var renText = document.getElementById('renewal-text');
+  if (renTitle && t.services.renewalTitle) renTitle.textContent = t.services.renewalTitle;
+  if (renText && t.services.renewalText) renText.textContent = t.services.renewalText;
+}
+
+/* ========================================
+   PORTFOLIO SHOWCASE
+   ======================================== */
+function renderPortfolio() {
+  var t = getT();
+  var grid = document.getElementById('portfolio-grid');
+  if (!grid || !t.portfolio) return;
+  grid.innerHTML = t.portfolio.items.map(function(item) {
+    return '<div class="portfolio-card">' +
+      '<div class="portfolio-card-header">' +
+        '<span class="portfolio-card-tag">' + item.tag + '</span>' +
+        '<h3 class="portfolio-card-title">' + item.title + '</h3>' +
+        '<div class="portfolio-card-location">📍 ' + item.location + '</div>' +
+      '</div>' +
+      '<div class="portfolio-card-preview">' +
+        '<div class="portfolio-preview-box"><p>' + item.desc + '</p></div>' +
+        '<ul class="portfolio-features-list">' + item.features.map(function(f){return '<li>' + f + '</li>';}).join('') + '</ul>' +
+      '</div>' +
+      '<div class="portfolio-card-footer">' +
+        '<span>Fast 3–5 Day Delivery</span>' +
+        '<a href="' + WA_BASE + encodeURIComponent('Hi! I loved the website layout for ' + item.title + '. Can we build something similar for my business?') + '" target="_blank" rel="noopener noreferrer" style="color:var(--vk-primary-green);text-decoration:none">Build This →</a>' +
+      '</div>' +
+    '</div>';
   }).join('');
 }
 
