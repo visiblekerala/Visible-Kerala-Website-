@@ -18,8 +18,8 @@
   /* Typography */
   --font-heading-en: 'Baloo 2', cursive, sans-serif;
   --font-body-en: 'Inter', sans-serif;
-  --font-heading-ml: 'Baloo Chettan 2', cursive, sans-serif;
-  --font-body-ml: 'Manjari', sans-serif;
+  --font-heading-ml: 'Anek Malayalam', sans-serif;
+  --font-body-ml: 'Anek Malayalam', sans-serif;
 
   /* Claymorphic Elevation Tokens */
   --clay-shadow-sm: 4px 4px 10px rgba(27, 94, 32, 0.08), inset -2px -2px 6px rgba(0, 0, 0, 0.05), inset 2px 2px 6px rgba(255, 255, 255, 0.8);
@@ -55,14 +55,33 @@ body {
 
 body.lang-ml-active {
   font-family: var(--font-body-ml);
+  line-height: 1.7;
 }
 
 body.lang-ml-active h1,
 body.lang-ml-active h2,
 body.lang-ml-active h3,
+body.lang-ml-active h4,
 body.lang-ml-active .display-title,
-body.lang-ml-active .section-title {
+body.lang-ml-active .section-title,
+body.lang-ml-active .package-name,
+body.lang-ml-active .step-title,
+body.lang-ml-active .portfolio-card-title,
+body.lang-ml-active .renewal-note-title,
+body.lang-ml-active .popular-badge {
   font-family: var(--font-heading-ml);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+body.lang-ml-active button,
+body.lang-ml-active input,
+body.lang-ml-active select,
+body.lang-ml-active textarea,
+body.lang-ml-active .btn-clay-primary,
+body.lang-ml-active .btn-clay-secondary,
+body.lang-ml-active .whatsapp-direct-btn {
+  font-family: var(--font-body-ml);
 }
 
 /* ========================================

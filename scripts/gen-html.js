@@ -47,7 +47,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" type="image/png" href="${logoMark}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Baloo+Chettan+2:wght@600;800&family=Inter:wght@400;500;600&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;500;600;700;800&family=Baloo+2:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 ${css}
 .img-bobbing-pin { height:200px; width:auto; filter:drop-shadow(0 20px 30px rgba(27,94,32,0.2)); }
