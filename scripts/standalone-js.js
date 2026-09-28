@@ -192,13 +192,32 @@ function renderPortfolio() {
   if (!grid || !t.portfolio) return;
   grid.innerHTML = t.portfolio.items.map(function(item) {
     return '<div class="portfolio-card">' +
+      '<div class="portfolio-preview-frame">' +
+        '<div class="portfolio-browser-header">' +
+          '<div class="portfolio-browser-dots">' +
+            '<span class="dot red"></span>' +
+            '<span class="dot yellow"></span>' +
+            '<span class="dot green"></span>' +
+          '</div>' +
+          '<div class="portfolio-browser-url">' +
+            '<span>🔒</span>' +
+            '<span>' + item.domain + '</span>' +
+          '</div>' +
+          '<span class="portfolio-live-dot" title="Active live website">● Live</span>' +
+        '</div>' +
+        '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer" class="portfolio-thumb-link" title="' + (currentLang === 'ml' ? item.title + ' ലൈവ് സൈറ്റ് സന്ദർശിക്കുക' : 'Open ' + item.title + ' live website') + '">' +
+          '<img src="' + item.preview + '" alt="' + item.title + ' homepage preview" class="portfolio-thumb-img" loading="lazy" />' +
+          '<div class="portfolio-thumb-overlay">' +
+            '<span class="portfolio-overlay-badge">🌐 ' + (currentLang === 'ml' ? 'ലൈവ് സൈറ്റ് കാണുക ↗' : 'View Live Website ↗') + '</span>' +
+          '</div>' +
+        '</a>' +
+      '</div>' +
       '<div class="portfolio-card-header">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem">' +
           '<span class="portfolio-card-tag">' + item.tag + '</span>' +
-          '<span style="font-size:0.7rem;font-weight:700;color:var(--vk-deep-green);background:rgba(47,158,68,0.12);padding:0.2rem 0.55rem;border-radius:999px">● Live</span>' +
+          '<div class="portfolio-card-location">📍 ' + item.location + '</div>' +
         '</div>' +
         '<h3 class="portfolio-card-title"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">' + item.title + '</a></h3>' +
-        '<div class="portfolio-card-location">📍 ' + item.location + '</div>' +
       '</div>' +
       '<div class="portfolio-card-preview">' +
         '<div class="portfolio-preview-box"><p>' + item.desc + '</p></div>' +

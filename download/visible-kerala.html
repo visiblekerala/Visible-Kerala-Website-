@@ -1649,6 +1649,121 @@ body.lang-ml-active .copyright {
   box-shadow: var(--clay-card-hover);
 }
 
+/* Portfolio Preview Window & Browser Chrome */
+.portfolio-preview-frame {
+  position: relative;
+  background: #f1ede5;
+  border-bottom: 1px solid rgba(47, 158, 68, 0.1);
+  overflow: hidden;
+}
+
+.portfolio-browser-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.85rem;
+  background: #eae5dc;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.72rem;
+}
+
+.portfolio-browser-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.portfolio-browser-dots .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.portfolio-browser-dots .dot.red { background: #ff5f56; }
+.portfolio-browser-dots .dot.yellow { background: #ffbd2e; }
+.portfolio-browser-dots .dot.green { background: #27c93f; }
+
+.portfolio-browser-url {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: white;
+  padding: 0.2rem 0.65rem;
+  border-radius: 6px;
+  color: #555;
+  font-size: 0.68rem;
+  font-family: monospace;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portfolio-live-dot {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--vk-primary-green);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.portfolio-thumb-link {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #111;
+  text-decoration: none;
+}
+
+.portfolio-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease;
+}
+
+.portfolio-thumb-link:hover .portfolio-thumb-img {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+.portfolio-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 45, 25, 0.35);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.portfolio-thumb-link:hover .portfolio-thumb-overlay {
+  opacity: 1;
+}
+
+.portfolio-overlay-badge {
+  background: white;
+  color: var(--vk-deep-green);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(6px);
+  transition: transform 250ms ease;
+}
+
+.portfolio-thumb-link:hover .portfolio-overlay-badge {
+  transform: translateY(0);
+}
+
 .portfolio-card-header {
   padding: 1.25rem;
   background: linear-gradient(135deg, rgba(47, 158, 68, 0.08), rgba(15, 113, 115, 0.05));
@@ -2068,6 +2183,8 @@ const siteContent = {
           location: 'Auckland, New Zealand',
           tag: 'Arts & Performing Dance',
           url: 'https://www.miracletouchacademy.com',
+          preview: '/portfolio/miracle-touch-preview.webp',
+          domain: 'miracletouchacademy.com',
           desc: "Premier Indian dance school & performing arts academy featuring multi-campus schedules, course lookbooks, and online enrollments.",
           features: ['Online Class Enquiries', 'Multi-Campus Schedules', 'Bharatanatyam & Western Dance', 'Media & Video Showcase'],
         },
@@ -2076,14 +2193,18 @@ const siteContent = {
           location: 'Glen Innes, Auckland',
           tag: 'Healthcare & Wellness',
           url: 'https://renai-clinic-acurelief.vercel.app/',
+          preview: '/portfolio/renai-clinic-preview.webp',
+          domain: 'renai-clinic-acurelief.vercel.app',
           desc: 'Modern medical acupuncture and physiotherapy clinic with instant appointment booking, service pricing, and direct ACC injury claims.',
           features: ['Online Appointment Booking', 'ACC Direct Claim Lodgement', 'Treatment Pricing Matrix', 'Google Maps Location'],
         },
         {
           title: 'Midhun | EpicVibe Studios',
-          location: 'Auckland & Kerala',
+          location: 'Auckland, New Zealand',
           tag: 'Photography & Visual Arts',
           url: 'https://midhunksadan.photoworks.workers.dev/',
+          preview: '/portfolio/midhun-photoworks-preview.webp',
+          domain: 'midhunksadan.photoworks.workers.dev',
           desc: 'Cinematic visual portfolio showcasing cultural chronicles, sacred Kerala Theyyam traditions, landscape artistry, and editorial portraits.',
           features: ['High-Resolution Photo Gallery', 'Cultural & Heritage Showcase', 'Client Booking Inquiries', 'Ultra-Fast Edge CDN'],
         },
@@ -2231,6 +2352,8 @@ const siteContent = {
           location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
           tag: 'പെർഫോമിംഗ് ആർട്സ് & ഡാൻസ്',
           url: 'https://www.miracletouchacademy.com',
+          preview: '/portfolio/miracle-touch-preview.webp',
+          domain: 'miracletouchacademy.com',
           desc: 'ക്ലാസ് ടൈംടേബിളുകൾ, കോഴ്സ് വിവരങ്ങൾ, ഓൺലൈൻ അഡ്മിഷൻ എൻക്വയറികൾ എന്നിവ ഉൾക്കൊള്ളുന്ന പ്രീമിയർ ഡാൻസ് അക്കാദമി വെബ്സൈറ്റ്.',
           features: ['ഓൺലൈൻ എൻക്വയറി ഫോം', 'മൾട്ടി-ലൊക്കേഷൻ ക്ലാസുകൾ', 'ഭരതനാട്യം & വെസ്റ്റേൺ ഡാൻസ്', 'ഫോട്ടോ & വീഡിയോ ഗാലറി'],
         },
@@ -2239,14 +2362,18 @@ const siteContent = {
           location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
           tag: 'ആരോഗ്യം & ക്ലിനിക്ക്',
           url: 'https://renai-clinic-acurelief.vercel.app/',
+          preview: '/portfolio/renai-clinic-preview.webp',
+          domain: 'renai-clinic-acurelief.vercel.app',
           desc: 'തത്സമയ അപ്പോയിന്റ്മെന്റ് ബുക്കിംഗും സമഗ്രമായ ചികിത്സാ വിവരങ്ങളും അടങ്ങിയ അത്യാധുനിക അക്യുപങ്ചർ & ഫിസിയോതെറാപ്പി ക്ലിനിക് വെബ്സൈറ്റ്.',
           features: ['ഓൺലൈൻ അപ്പോയിന്റ്മെന്റ്', 'ക്ലിനിക്ക് സർവീസുകൾ & നിരക്കുകൾ', 'ഡയറക്റ്റ് കോൾ & മാപ്പ്', 'മൊബൈൽ ഫ്രണ്ട്‌ലി ഡിസൈൻ'],
         },
         {
           title: 'മിഥുൻ | എപിക് വൈബ് സ്റ്റുഡിയോസ്',
-          location: 'ഓക്‌ലാൻഡ് & കേരളം',
+          location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
           tag: 'ഫോട്ടോഗ്രാഫി & ആർട്ട്',
           url: 'https://midhunksadan.photoworks.workers.dev/',
+          preview: '/portfolio/midhun-photoworks-preview.webp',
+          domain: 'midhunksadan.photoworks.workers.dev',
           desc: 'കേരള തെയ്യം ആചാരങ്ങൾ, വിസ്മയകരമായ ലാൻഡ്‌സ്‌കേപ്പുകൾ, എഡിറ്റോറിയൽ ചിത്രങ്ങൾ എന്നിവ അണിനിരത്തിയ ഹൈ-എൻഡ് ഫോട്ടോഗ്രാഫി പോർട്ട്ഫോളിയോ.',
           features: ['ഹൈ-റെസലൂഷൻ ഫോട്ടോ ഗാലറി', 'കേരള തെയ്യം & കൾച്ചറൽ സ്റ്റോറികൾ', 'ഡയറക്റ്റ് ബുക്കിംഗ് എൻക്വയറി', 'ഫാസ്റ്റ് ലോഡിംഗ് പെർഫോമൻസ്'],
         },
@@ -2389,13 +2516,32 @@ function renderPortfolio() {
   if (!grid || !t.portfolio) return;
   grid.innerHTML = t.portfolio.items.map(function(item) {
     return '<div class="portfolio-card">' +
+      '<div class="portfolio-preview-frame">' +
+        '<div class="portfolio-browser-header">' +
+          '<div class="portfolio-browser-dots">' +
+            '<span class="dot red"></span>' +
+            '<span class="dot yellow"></span>' +
+            '<span class="dot green"></span>' +
+          '</div>' +
+          '<div class="portfolio-browser-url">' +
+            '<span>🔒</span>' +
+            '<span>' + item.domain + '</span>' +
+          '</div>' +
+          '<span class="portfolio-live-dot" title="Active live website">● Live</span>' +
+        '</div>' +
+        '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer" class="portfolio-thumb-link" title="' + (currentLang === 'ml' ? item.title + ' ലൈവ് സൈറ്റ് സന്ദർശിക്കുക' : 'Open ' + item.title + ' live website') + '">' +
+          '<img src="' + item.preview + '" alt="' + item.title + ' homepage preview" class="portfolio-thumb-img" loading="lazy" />' +
+          '<div class="portfolio-thumb-overlay">' +
+            '<span class="portfolio-overlay-badge">🌐 ' + (currentLang === 'ml' ? 'ലൈവ് സൈറ്റ് കാണുക ↗' : 'View Live Website ↗') + '</span>' +
+          '</div>' +
+        '</a>' +
+      '</div>' +
       '<div class="portfolio-card-header">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem">' +
           '<span class="portfolio-card-tag">' + item.tag + '</span>' +
-          '<span style="font-size:0.7rem;font-weight:700;color:var(--vk-deep-green);background:rgba(47,158,68,0.12);padding:0.2rem 0.55rem;border-radius:999px">● Live</span>' +
+          '<div class="portfolio-card-location">📍 ' + item.location + '</div>' +
         '</div>' +
         '<h3 class="portfolio-card-title"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">' + item.title + '</a></h3>' +
-        '<div class="portfolio-card-location">📍 ' + item.location + '</div>' +
       '</div>' +
       '<div class="portfolio-card-preview">' +
         '<div class="portfolio-preview-box"><p>' + item.desc + '</p></div>' +

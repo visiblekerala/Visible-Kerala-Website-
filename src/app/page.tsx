@@ -115,6 +115,8 @@ const siteContent = {
           location: 'Auckland, New Zealand',
           tag: 'Arts & Performing Dance',
           url: 'https://www.miracletouchacademy.com',
+          preview: '/portfolio/miracle-touch-preview.webp',
+          domain: 'miracletouchacademy.com',
           desc: "Premier Indian dance school & performing arts academy featuring multi-campus schedules, course lookbooks, and online enrollments.",
           features: ['Online Class Enquiries', 'Multi-Campus Schedules', 'Bharatanatyam & Western Dance', 'Media & Video Showcase'],
         },
@@ -123,14 +125,18 @@ const siteContent = {
           location: 'Glen Innes, Auckland',
           tag: 'Healthcare & Wellness',
           url: 'https://renai-clinic-acurelief.vercel.app/',
+          preview: '/portfolio/renai-clinic-preview.webp',
+          domain: 'renai-clinic-acurelief.vercel.app',
           desc: 'Modern medical acupuncture and physiotherapy clinic with instant appointment booking, service pricing, and direct ACC injury claims.',
           features: ['Online Appointment Booking', 'ACC Direct Claim Lodgement', 'Treatment Pricing Matrix', 'Google Maps Location'],
         },
         {
           title: 'Midhun | EpicVibe Studios',
-          location: 'Auckland & Kerala',
+          location: 'Auckland, New Zealand',
           tag: 'Photography & Visual Arts',
           url: 'https://midhunksadan.photoworks.workers.dev/',
+          preview: '/portfolio/midhun-photoworks-preview.webp',
+          domain: 'midhunksadan.photoworks.workers.dev',
           desc: 'Cinematic visual portfolio showcasing cultural chronicles, sacred Kerala Theyyam traditions, landscape artistry, and editorial portraits.',
           features: ['High-Resolution Photo Gallery', 'Cultural & Heritage Showcase', 'Client Booking Inquiries', 'Ultra-Fast Edge CDN'],
         },
@@ -278,6 +284,8 @@ const siteContent = {
           location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
           tag: 'പെർഫോമിംഗ് ആർട്സ് & ഡാൻസ്',
           url: 'https://www.miracletouchacademy.com',
+          preview: '/portfolio/miracle-touch-preview.webp',
+          domain: 'miracletouchacademy.com',
           desc: 'ക്ലാസ് ടൈംടേബിളുകൾ, കോഴ്സ് വിവരങ്ങൾ, ഓൺലൈൻ അഡ്മിഷൻ എൻക്വയറികൾ എന്നിവ ഉൾക്കൊള്ളുന്ന പ്രീമിയർ ഡാൻസ് അക്കാദമി വെബ്സൈറ്റ്.',
           features: ['ഓൺലൈൻ എൻക്വയറി ഫോം', 'മൾട്ടി-ലൊക്കേഷൻ ക്ലാസുകൾ', 'ഭരതനാട്യം & വെസ്റ്റേൺ ഡാൻസ്', 'ഫോട്ടോ & വീഡിയോ ഗാലറി'],
         },
@@ -286,14 +294,18 @@ const siteContent = {
           location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
           tag: 'ആരോഗ്യം & ക്ലിനിക്ക്',
           url: 'https://renai-clinic-acurelief.vercel.app/',
+          preview: '/portfolio/renai-clinic-preview.webp',
+          domain: 'renai-clinic-acurelief.vercel.app',
           desc: 'തത്സമയ അപ്പോയിന്റ്മെന്റ് ബുക്കിംഗും സമഗ്രമായ ചികിത്സാ വിവരങ്ങളും അടങ്ങിയ അത്യാധുനിക അക്യുപങ്ചർ & ഫിസിയോതെറാപ്പി ക്ലിനിക് വെബ്സൈറ്റ്.',
           features: ['ഓൺലൈൻ അപ്പോയിന്റ്മെന്റ്', 'ക്ലിനിക്ക് സർവീസുകൾ & നിരക്കുകൾ', 'ഡയറക്റ്റ് കോൾ & മാപ്പ്', 'മൊബൈൽ ഫ്രണ്ട്‌ലി ഡിസൈൻ'],
         },
         {
           title: 'മിഥുൻ | എപിക് വൈബ് സ്റ്റുഡിയോസ്',
-          location: 'ഓക്‌ലാൻഡ് & കേരളം',
+          location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
           tag: 'ഫോട്ടോഗ്രാഫി & ആർട്ട്',
           url: 'https://midhunksadan.photoworks.workers.dev/',
+          preview: '/portfolio/midhun-photoworks-preview.webp',
+          domain: 'midhunksadan.photoworks.workers.dev',
           desc: 'കേരള തെയ്യം ആചാരങ്ങൾ, വിസ്മയകരമായ ലാൻഡ്‌സ്‌കേപ്പുകൾ, എഡിറ്റോറിയൽ ചിത്രങ്ങൾ എന്നിവ അണിനിരത്തിയ ഹൈ-എൻഡ് ഫോട്ടോഗ്രാഫി പോർട്ട്ഫോളിയോ.',
           features: ['ഹൈ-റെസലൂഷൻ ഫോട്ടോ ഗാലറി', 'കേരള തെയ്യം & കൾച്ചറൽ സ്റ്റോറികൾ', 'ഡയറക്റ്റ് ബുക്കിംഗ് എൻക്വയറി', 'ഫാസ്റ്റ് ലോഡിംഗ് പെർഫോമൻസ്'],
         },
@@ -887,12 +899,45 @@ export default function Home() {
           <div className="portfolio-grid">
             {t.portfolio.items.map((item, idx) => (
               <div key={item.title + lang} className="portfolio-card">
+                {/* Live Preview Browser Mockup Tile */}
+                <div className="portfolio-preview-frame">
+                  <div className="portfolio-browser-header">
+                    <div className="portfolio-browser-dots">
+                      <span className="dot red" />
+                      <span className="dot yellow" />
+                      <span className="dot green" />
+                    </div>
+                    <div className="portfolio-browser-url">
+                      <span>🔒</span>
+                      <span>{item.domain}</span>
+                    </div>
+                    <span className="portfolio-live-dot" title="Active live website">● Live</span>
+                  </div>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="portfolio-thumb-link"
+                    title={lang === 'ml' ? `${item.title} ലൈവ് സൈറ്റ് സന്ദർശിക്കുക` : `Open ${item.title} live website`}
+                  >
+                    <img
+                      src={item.preview}
+                      alt={`${item.title} homepage preview`}
+                      className="portfolio-thumb-img"
+                      loading="lazy"
+                    />
+                    <div className="portfolio-thumb-overlay">
+                      <span className="portfolio-overlay-badge">
+                        🌐 {lang === 'ml' ? 'ലൈവ് സൈറ്റ് കാണുക ↗' : 'View Live Website ↗'}
+                      </span>
+                    </div>
+                  </a>
+                </div>
+
                 <div className="portfolio-card-header">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
                     <span className="portfolio-card-tag">{item.tag}</span>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--vk-deep-green)', background: 'rgba(47, 158, 68, 0.12)', padding: '0.2rem 0.55rem', borderRadius: 999 }}>
-                      ● Live
-                    </span>
+                    <div className="portfolio-card-location">📍 {item.location}</div>
                   </div>
                   <h3 className="portfolio-card-title">
                     <a
@@ -905,7 +950,6 @@ export default function Home() {
                       {item.title}
                     </a>
                   </h3>
-                  <div className="portfolio-card-location">📍 {item.location}</div>
                 </div>
 
                 <div className="portfolio-card-preview">
