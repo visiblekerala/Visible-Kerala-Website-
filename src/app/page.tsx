@@ -105,31 +105,34 @@ const siteContent = {
       ],
     },
     portfolio: {
-      title: 'Websites Crafted for Kerala Businesses',
+      title: 'Websites Crafted by Visible Kerala',
       subtitle:
-        'Clean layouts tailored for our local shops, clinics, homestays, and boutiques.',
-      viewLiveNotice: 'Custom built for mobile & desktop with WhatsApp ordering',
+        'Explore real websites built and deployed for real clients — fast, responsive, and search-ready.',
+      viewLiveNotice: 'Click to explore live websites built by our team',
       items: [
         {
-          title: 'Malabar Delights Bakery & Cafe',
-          location: 'Calicut, Kerala',
-          tag: 'Food & Dining',
-          desc: 'Mouthwatering photo menu with instant WhatsApp cake & snack orders.',
-          features: ['Bilingual Menu', 'WhatsApp Direct Order', 'Google Reviews'],
+          title: 'Miracle Touch Academy',
+          location: 'Auckland, New Zealand',
+          tag: 'Arts & Performing Dance',
+          url: 'https://www.miracletouchacademy.com',
+          desc: "Premier Indian dance school & performing arts academy featuring multi-campus schedules, course lookbooks, and online enrollments.",
+          features: ['Online Class Enquiries', 'Multi-Campus Schedules', 'Bharatanatyam & Western Dance', 'Media & Video Showcase'],
         },
         {
-          title: 'Royal Palm Ayurvedic Homestay',
-          location: 'Wayanad, Kerala',
-          tag: 'Tourism & Stays',
-          desc: 'Cottage tour gallery with inquiry booking and precise Google Maps pin.',
-          features: ['Photo Gallery', 'Instant Inquiry Form', 'Google Maps Pin'],
+          title: 'Renai Clinic (AcuRelief) 仁愛中醫',
+          location: 'Glen Innes, Auckland',
+          tag: 'Healthcare & Wellness',
+          url: 'https://renai-clinic-acurelief.vercel.app/',
+          desc: 'Modern medical acupuncture and physiotherapy clinic with instant appointment booking, service pricing, and direct ACC injury claims.',
+          features: ['Online Appointment Booking', 'ACC Direct Claim Lodgement', 'Treatment Pricing Matrix', 'Google Maps Location'],
         },
         {
-          title: 'Aura Bridal Boutique & Tailoring',
-          location: 'Kochi, Kerala',
-          tag: 'Fashion & Retail',
-          desc: 'Designer saree lookbook with custom stitching appointment via WhatsApp.',
-          features: ['Lookbook Showcase', 'Measurement Chat', 'Instagram Feed'],
+          title: 'Midhun | EpicVibe Studios',
+          location: 'Auckland & Kerala',
+          tag: 'Photography & Visual Arts',
+          url: 'https://midhunksadan.photoworks.workers.dev/',
+          desc: 'Cinematic visual portfolio showcasing cultural chronicles, sacred Kerala Theyyam traditions, landscape artistry, and editorial portraits.',
+          features: ['High-Resolution Photo Gallery', 'Cultural & Heritage Showcase', 'Client Booking Inquiries', 'Ultra-Fast Edge CDN'],
         },
       ],
     },
@@ -265,31 +268,34 @@ const siteContent = {
       ],
     },
     portfolio: {
-      title: 'കേരളത്തിലെ ബിസിനസ്സുകൾക്കായി രൂപകൽപ്പന ചെയ്തവ',
+      title: 'ഞങ്ങൾ നിർമ്മിച്ച ചില വെബ്സൈറ്റുകൾ',
       subtitle:
-        'നാട്ടിലെ കടകൾക്കും സ്ഥാപനങ്ങൾക്കും അനുയോജ്യമായ പ്രത്യേക മാതൃകകൾ.',
-      viewLiveNotice: 'മൊബൈലിലും കമ്പ്യൂട്ടറിലും WhatsApp ഓർഡറിംഗോടെ പ്രവർത്തിക്കുന്നു',
+        'യഥാർത്ഥ സ്ഥാപനങ്ങൾക്കായി ഞങ്ങൾ രൂപകൽപ്പന ചെയ്ത ആധുനിക വെബ്സൈറ്റുകൾ താഴെ കാണാം.',
+      viewLiveNotice: 'ലൈവ് വെബ്സൈറ്റുകൾ നേരിട്ട് സന്ദർശിക്കാൻ ക്ലിക്ക് ചെയ്യുക',
       items: [
         {
-          title: 'മലബാർ ഡിലൈറ്റ്സ് ബേക്കറി & കഫേ',
-          location: 'കോഴിക്കോട്',
-          tag: 'ഭക്ഷണശാല',
-          desc: 'മനോഹരമായ ഫോട്ടോ മെനുവും തത്സമയ WhatsApp ഓർഡറിംഗും.',
-          features: ['ദ്വിഭാഷാ മെനു', 'നേരിട്ട് WhatsApp ഓർഡറിംഗ്', 'ഗൂഗിൾ റിവ്യൂകൾ'],
+          title: 'മിറക്കിൾ ടച്ച് അക്കാദമി',
+          location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
+          tag: 'പെർഫോമിംഗ് ആർട്സ് & ഡാൻസ്',
+          url: 'https://www.miracletouchacademy.com',
+          desc: 'ക്ലാസ് ടൈംടേബിളുകൾ, കോഴ്സ് വിവരങ്ങൾ, ഓൺലൈൻ അഡ്മിഷൻ എൻക്വയറികൾ എന്നിവ ഉൾക്കൊള്ളുന്ന പ്രീമിയർ ഡാൻസ് അക്കാദമി വെബ്സൈറ്റ്.',
+          features: ['ഓൺലൈൻ എൻക്വയറി ഫോം', 'മൾട്ടി-ലൊക്കേഷൻ ക്ലാസുകൾ', 'ഭരതനാട്യം & വെസ്റ്റേൺ ഡാൻസ്', 'ഫോട്ടോ & വീഡിയോ ഗാലറി'],
         },
         {
-          title: 'റോയൽ പാം ആയുർവേദിക് ഹോംസ്റ്റേ',
-          location: 'വയനാട്',
-          tag: 'ടൂറിസം & താമസം',
-          desc: 'കോർട്ടേജ് ഫോട്ടോ ഗാലറിയും കൃത്യമായ ഗൂഗിൾ മാപ്പ് ലൊക്കേഷനും.',
-          features: ['ഫോട്ടോ ഗാലറി', 'ഡയറക്റ്റ് ബുക്കിംഗ് ഫോം', 'ഗൂഗിൾ മാപ്സ് ലൊക്കേറ്റർ'],
+          title: 'റെനായി ക്ലിനിക് (അക്യുറിലീഫ്)',
+          location: 'ഓക്‌ലാൻഡ്, ന്യൂസിലാൻഡ്',
+          tag: 'ആരോഗ്യം & ക്ലിനിക്ക്',
+          url: 'https://renai-clinic-acurelief.vercel.app/',
+          desc: 'തത്സമയ അപ്പോയിന്റ്മെന്റ് ബുക്കിംഗും സമഗ്രമായ ചികിത്സാ വിവരങ്ങളും അടങ്ങിയ അത്യാധുനിക അക്യുപങ്ചർ & ഫിസിയോതെറാപ്പി ക്ലിനിക് വെബ്സൈറ്റ്.',
+          features: ['ഓൺലൈൻ അപ്പോയിന്റ്മെന്റ്', 'ക്ലിനിക്ക് സർവീസുകൾ & നിരക്കുകൾ', 'ഡയറക്റ്റ് കോൾ & മാപ്പ്', 'മൊബൈൽ ഫ്രണ്ട്‌ലി ഡിസൈൻ'],
         },
         {
-          title: 'ഓറ ബ്രൈഡൽ ബോട്ടീക് & ടെയ്‌ലറിംഗ്',
-          location: 'കൊച്ചി',
-          tag: 'ഫാഷൻ & റീട്ടെയിൽ',
-          desc: 'ഡിസൈനർ സാരി കളക്ഷനുകളും WhatsApp വഴി തയ്യൽ അളവ് അന്വേഷണങ്ങളും.',
-          features: ['ലേറ്റസ്റ്റ് കളക്ഷൻ ലുക്ക്ബുക്ക്', 'അളവ് അന്വേഷണം', 'ഇൻസ്റ്റാഗ്രാം ഫീഡ്'],
+          title: 'മിഥുൻ | എപിക് വൈബ് സ്റ്റുഡിയോസ്',
+          location: 'ഓക്‌ലാൻഡ് & കേരളം',
+          tag: 'ഫോട്ടോഗ്രാഫി & ആർട്ട്',
+          url: 'https://midhunksadan.photoworks.workers.dev/',
+          desc: 'കേരള തെയ്യം ആചാരങ്ങൾ, വിസ്മയകരമായ ലാൻഡ്‌സ്‌കേപ്പുകൾ, എഡിറ്റോറിയൽ ചിത്രങ്ങൾ എന്നിവ അണിനിരത്തിയ ഹൈ-എൻഡ് ഫോട്ടോഗ്രാഫി പോർട്ട്ഫോളിയോ.',
+          features: ['ഹൈ-റെസലൂഷൻ ഫോട്ടോ ഗാലറി', 'കേരള തെയ്യം & കൾച്ചറൽ സ്റ്റോറികൾ', 'ഡയറക്റ്റ് ബുക്കിംഗ് എൻക്വയറി', 'ഫാസ്റ്റ് ലോഡിംഗ് പെർഫോമൻസ്'],
         },
       ],
     },
@@ -882,8 +888,23 @@ export default function Home() {
             {t.portfolio.items.map((item, idx) => (
               <div key={item.title + lang} className="portfolio-card">
                 <div className="portfolio-card-header">
-                  <span className="portfolio-card-tag">{item.tag}</span>
-                  <h3 className="portfolio-card-title">{item.title}</h3>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                    <span className="portfolio-card-tag">{item.tag}</span>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--vk-deep-green)', background: 'rgba(47, 158, 68, 0.12)', padding: '0.2rem 0.55rem', borderRadius: 999 }}>
+                      ● Live
+                    </span>
+                  </div>
+                  <h3 className="portfolio-card-title">
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: 'inherit', textDecoration: 'none' }}
+                      title="Visit live website"
+                    >
+                      {item.title}
+                    </a>
+                  </h3>
                   <div className="portfolio-card-location">📍 {item.location}</div>
                 </div>
 
@@ -899,14 +920,25 @@ export default function Home() {
                 </div>
 
                 <div className="portfolio-card-footer">
-                  <span>Fast 3–5 Day Delivery</span>
                   <a
-                    href={`${WA_BASE}${encodeURIComponent(`Hi! I loved the website layout for ${item.title}. Can we build something similar for my business?`)}`}
+                    href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: 'var(--vk-primary-green)', textDecoration: 'none' }}
+                    className="portfolio-live-link"
                   >
-                    Build This →
+                    🌐 {lang === 'ml' ? 'വെബ്സൈറ്റ് കാണുക ↗' : 'Visit Live Site ↗'}
+                  </a>
+                  <a
+                    href={`${WA_BASE}${encodeURIComponent(
+                      lang === 'ml'
+                        ? `നമസ്കാരം! ${item.title} വെബ്സൈറ്റ് ഡിസൈൻ എനിക്ക് വളരെ ഇഷ്ടപ്പെട്ടു. എന്റെ ബിസിനസ്സിനും ഇതുപോലെ ഒരെണ്ണം നിർമ്മിക്കാൻ താല്പര്യമുണ്ട്.`
+                        : `Hi! I loved the website for ${item.title}. Can we build something similar for my business?`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="portfolio-build-btn"
+                  >
+                    {lang === 'ml' ? 'ഇതുപോലെ ചെയ്യാം →' : 'Build This →'}
                   </a>
                 </div>
               </div>

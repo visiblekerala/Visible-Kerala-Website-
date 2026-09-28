@@ -193,8 +193,11 @@ function renderPortfolio() {
   grid.innerHTML = t.portfolio.items.map(function(item) {
     return '<div class="portfolio-card">' +
       '<div class="portfolio-card-header">' +
-        '<span class="portfolio-card-tag">' + item.tag + '</span>' +
-        '<h3 class="portfolio-card-title">' + item.title + '</h3>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem">' +
+          '<span class="portfolio-card-tag">' + item.tag + '</span>' +
+          '<span style="font-size:0.7rem;font-weight:700;color:var(--vk-deep-green);background:rgba(47,158,68,0.12);padding:0.2rem 0.55rem;border-radius:999px">● Live</span>' +
+        '</div>' +
+        '<h3 class="portfolio-card-title"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">' + item.title + '</a></h3>' +
         '<div class="portfolio-card-location">📍 ' + item.location + '</div>' +
       '</div>' +
       '<div class="portfolio-card-preview">' +
@@ -202,8 +205,8 @@ function renderPortfolio() {
         '<ul class="portfolio-features-list">' + item.features.map(function(f){return '<li>' + f + '</li>';}).join('') + '</ul>' +
       '</div>' +
       '<div class="portfolio-card-footer">' +
-        '<span>Fast 3–5 Day Delivery</span>' +
-        '<a href="' + WA_BASE + encodeURIComponent('Hi! I loved the website layout for ' + item.title + '. Can we build something similar for my business?') + '" target="_blank" rel="noopener noreferrer" style="color:var(--vk-primary-green);text-decoration:none">Build This →</a>' +
+        '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer" class="portfolio-live-link">🌐 ' + (currentLang === 'ml' ? 'വെബ്സൈറ്റ് കാണുക ↗' : 'Visit Live Site ↗') + '</a>' +
+        '<a href="' + WA_BASE + encodeURIComponent(currentLang === 'ml' ? 'നമസ്കാരം! ' + item.title + ' വെബ്സൈറ്റ് ഡിസൈൻ എനിക്ക് വളരെ ഇഷ്ടപ്പെട്ടു. എന്റെ ബിസിനസ്സിനും ഇതുപോലെ ഒരെണ്ണം നിർമ്മിക്കാൻ താല്പര്യമുണ്ട്.' : 'Hi! I loved the website for ' + item.title + '. Can we build something similar for my business?') + '" target="_blank" rel="noopener noreferrer" class="portfolio-build-btn">' + (currentLang === 'ml' ? 'ഇതുപോലെ ചെയ്യാം →' : 'Build This →') + '</a>' +
       '</div>' +
     '</div>';
   }).join('');

@@ -1713,7 +1713,46 @@ body.lang-ml-active .copyright {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
+}
+
+.portfolio-live-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vk-deep-green);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.75rem;
+  background: white;
+  border: 1px solid rgba(47, 158, 68, 0.22);
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.portfolio-live-link:hover {
+  background: var(--vk-primary-green);
+  color: white;
+  border-color: var(--vk-primary-green);
+  transform: translateY(-1px);
+}
+
+.portfolio-build-btn {
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--vk-primary-green);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.portfolio-build-btn:hover {
+  color: var(--vk-deep-green);
+  transform: translateX(2px);
 }
