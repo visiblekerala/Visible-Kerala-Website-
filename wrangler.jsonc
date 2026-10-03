@@ -3,6 +3,7 @@
   "name": "visible-kerala-website",
   "account_id": "0fad4bb08ef6def7fbc106d542351c1b",
   "main": ".open-next/worker.js",
+  "workers_dev": true,
   "compatibility_date": "2024-12-30",
   "compatibility_flags": [
     "nodejs_compat"
@@ -10,5 +11,9 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
-  }
+  },
+  "routes": [
+    { "pattern": "visiblekerala.com", "custom_domain": true },
+    { "pattern": "www.visiblekerala.com", "custom_domain": true }
+  ]
 }
