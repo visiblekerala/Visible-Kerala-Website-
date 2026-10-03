@@ -1,13 +1,24 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, business_name, phone, business_type, email, message } = body;
+
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.warn('RESEND_API_KEY is not configured.');
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Email service is not currently configured. Please contact us via WhatsApp.',
+        },
+        { status: 503 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
 
     // Send email using Resend
     const data = await resend.emails.send({
